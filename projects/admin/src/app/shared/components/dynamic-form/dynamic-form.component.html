@@ -1,0 +1,33 @@
+<form [formGroup]="dynamicForm">
+  <div class="row">
+    <ng-container *ngFor="let propInfo of propertiesInfo">
+      <mat-form-field
+        *ngIf="['string', 'number', 'integer'].includes(getFirstType(propInfo.property) ?? '')"
+        class="col-xs-12 col-sm-6 col-lg-4"
+      >
+        <mat-label>{{ propInfo.name }}</mat-label>
+        <input
+          matInput
+          [type]="getFirstType(propInfo.property) ?? ''"
+          [required]="schemaInfo.schema.required?.includes(propInfo.name) ?? false"
+          [formControlName]="propInfo.name"
+        />
+        <!--  -->
+      </mat-form-field>
+      <mat-form-field
+        *ngIf="getFirstType(propInfo.property) === 'boolean'"
+        [formControlName]="propInfo.name"
+        class="col-xs-12 col-sm-6 col-lg-4"
+      >
+        <mat-slide-toggle>
+          {{ propInfo.name }}
+        </mat-slide-toggle>
+      </mat-form-field>
+    </ng-container>
+  </div>
+
+  <div>
+    <button mat-raised-button color="primary" (click)="save()">Submit</button>
+    <button mat-raised-button (click)="cancel()">cancel</button>
+  </div>
+</form>

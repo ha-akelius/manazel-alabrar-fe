@@ -1,1 +1,2 @@
-<app-table [isPageable]="true" [tableColumns]="tableColumns" [tableData]="result.items" />
+<button mat-raised-button color="primary" [routerLink]="['../../', 'create', entityName]">Add New (+)</button>
+<app-table [isPageable]="true" [tableColumns]="tableColumns" [tableData]="result.items" (fetchData)="fetchData()" />

@@ -1,4 +1,4 @@
-export interface TableColumn<T = any> {
+export interface TableColumn<T> {
   name: string;
   dataKey?: keyof T;
   position?: 'right' | 'left';

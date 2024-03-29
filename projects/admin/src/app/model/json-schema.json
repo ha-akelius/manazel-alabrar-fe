@@ -19,7 +19,8 @@
             "$ref": "#/definitions/Post"
           }
         }
-      }
+      },
+      "required": ["id", "email"]
     },
     "Post": {
       "type": "object",
