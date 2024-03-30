@@ -6,7 +6,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
 import { JSONSchema, SchemaInfo } from '../../model/json-schema';
-import { getFirstType, schemaInfo } from '../../model/schame';
+import { getFirstType, getPropertyType, schemaInfo } from '../../model/schame';
 
 interface PropertyInformation {
   name: string;
@@ -34,7 +34,7 @@ export class DynamicFormComponent implements OnInit {
   createFormGroup() {
     const formGroup = new FormGroup({});
     for (const [propertyName, property] of Object.entries(this.schemaInfo.schema.properties)) {
-      const type = Array.isArray(property.type) ? property.type[0] : property.type;
+      const type = getPropertyType(property);
       if (propertyName !== 'id' && type !== 'array') {
         this.propertiesInfo.push({
           name: propertyName,

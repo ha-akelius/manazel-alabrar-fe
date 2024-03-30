@@ -10,7 +10,7 @@ export type JSONSchema = Omit<JSONSchema7, 'properties'> & {
   };
 };
 
-export type SchemaInfo = {
+export type SchemaInfo<T = unknown> = {
   schema: JSONSchema;
-  api: RestApiServiceUnkown;
+  api: RestApiServiceUnkown<T>;
 };
