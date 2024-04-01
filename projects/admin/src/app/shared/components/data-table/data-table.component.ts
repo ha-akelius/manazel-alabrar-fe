@@ -1,5 +1,7 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { BasicRecord, TableColumn } from '../../../../core/components/table/table';
@@ -7,14 +9,15 @@ import { TableComponent } from '../../../../core/components/table/table.componen
 import { APIService } from '../../../../core/services/api.service';
 import { Result } from '../../../../shared/models/result';
 import { JSONSchema, SchemaInfo } from '../../model/json-schema';
-import { schemaInfo } from '../../model/schame';
+import { getPropertyType, numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
+import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
 
 @Component({
   selector: 'app-data-table',
   standalone: true,
   templateUrl: './data-table.component.html',
-  imports: [TableComponent, MatButtonModule, RouterModule],
+  imports: [TableComponent, FilterDataTableComponent, ReactiveFormsModule, MatButtonModule, RouterModule],
   providers: [DatePipe],
 })
 export class DataTableComponent<T extends BasicRecord> implements OnInit {
@@ -23,11 +26,16 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
 
   @Input() entityName: string = '';
   tableColumns: TableColumn<T>[] = [];
-  schemaInfo!: SchemaInfo;
+  schemaInfo!: SchemaInfo<T>;
   result: Result<T> = {
     items: [],
     pages: 0,
   };
+  filters = new FormControl([] as Filter[], { nonNullable: true });
+
+  constructor() {
+    this.filters.valueChanges.pipe(takeUntilDestroyed()).subscribe((filters) => this.fetchData(filters));
+  }
 
   ngOnInit(): void {
     this.schemaInfo = schemaInfo(this.entityName, this.apiService);
@@ -37,7 +45,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
     this.tableColumns = [];
     for (const key in this.schemaInfo.schema.properties) {
       const property: JSONSchema = this.schemaInfo.schema.properties[key];
-      const type = Array.isArray(property.type) ? property.type[0] : property.type;
+      const type = getPropertyType(property);
       if (type !== 'array') {
         const tableColumn: TableColumn<T> = {
           name: key,
@@ -56,8 +64,17 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
     });
   }
 
-  fetchData() {
-    this.schemaInfo.api.findAll().subscribe((result) => {
+  fetchData(filters: Filter[] = this.filters.value) {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const where: any = {};
+    filters.forEach(
+      (filter) =>
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        (where[filter.field as any] = {
+          [filter.operator]: numberTypes.includes(filter.type) ? +filter.value : filter.value,
+        }),
+    );
+    this.schemaInfo.api.findAll({ where }).subscribe((result) => {
       this.result = result;
     });
   }
