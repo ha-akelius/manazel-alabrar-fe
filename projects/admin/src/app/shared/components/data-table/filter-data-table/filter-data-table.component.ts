@@ -9,7 +9,8 @@ import { MatSelectModule } from '@angular/material/select';
 import { JSONSchema7TypeName } from 'json-schema';
 import { Subscription } from 'rxjs';
 import { JSONSchema } from '../../../model/json-schema';
-import { fromJsonTypeToHtmlType, getFirstType } from '../../../model/schame';
+import { fromJsonTypeToHtmlType, getFirstType, htmlInputType } from '../../../model/schame';
+import { typeOperator } from './filter-data-table';
 
 export interface Filter {
   field: string;
@@ -23,7 +24,7 @@ function getFilterForm() {
     field: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     operator: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
     value: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-    type: new FormControl('' as string, { nonNullable: true, validators: [Validators.required] }),
+    type: new FormControl('' as htmlInputType, { nonNullable: true, validators: [Validators.required] }),
   });
   return retVal;
 }
@@ -59,6 +60,8 @@ export class FilterDataTableComponent implements OnDestroy {
 
   subscribe = new Subscription();
 
+  typeOperator = typeOperator;
+
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
   }
@@ -78,7 +81,8 @@ export class FilterDataTableComponent implements OnDestroy {
   }
 
   setType(field: string, filterForm: FilterForm): void {
-    const property = this.schema.properties[filterForm.controls.field.value];
-    filterForm.controls.type.setValue(fromJsonTypeToHtmlType(getFirstType(property) ?? 'null'));
+    const property = this.schema.properties[field];
+    const type = getFirstType(property) ?? 'null';
+    filterForm.controls.type.setValue(fromJsonTypeToHtmlType(field, type));
   }
 }

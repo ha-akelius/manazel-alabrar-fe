@@ -40,9 +40,13 @@ export function getFirstType(property: JSONSchema): JSONSchema7TypeName | undefi
   return undefined;
 }
 
-export function fromJsonTypeToHtmlType(type: JSONSchema7Type): string {
+export type htmlInputType = 'date' | 'number' | 'text';
+
+export function fromJsonTypeToHtmlType(propertyName: string, type: JSONSchema7Type): htmlInputType {
   if (numberTypes.includes(type)) {
     return 'number';
+  } else if (propertyName.toLowerCase().indexOf('date') >= 0) {
+    return 'date';
   } else {
     return 'text';
   }
