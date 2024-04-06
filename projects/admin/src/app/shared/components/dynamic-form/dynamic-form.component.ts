@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
@@ -16,7 +17,7 @@ interface PropertyInformation {
 @Component({
   standalone: true,
   selector: 'app-dynamic-form',
-  imports: [MatInputModule, ReactiveFormsModule, MatSlideToggleModule, MatButtonModule, CommonModule],
+  imports: [MatInputModule, ReactiveFormsModule, MatSlideToggleModule, MatButtonModule, CommonModule, MatCardModule],
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
 })
@@ -25,11 +26,10 @@ export class DynamicFormComponent implements OnInit {
   @Input() entityName: string = '';
   @Input() value: unknown;
   @Output() formResult = new EventEmitter<typeof this.value | null>();
-
   dynamicForm: FormGroup = new FormGroup({});
   schemaInfo!: SchemaInfo;
   propertiesInfo: PropertyInformation[] = [];
-
+  pageTitle: string = 'Add ' + this.entityName;
   getFirstType = getFirstType;
   createFormGroup() {
     const formGroup = new FormGroup({});
@@ -51,9 +51,13 @@ export class DynamicFormComponent implements OnInit {
   ngOnInit(): void {
     this.schemaInfo = schemaInfo(this.entityName, this.apiService);
     this.createFormGroup();
+
     if (this.value) {
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       this.dynamicForm.patchValue(this.value as any);
+      this.pageTitle = 'Edit' + this.entityName;
+    } else {
+      this.pageTitle = 'Add' + this.entityName;
     }
   }
 
@@ -93,6 +97,17 @@ export class DynamicFormComponent implements OnInit {
 
     if (propertyName.includes('email')) {
       validators.push(Validators.email);
+    }
+
+    // if (propertyName === 'name') {
+    //   validators.push(Validators.minLength(3));
+    //   validators.push(Validators.maxLength(20));
+    // }
+
+    const nameRegex = /^[a-zA-Z0-9]{3,20}$/;
+
+    if (propertyName === 'name') {
+      validators.push(Validators.pattern(nameRegex));
     }
 
     return validators;

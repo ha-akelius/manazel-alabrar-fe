@@ -1,3 +1,21 @@
-mat-form-field {
-  margin-left: var(--size-small);
+.filter-container {
+  display: flex;
+  margin-bottom: 1rem;
+  gap: 10px;
+  align-items: center;
+}
+
+.filter-container button.square-button {
+  border-radius: 10px;
+  width: 100px;
+  height: 35px;
+  font-size: 12px;
+  margin-left: 15px;
+  mat-icon {
+    margin-right: 5px;
+  }
+}
+
+.chip-remove-button {
+  margin-left: 20px;
 }
