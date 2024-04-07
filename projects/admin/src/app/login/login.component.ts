@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { AuthService } from '../auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -25,20 +26,22 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  loginForm = this.builder.group({
-    username: ['', [Validators.required]],
+  loginForm = this.builder.nonNullable.group({
+    username: ['', Validators.required],
     password: ['', Validators.required],
   });
 
   constructor(
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
+    private authService: AuthService,
     private router: Router,
   ) {}
 
   login() {
     if (this.loginForm.valid) {
-      console.log('Login info==>', this.loginForm.value);
+      this.authService.logIn(this.loginForm.getRawValue().username, this.loginForm.getRawValue().password);
+      this.router.navigate(['/home']);
     } else {
       this.snackBar.open('Invalid User Name or Password!', 'Close', {
         duration: 5000,
