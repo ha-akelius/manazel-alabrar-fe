@@ -27,7 +27,7 @@ import { BasicRecord, TableColumn } from './table';
   selector: '[appColDef]',
   standalone: true,
 })
-export class ColumnDefinitionDirective {
+export class ColumnDefinition {
   @Input() appColDef: string = '';
 
   constructor(public templateRef: TemplateRef<never>) {}
