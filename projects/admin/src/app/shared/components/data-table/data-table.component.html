@@ -1,3 +1,0 @@
-<app-filter-data-table [schema]="schemaInfo.schema" (search)="filters.setValue($event)" />
-<button mat-raised-button color="primary" [routerLink]="['../../', 'create', entityName]">Add New (+)</button>
-<app-table [isPageable]="true" [tableColumns]="tableColumns" [tableData]="result.items" (fetchData)="fetchData()" />
