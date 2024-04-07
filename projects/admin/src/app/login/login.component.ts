@@ -26,7 +26,10 @@ import { AuthService } from '../auth-service.service';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  loginForm: any;
+  loginForm = this.builder.nonNullable.group({
+    username: ['', Validators.required],
+    password: ['', Validators.required],
+  });
 
   constructor(
     private builder: FormBuilder,
@@ -35,18 +38,10 @@ export class LoginComponent {
     private router: Router,
   ) {}
 
-  ngOnInit(): void {
-    this.loginForm = this.builder.group({
-      username: ['', [Validators.required]],
-      password: ['', Validators.required],
-    });
-  }
-
-  login(): void {
+  login() {
     if (this.loginForm.valid) {
-      this.authService.logIn(this.loginForm.value.username, this.loginForm.value.password);
+      this.authService.logIn(this.loginForm.getRawValue().username, this.loginForm.getRawValue().password);
       this.router.navigate(['/home']);
-      console.log('Login info==>', this.loginForm.value);
     } else {
       this.snackBar.open('Invalid User Name or Password!', 'Close', {
         duration: 5000,
