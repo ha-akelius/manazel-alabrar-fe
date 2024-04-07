@@ -25,20 +25,16 @@ import { Router } from '@angular/router';
   styleUrl: './login.component.scss',
 })
 export class LoginComponent {
-  loginForm: any;
+  loginForm = this.builder.group({
+    username: ['', [Validators.required]],
+    password: ['', Validators.required],
+  });
 
   constructor(
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
     private router: Router,
   ) {}
-
-  ngOnInit() {
-    this.loginForm = this.builder.group({
-      username: ['', [Validators.required]],
-      password: ['', Validators.required],
-    });
-  }
 
   login() {
     if (this.loginForm.valid) {

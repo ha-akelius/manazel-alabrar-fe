@@ -13,6 +13,11 @@ datasource db {
   url      = env("POSTGRES_URL")
 }
 
+generator jsonSchema {
+  provider = "prisma-json-schema-generator"
+  output = "../src/app/core/models"
+}
+
 model User {
   id    Int     @id @default(autoincrement())
   email String  @unique
