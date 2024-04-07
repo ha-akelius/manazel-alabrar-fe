@@ -1,8 +1,8 @@
 import { NgModule } from '@angular/core';
-import { ColumnDefinition, TableComponent } from '../components/table/table.component';
+import { ColumnDefinitionDirective, TableComponent } from '../components/table/table.component';
 import { SharedModule } from './shared.module';
 
-const modules = [SharedModule, TableComponent, ColumnDefinition];
+const modules = [SharedModule, TableComponent, ColumnDefinitionDirective];
 
 @NgModule({
   imports: modules,

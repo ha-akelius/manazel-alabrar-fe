@@ -3,13 +3,14 @@ import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Result } from '../models/result';
 
+export type RestApiServiceUnkown<T = unknown> = RestApiService<T, unknown, unknown, unknown>;
 export class RestApiService<T, Select, CreateInput, UpdateInput> {
   apiUrl = `/api/${this.apiName}`;
   httpClient = inject(HttpClient);
 
   constructor(private apiName: string) {}
 
-  findAll(x?: Select, page?: number, size?: number): Observable<Result<T[]>> {
+  findAll(x?: Select, page?: number, size?: number): Observable<Result<T>> {
     const params: { filter?: string; page?: number; size?: number } = {};
     if (x) {
       params.filter = JSON.stringify(x);
@@ -22,7 +23,7 @@ export class RestApiService<T, Select, CreateInput, UpdateInput> {
       params.size = size;
     }
 
-    return this.httpClient.get<Result<T[]>>(this.apiUrl, { params });
+    return this.httpClient.get<Result<T>>(this.apiUrl, { params });
   }
 
   findOne(id: string | number): Observable<T> {

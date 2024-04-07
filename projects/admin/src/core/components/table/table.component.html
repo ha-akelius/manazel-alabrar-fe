@@ -23,7 +23,7 @@
         @if (templates.get(tableColumn.name); as template) {
           <ng-container *ngTemplateOutlet="template; context: { $implicit: element }"></ng-container>
         } @else if (tableColumn.fn) {
-          {{ tableColumn.fn(tableColumn.dataKey ? element[tableColumn.dataKey] : "", element) }}
+          {{ tableColumn.fn(tableColumn.dataKey ? element[tableColumn.dataKey] : undefined, element) }}
         } @else if (tableColumn.componentDef) {
           <ng-container
             *ngComponentOutlet="
@@ -42,7 +42,7 @@
 </table>
 
 <!-- Pagination -->
-@if (isPageable()) {
+<!-- @if (isPageable()) {
   <mat-paginator [pageSizeOptions]="paginationSizes()" [pageSize]="defaultPageSize" showFirstLastButtons>
   </mat-paginator>
-}
+} -->

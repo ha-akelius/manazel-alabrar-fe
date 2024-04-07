@@ -4,7 +4,7 @@ import { MatTableModule } from '@angular/material/table';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TableColumn } from '../../../core/components/table/table';
-import { ColumnDefinition, TableComponent } from '../../../core/components/table/table.component';
+import { ColumnDefinitionDirective, TableComponent } from '../../../core/components/table/table.component';
 import { translationKeys } from '../../../core/models/translations';
 import { YesNoTranslatePipe } from '../../../core/pipes/yes-no-translate.pipe';
 import { getUserRouteInfo, userPageRouting } from '../../user-pages-routing';
@@ -24,7 +24,7 @@ interface LessonRow {
   imports: [
     CommonModule,
     TableComponent,
-    ColumnDefinition,
+    ColumnDefinitionDirective,
     MatTableModule,
     TranslateModule,
     RouterModule,
@@ -56,7 +56,10 @@ export class CourseDetailComponent {
 
   ordersTableColumns: TableColumn<LessonRow>[] = this.initializeColumns();
 
-  constructor(private datePipe: DatePipe, private yesNoTranslatePipe: YesNoTranslatePipe) {}
+  constructor(
+    private datePipe: DatePipe,
+    private yesNoTranslatePipe: YesNoTranslatePipe,
+  ) {}
 
   initializeColumns(): TableColumn<LessonRow>[] {
     return [
