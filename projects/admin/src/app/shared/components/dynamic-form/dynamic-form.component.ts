@@ -7,6 +7,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
 import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getFirstType, getPropertyType, schemaInfo } from '../../model/schame';
+import { RelationComponent } from './relation/relation.component';
 
 interface PropertyInformation {
   name: string;
@@ -16,7 +17,14 @@ interface PropertyInformation {
 @Component({
   standalone: true,
   selector: 'app-dynamic-form',
-  imports: [MatInputModule, ReactiveFormsModule, MatSlideToggleModule, MatButtonModule, CommonModule],
+  imports: [
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    CommonModule,
+    RelationComponent,
+  ],
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
 })

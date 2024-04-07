@@ -1,0 +1,5 @@
+<mat-autocomplete #auto="matAutocomplete">
+  @for (option of result.items; track option) {
+    <mat-option [value]="option">{{ option.name }}</mat-option>
+  }
+</mat-autocomplete>
