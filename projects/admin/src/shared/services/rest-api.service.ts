@@ -3,7 +3,7 @@ import { inject } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Result } from '../models/result';
 
-export type RestApiServiceUnkown = RestApiService<never, never, never, never>;
+export type RestApiServiceUnkown<T = unknown> = RestApiService<T, unknown, unknown, unknown>;
 export class RestApiService<T, Select, CreateInput, UpdateInput> {
   apiUrl = `/api/${this.apiName}`;
   httpClient = inject(HttpClient);
