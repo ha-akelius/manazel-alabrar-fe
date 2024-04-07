@@ -3,7 +3,8 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../auth-service.service';
 @Component({
   standalone: true,
   selector: 'app-header',
@@ -12,7 +13,7 @@ import { Router, RouterModule } from '@angular/router';
   imports: [MatIconModule, CommonModule, MatToolbarModule, MatMenuModule, RouterModule],
 })
 export class HeaderComponent {
-  constructor(private router: Router) {}
+  constructor(private authService: AuthService) {}
   @Output() toggleSidebarForMe: EventEmitter<unknown> = new EventEmitter();
 
   toggleSidebar() {
@@ -22,6 +23,6 @@ export class HeaderComponent {
   logout(): void {
     localStorage.removeItem('username');
     localStorage.removeItem('password');
-    this.router.navigate(['/login']);
+    this.authService.logOut();
   }
 }
