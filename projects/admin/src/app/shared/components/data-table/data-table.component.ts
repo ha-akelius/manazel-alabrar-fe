@@ -3,6 +3,8 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
 import { BasicRecord, TableColumn } from '../../../../core/components/table/table';
 import { TableComponent } from '../../../../core/components/table/table.component';
@@ -12,12 +14,20 @@ import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getPropertyType, numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
-
 @Component({
   selector: 'app-data-table',
   standalone: true,
   templateUrl: './data-table.component.html',
-  imports: [TableComponent, FilterDataTableComponent, ReactiveFormsModule, MatButtonModule, RouterModule],
+  styleUrl: './data-table.component.scss',
+  imports: [
+    TableComponent,
+    FilterDataTableComponent,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatMenuModule,
+    RouterModule,
+    MatIconModule,
+  ],
   providers: [DatePipe],
 })
 export class DataTableComponent<T extends BasicRecord> implements OnInit {
