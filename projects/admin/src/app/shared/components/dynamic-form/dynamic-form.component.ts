@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { DBService } from '../../../../../../../src/app/core/services/db.service';
@@ -25,10 +26,7 @@ interface PropertyInformation {
     MatSlideToggleModule,
     MatButtonModule,
     CommonModule,
-<<<<<<< Updated upstream
-=======
     MatCardModule,
->>>>>>> Stashed changes
     RelationComponent,
   ],
   templateUrl: './dynamic-form.component.html',

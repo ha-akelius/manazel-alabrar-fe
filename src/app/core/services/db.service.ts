@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Prisma, User } from '@prisma/client';
+import { Post, Prisma, User } from '@prisma/client';
 import { RestApiService } from '../../shared/services/rest-api.service';
 
 @Injectable({
@@ -9,7 +9,11 @@ import { RestApiService } from '../../shared/services/rest-api.service';
 export class DBService {
   user = new RestApiService<User, Prisma.UserFindManyArgs, Prisma.UserCreateInput, Prisma.UserUpdateInput>(
     'user',
-    this.httpClient
+    this.httpClient,
+  );
+  post = new RestApiService<Post, Prisma.PostFindManyArgs, Prisma.PostCreateInput, Prisma.PostUpdateInput>(
+    'post',
+    this.httpClient,
   );
 
   constructor(private httpClient: HttpClient) {

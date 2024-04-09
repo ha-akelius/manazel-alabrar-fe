@@ -11,16 +11,18 @@
           "type": "string"
         },
         "name": {
-          "type": ["string", "null"]
+          "type": "string"
         },
-        "posts": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Post"
-          }
+        "active": {
+          "type": "boolean"
+        },
+        "post": {
+          "$ref": "#/definitions/Post"
+        },
+        "postName": {
+          "type": "string"
         }
-      },
-      "required": ["id", "email"]
+      }
     },
     "Post": {
       "type": "object",
@@ -28,7 +30,7 @@
         "id": {
           "type": "integer"
         },
-        "title": {
+        "name": {
           "type": "string"
         },
         "content": {
@@ -38,8 +40,11 @@
           "type": "boolean",
           "default": false
         },
-        "author": {
-          "$ref": "#/definitions/User"
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
         }
       }
     }
