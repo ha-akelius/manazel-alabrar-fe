@@ -8,7 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from '../auth-service.service';
+import { AuthService, LoginStatus } from '../auth-service.service';
 
 @Component({
   selector: 'app-login',
@@ -30,6 +30,7 @@ export class LoginComponent {
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
+  loginStatus: LoginStatus;
 
   constructor(
     private builder: FormBuilder,
@@ -40,8 +41,14 @@ export class LoginComponent {
 
   login() {
     if (this.loginForm.valid) {
-      this.authService.logIn(this.loginForm.getRawValue().username, this.loginForm.getRawValue().password);
-      this.router.navigate(['/home']);
+      const { username, password } = this.loginForm.getRawValue();
+      this.authService.logIn(username, password).then((loginStatus) => {
+        if (loginStatus === 'Success') {
+          this.router.navigate(['/home']);
+        } else {
+          this.loginStatus = loginStatus;
+        }
+      });
     } else {
       this.snackBar.open('Invalid User Name or Password!', 'Close', {
         duration: 5000,
