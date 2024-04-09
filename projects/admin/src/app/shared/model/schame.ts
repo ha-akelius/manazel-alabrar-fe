@@ -22,7 +22,7 @@ function getCaseInsensitiveProperty(obj: object, prop: string): any {
 }
 
 export function getPropertyType(property: JSONSchema): JSONSchema7TypeName {
-  return Array.isArray(property.type) ? property.type[0] : assertValue(property.type);
+  return Array.isArray(property.type) ? property.type[0] : property.type!;
 }
 
 export function schemaInfo<T>(entityName: string, apiService: APIService): SchemaInfo<T> {
@@ -53,11 +53,3 @@ export function fromJsonTypeToHtmlType(propertyName: string, type: JSONSchema7Ty
 }
 
 export const numberTypes: JSONSchema7Type[] = ['number', 'integer'];
-
-function assertValue<T>(value: T | undefined | null): T {
-  if (!value) {
-    throw new Error('Value is null');
-  }
-
-  return value;
-}

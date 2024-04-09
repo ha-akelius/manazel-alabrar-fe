@@ -15,6 +15,7 @@ export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
 
 @Component({
   selector: 'app-root',
+
   standalone: true,
   imports: [CommonModule, SharedModule, TranslateModule],
   templateUrl: './app.component.html',

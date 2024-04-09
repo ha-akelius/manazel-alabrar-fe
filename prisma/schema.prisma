@@ -15,15 +15,18 @@ datasource db {
 
 generator jsonSchema {
   provider = "prisma-json-schema-generator"
-  output = "../src/app/core/models"
+  output   = "../src/app/core/models"
 }
 
 model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
+  id     Int     @id @default(autoincrement())
+  email  String  @unique
+  name   String?
   active Boolean
-  posts Post[]
+
+  postId   Int
+  post     Post   @relation(fields: [postId], references: [id])
+  postName String
 }
 
 model Post {
@@ -31,6 +34,5 @@ model Post {
   title     String
   content   String?
   published Boolean @default(false)
-  author    User    @relation(fields: [authorId], references: [id])
-  authorId  Int
+  users     User[]
 }

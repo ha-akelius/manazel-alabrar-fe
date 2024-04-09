@@ -16,11 +16,14 @@
             "null"
           ]
         },
-        "posts": {
-          "type": "array",
-          "items": {
-            "$ref": "#/definitions/Post"
-          }
+        "active": {
+          "type": "boolean"
+        },
+        "post": {
+          "$ref": "#/definitions/Post"
+        },
+        "postName": {
+          "type": "string"
         }
       }
     },
@@ -43,8 +46,11 @@
           "type": "boolean",
           "default": false
         },
-        "author": {
-          "$ref": "#/definitions/User"
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/User"
+          }
         }
       }
     }

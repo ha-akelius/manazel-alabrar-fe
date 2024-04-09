@@ -8,10 +8,16 @@ describe('RelationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+<<<<<<< Updated upstream
       imports: [RelationComponent]
     })
     .compileComponents();
     
+=======
+      imports: [RelationComponent],
+    }).compileComponents();
+
+>>>>>>> Stashed changes
     fixture = TestBed.createComponent(RelationComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

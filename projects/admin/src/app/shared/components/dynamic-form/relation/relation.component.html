@@ -1,5 +1,17 @@
+<<<<<<< Updated upstream
 <mat-autocomplete #auto="matAutocomplete">
   @for (option of result.items; track option) {
     <mat-option [value]="option">{{ option.name }}</mat-option>
   }
 </mat-autocomplete>
+=======
+<mat-form-field>
+  <mat-label>Number</mat-label>
+  <input type="text" placeholder="Pick one" aria-label="Number" matInput [matAutocomplete]="auto" />
+  <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+    @for (option of result.items; track option) {
+      <mat-option [value]="option.id">{{ option.name }}</mat-option>
+    }
+  </mat-autocomplete>
+</mat-form-field>
+>>>>>>> Stashed changes

@@ -4,6 +4,7 @@ import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } 
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DBService } from '../../../../../../../src/app/core/services/db.service';
 import { APIService } from '../../../../core/services/api.service';
 import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getFirstType, getPropertyType, schemaInfo } from '../../model/schame';
@@ -12,6 +13,7 @@ import { RelationComponent } from './relation/relation.component';
 interface PropertyInformation {
   name: string;
   property: JSONSchema;
+  ref: keyof DBService | undefined;
 }
 
 @Component({
@@ -23,6 +25,10 @@ interface PropertyInformation {
     MatSlideToggleModule,
     MatButtonModule,
     CommonModule,
+<<<<<<< Updated upstream
+=======
+    MatCardModule,
+>>>>>>> Stashed changes
     RelationComponent,
   ],
   templateUrl: './dynamic-form.component.html',
@@ -43,10 +49,13 @@ export class DynamicFormComponent implements OnInit {
     const formGroup = new FormGroup({});
     for (const [propertyName, property] of Object.entries(this.schemaInfo.schema.properties)) {
       const type = getPropertyType(property);
+      const refs = property.$ref?.split('/');
+      const ref = refs ? (refs[refs.length - 1] as keyof DBService) : undefined;
       if (propertyName !== 'id' && type !== 'array') {
         this.propertiesInfo.push({
           name: propertyName,
           property: property,
+          ref: ref,
         });
         const control = new FormControl(property.default, this.collectValidators(propertyName, property));
         formGroup.addControl(propertyName, control);
