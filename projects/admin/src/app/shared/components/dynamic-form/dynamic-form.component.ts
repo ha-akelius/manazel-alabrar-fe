@@ -14,6 +14,7 @@ import { RelationComponent } from './relation/relation.component';
 interface PropertyInformation {
   name: string;
   property: JSONSchema;
+  propertyName: string;
   ref: keyof DBService | undefined;
 }
 
@@ -49,14 +50,16 @@ export class DynamicFormComponent implements OnInit {
       const type = getPropertyType(property);
       const refs = property.$ref?.split('/');
       const ref = refs ? (refs[refs.length - 1] as keyof DBService) : undefined;
+      const controlName = propertyName + (ref ? 'Id' : '');
       if (propertyName !== 'id' && type !== 'array') {
         this.propertiesInfo.push({
-          name: propertyName,
+          name: controlName,
+          propertyName: propertyName,
           property: property,
           ref: ref,
         });
         const control = new FormControl(property.default, this.collectValidators(propertyName, property));
-        formGroup.addControl(propertyName, control);
+        formGroup.addControl(controlName, control);
       }
     }
 
@@ -92,7 +95,7 @@ export class DynamicFormComponent implements OnInit {
   }
 
   fillRelationName($event: string, property: PropertyInformation) {
-    this.dynamicForm.get(property.name + 'Name')?.setValue($event);
+    this.dynamicForm.get(property.propertyName + 'Name')?.setValue($event);
   }
 
   private collectValidators(propertyName: string, property: JSONSchema): ValidatorFn[] {

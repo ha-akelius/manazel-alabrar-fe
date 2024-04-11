@@ -1,7 +1,7 @@
 import { JSONSchema7Type, JSONSchema7TypeName } from 'json-schema';
+import schema from '../../../../../../src/app/core/models/json-schema.json';
 import { APIService } from '../../../core/services/api.service';
 import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
-import schema from '../../model/json-schema.json';
 import { JSONSchema, SchemaInfo } from './json-schema';
 
 const schemaJson: JSONSchema = schema as unknown as JSONSchema;

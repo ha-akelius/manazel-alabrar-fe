@@ -16,6 +16,8 @@ datasource db {
 generator jsonSchema {
   provider = "prisma-json-schema-generator"
   output   = "../src/app/core/models"
+  keepRelationFields =  true
+  keepRelationScalarFields = false
 }
 
 model User {
