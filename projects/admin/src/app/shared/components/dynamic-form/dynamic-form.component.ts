@@ -91,6 +91,10 @@ export class DynamicFormComponent implements OnInit {
     this.formResult.emit(null);
   }
 
+  fillRelationName($event: string, property: PropertyInformation) {
+    this.dynamicForm.get(property.name + 'Name')?.setValue($event);
+  }
+
   private collectValidators(propertyName: string, property: JSONSchema): ValidatorFn[] {
     const validators: ValidatorFn[] = [];
 

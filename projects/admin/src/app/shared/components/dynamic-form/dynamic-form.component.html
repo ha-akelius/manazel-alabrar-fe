@@ -1,3 +1,4 @@
+{{ dynamicForm.value | json }}
 <form [formGroup]="dynamicForm">
   <div class="row">
     <ng-container *ngFor="let propInfo of propertiesInfo">
@@ -15,7 +16,12 @@
         <!--  -->
       </mat-form-field>
 
-      <app-relation *ngIf="propInfo.ref" [entityName]="propInfo.ref" [formControlName]="propInfo.name"></app-relation>
+      <app-relation
+        *ngIf="propInfo.ref"
+        [entityName]="propInfo.ref"
+        [formControlName]="propInfo.name"
+        (name)="fillRelationName($event, propInfo)"
+      />
 
       <mat-slide-toggle
         *ngIf="getFirstType(propInfo.property) === 'boolean'"
