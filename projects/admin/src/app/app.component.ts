@@ -5,6 +5,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
+import { LmsSharedComponent } from 'lms-shared';
 import { APIService } from '../core/services/api.service';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
@@ -21,6 +22,7 @@ import { SidenavComponent } from './layout/sidenav/sidenav.component';
     MatToolbarModule,
     MatIconModule,
     SidenavComponent,
+    LmsSharedComponent,
     HeaderComponent,
   ],
 })
