@@ -8,10 +8,9 @@ describe('RelationLinkComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [RelationLinkComponent]
-    })
-    .compileComponents();
-    
+      imports: [RelationLinkComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(RelationLinkComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
