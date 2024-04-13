@@ -5,12 +5,9 @@ import { Result } from '../models/result';
 export class RestApiService<T, Select, CreateInput, UpdateInput> {
   apiUrl = `/api/${this.apiName}`;
 
-  constructor(
-    private apiName: string,
-    private httpClient: HttpClient,
-  ) {}
+  constructor(private apiName: string, private httpClient: HttpClient) {}
 
-  findAll(x?: Select, page?: number, size?: number): Observable<Result<T>> {
+  findAll(x?: Select, page?: number, size?: number): Observable<Result<T[]>> {
     const params: { filter?: string; page?: number; size?: number } = {};
     if (x) {
       params.filter = JSON.stringify(x);
@@ -23,7 +20,7 @@ export class RestApiService<T, Select, CreateInput, UpdateInput> {
       params.size = size;
     }
 
-    return this.httpClient.get<Result<T>>(this.apiUrl, { params });
+    return this.httpClient.get<Result<T[]>>(this.apiUrl, { params });
   }
 
   findOne(id: string | number): Observable<T> {

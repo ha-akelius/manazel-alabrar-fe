@@ -45,13 +45,7 @@ export class TableComponent<T extends BasicRecord> implements AfterViewInit, Aft
   tableColumns = input<TableColumn<T>[]>([]);
   paginationSizes = input<number[]>([5, 10, 15]);
   defaultPageSize = input<number>(10);
-  displayedColumns = computed(() =>
-    this.tableColumns()
-      .filter((tableColumn) => tableColumn.name !== 'postName')
-      .map((tableColumn) => tableColumn.name),
-  );
-
-  // displayedColumns = computed(() => this.tableColumns().map((tableColumn: TableColumn<T>) => tableColumn.name));
+  displayedColumns = computed(() => this.tableColumns().map((tableColumn: TableColumn<T>) => tableColumn.name));
 
   @Output() sort: EventEmitter<Sort> = new EventEmitter();
   @Output() fetchData = new EventEmitter<void>();
@@ -96,7 +90,6 @@ export class TableComponent<T extends BasicRecord> implements AfterViewInit, Aft
     // defining name of data property, to sort by, instead of column name
     sortParameters.active = this.tableColumns().find((column: TableColumn<T>) => column.name === sortParameters.active)!
       .dataKey as unknown as string;
-
     this.sort.emit(sortParameters);
   }
 
