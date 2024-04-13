@@ -16,7 +16,5 @@ export class DBService {
     this.httpClient,
   );
 
-  constructor(private httpClient: HttpClient) {
-    this.path.findAll();
-  }
+  constructor(private httpClient: HttpClient) {}
 }

@@ -54,7 +54,10 @@
           "type": "integer"
         },
         "stilOpen": {
-          "type": ["boolean", "null"],
+          "type": [
+            "boolean",
+            "null"
+          ],
           "default": false
         },
         "quizInstanceStudents": {
@@ -99,7 +102,14 @@
           }
         },
         "lessons": {
-          "type": ["number", "string", "boolean", "object", "array", "null"]
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "object",
+            "array",
+            "null"
+          ]
         }
       }
     },
@@ -139,7 +149,14 @@
           "type": "string"
         },
         "lessons": {
-          "type": ["number", "string", "boolean", "object", "array", "null"]
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "object",
+            "array",
+            "null"
+          ]
         },
         "quizzes": {
           "type": "array",
@@ -206,7 +223,14 @@
           "type": "string"
         },
         "student_info": {
-          "type": ["number", "string", "boolean", "object", "array", "null"]
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "object",
+            "array",
+            "null"
+          ]
         },
         "quizStudents": {
           "type": "array",
@@ -215,7 +239,14 @@
           }
         },
         "pathInformation": {
-          "type": ["number", "string", "boolean", "object", "array", "null"]
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "object",
+            "array",
+            "null"
+          ]
         },
         "studentPathInstance": {
           "type": "array",
@@ -252,7 +283,14 @@
           }
         },
         "questions": {
-          "type": ["number", "string", "boolean", "object", "array", "null"]
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "object",
+            "array",
+            "null"
+          ]
         },
         "courseInstanceName": {
           "type": "string"
@@ -297,7 +335,14 @@
           "$ref": "#/definitions/PathInstance"
         },
         "answerOptions": {
-          "type": ["number", "string", "boolean", "object", "array", "null"]
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "object",
+            "array",
+            "null"
+          ]
         }
       }
     },
