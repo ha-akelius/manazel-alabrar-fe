@@ -46,11 +46,18 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
     for (const key in this.schemaInfo.schema.properties) {
       const property: JSONSchema = this.schemaInfo.schema.properties[key];
       const type = getPropertyType(property);
-      if (type !== 'array') {
+      if (property.$ref) {
         const tableColumn: TableColumn<T> = {
           name: key,
           dataKey: key as keyof T,
-          fn: typeof property === 'object' && 'relation' in property ? this.getRelation(key) : this.getFn(key),
+          fn: this.getRelationFn(key),
+        };
+        this.tableColumns.push(tableColumn);
+      } else if (type !== 'array') {
+        const tableColumn: TableColumn<T> = {
+          name: key,
+          dataKey: key as keyof T,
+          fn: this.getFn(key),
         };
         this.tableColumns.push(tableColumn);
       }
@@ -86,19 +93,16 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
       return undefined;
     }
   }
-  postId: keyof T = 'postId' as keyof T;
-  postName: keyof T = 'postName' as keyof T;
 
-  private getRelation(key: string): ((value: T[keyof T] | undefined) => string) | undefined {
-    if (key.toLowerCase().indexOf('data') > 0) {
-      const key1 = this.postId;
-      const key2 = this.postName;
-      return (value: T[keyof T] | undefined) => {
-        const x = value as unknown as T;
-        return x ? `${x[key1]} : ${x[key2]}` : '';
-      };
-    } else {
-      return undefined;
-    }
+  private getRelationFn(key: string): ((value: T[keyof T] | undefined, x: T) => string) | undefined {
+    return (_value: T[keyof T] | undefined, x: T) => {
+      const idKey = (key + 'Id') as keyof T;
+      const nameKey = (key + 'Name') as keyof T;
+      if (x[idKey]) {
+        return x[idKey] + ': ' + x[nameKey];
+      } else {
+        return '';
+      }
+    };
   }
 }
