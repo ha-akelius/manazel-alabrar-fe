@@ -12,6 +12,7 @@ import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getPropertyType, numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
+import { RelationLinkComponent } from './relation-link/relation-link.component';
 
 @Component({
   selector: 'app-data-table',
@@ -50,7 +51,14 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
         const tableColumn: TableColumn<T> = {
           name: key,
           dataKey: key as keyof T,
-          fn: this.getRelationFn(key),
+          // fn: this.getRelationFn(key),
+          componentDef: {
+            component: RelationLinkComponent,
+            inputs: {
+              key: key,
+              refEntityName: 'post',
+            },
+          },
         };
         this.tableColumns.push(tableColumn);
       } else if (type !== 'array') {
