@@ -32,7 +32,6 @@ function toLowerCaseFirstLetter(str: string): string {
   ],
 })
 export class RelationComponent implements OnInit, ControlValueAccessor {
-  idControl = new FormControl<number | undefined>(undefined);
   filterControl = new FormControl<realtionType | string>('');
   selectedValue: realtionType;
   @Input({ required: true }) entityName: string;
@@ -47,14 +46,12 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
 
   constructor() {
     this.filterControl.valueChanges.pipe(takeUntilDestroyed(), debounceTime(300)).subscribe(() => {
-      if (this.filterControl.value) {
-        if (typeof this.filterControl.value === 'string') {
-          this.findAll();
-        } else {
-          this.selectedValue = this.filterControl.value;
-          this.onChange(this.selectedValue.id);
-          this.name.emit(this.selectedValue.name);
-        }
+      if (!this.filterControl.value || typeof this.filterControl.value === 'string') {
+        this.findAll();
+      } else {
+        this.selectedValue = this.filterControl.value;
+        this.onChange(this.selectedValue.id);
+        this.name.emit(this.selectedValue.name);
       }
     });
   }
@@ -65,20 +62,29 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
   }
 
   findAll() {
-    this.service
-      .findAll({ where: { name: { contains: this.filterControl.value } } })
-      .subscribe((result: resultType) => {
-        this.result = result;
-      });
+    const where = this.filterControl.value ? { name: { contains: this.filterControl.value } } : undefined;
+    this.service.findAll({ where }).subscribe((result: resultType) => {
+      this.result = result;
+    });
   }
 
   onChange: (id: number) => void;
 
   writeValue(obj: number): void {
-    this.idControl.setValue(obj);
+    // this.selectedValue = obj;
+    this.service.findAll({ where: { id: obj } }).subscribe((result: resultType) => {
+      this.result = result;
+      this.selectedValue = this.result.items[0];
+      this.filterControl.setValue(this.selectedValue);
+    });
+    // this.filterControl.setValue(this.selectedValue.name);
   }
   registerOnChange(fn: (id: number) => void): void {
     this.onChange = fn;
   }
   registerOnTouched(): void {}
+
+  displayFn(relation: realtionType): string {
+    return relation ? relation.name : '';
+  }
 }
