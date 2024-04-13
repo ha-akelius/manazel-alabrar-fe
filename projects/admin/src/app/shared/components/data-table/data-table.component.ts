@@ -56,7 +56,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
             component: RelationLinkComponent,
             inputs: {
               key: key,
-              refEntityName: 'post',
+              refEntityName: key,
             },
           },
         };
