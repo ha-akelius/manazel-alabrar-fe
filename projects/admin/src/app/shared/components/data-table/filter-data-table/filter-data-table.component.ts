@@ -2,6 +2,7 @@ import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, Output, forwardRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatChipsModule } from '@angular/material/chips';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
@@ -28,6 +29,7 @@ function getFilterForm() {
   });
   return retVal;
 }
+
 type FilterForm = ReturnType<typeof getFilterForm>;
 
 @Component({
@@ -39,12 +41,13 @@ type FilterForm = ReturnType<typeof getFilterForm>;
     MatSelectModule,
     MatFormFieldModule,
     MatIconModule,
+    MatChipsModule,
     MatInputModule,
     MatButtonModule,
     KeyValuePipe,
   ],
   templateUrl: './filter-data-table.component.html',
-  styleUrl: './filter-data-table.component.scss',
+  styleUrls: ['./filter-data-table.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -62,12 +65,18 @@ export class FilterDataTableComponent implements OnDestroy {
 
   typeOperator = typeOperator;
 
+  isFilterListOpen = false;
+
+  toggleFilterList(): void {
+    this.isFilterListOpen = !this.isFilterListOpen;
+  }
+
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
   }
 
   triggerSearch() {
-    this.search.emit(this.filters.getRawValue() as Filter[]);
+    this.search.emit(this.filters.value as Filter[]);
   }
 
   addFilter(): void {

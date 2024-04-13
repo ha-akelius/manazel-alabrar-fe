@@ -1,6 +1,8 @@
-{{ dynamicForm.value | json }}
-<form [formGroup]="dynamicForm">
-  <div class="row">
+<mat-card class="card-container">
+  <mat-card-header>
+    <h2>{{ pageTitle }}</h2>
+  </mat-card-header>
+  <form [formGroup]="dynamicForm" class="form-group row">
     <ng-container *ngFor="let propInfo of propertiesInfo">
       <mat-form-field
         *ngIf="['string', 'number', 'integer'].includes(getFirstType(propInfo.property) ?? '')"
@@ -13,6 +15,11 @@
           [required]="schemaInfo.schema.required?.includes(propInfo.name) ?? false"
           [formControlName]="propInfo.name"
         />
+        <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('email')"> Please enter valid email form </mat-error>
+        <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('pattern')">
+          The name should be between 3-20 letter
+        </mat-error>
+
         <!--  -->
       </mat-form-field>
 
@@ -31,10 +38,5 @@
         {{ propInfo.name }}
       </mat-slide-toggle>
     </ng-container>
-  </div>
-
-  <div>
-    <button mat-raised-button color="primary" (click)="save()">Submit</button>
-    <button mat-raised-button (click)="cancel()">cancel</button>
-  </div>
-</form>
+  </form>
+</mat-card>

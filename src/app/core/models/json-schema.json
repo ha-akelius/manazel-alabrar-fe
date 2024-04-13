@@ -1,52 +1,328 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
   "definitions": {
-    "User": {
+    "Path": {
       "type": "object",
       "properties": {
         "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "courses": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/Course"
+          }
+        },
+        "studentPathInstance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StudentPathInstance"
+          }
+        }
+      }
+    },
+    "PathInstance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dateFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "numberOfStudents": {
+          "type": "integer"
+        },
+        "numberOfRegisteredStudents": {
+          "type": "integer"
+        },
+        "stilOpen": {
+          "type": ["boolean", "null"],
+          "default": false
+        },
+        "quizInstanceStudents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuizInstanceStudent"
+          }
+        },
+        "studentPathInstance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StudentPathInstance"
+          }
+        },
+        "CourseInstance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseInstance"
+          }
+        }
+      }
+    },
+    "Course": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pathName": {
+          "type": "string"
+        },
+        "path": {
+          "$ref": "#/definitions/Path"
+        },
+        "courseInstances": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/CourseInstance"
+          }
+        },
+        "lessons": {
+          "type": ["number", "string", "boolean", "object", "array", "null"]
+        }
+      }
+    },
+    "CourseInstance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "courseName": {
+          "type": "string"
+        },
+        "course": {
+          "$ref": "#/definitions/Course"
+        },
+        "pathInstanceName": {
+          "type": "string"
+        },
+        "pathInstance": {
+          "$ref": "#/definitions/PathInstance"
+        },
+        "description": {
+          "type": "string"
+        },
+        "dateFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "book": {
+          "type": "string"
+        },
+        "lessons": {
+          "type": ["number", "string", "boolean", "object", "array", "null"]
+        },
+        "quizzes": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuizInstance"
+          }
+        },
+        "pageFrom": {
+          "type": "integer"
+        },
+        "pageTo": {
+          "type": "integer"
+        },
+        "teacherName": {
+          "type": "string"
+        },
+        "teacher": {
+          "$ref": "#/definitions/Teacher"
+        }
+      }
+    },
+    "StudentPathInstance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "mark": {
+          "type": "integer"
+        },
+        "fullMark": {
+          "type": "integer"
+        },
+        "studentName": {
+          "type": "string"
+        },
+        "student": {
+          "$ref": "#/definitions/Student"
+        },
+        "pathInstanceName": {
+          "type": "string"
+        },
+        "pathInstance": {
+          "$ref": "#/definitions/PathInstance"
+        },
+        "path": {
+          "$ref": "#/definitions/Path"
+        },
+        "pathName": {
+          "type": "string"
+        }
+      }
+    },
+    "Student": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "student_info": {
+          "type": ["number", "string", "boolean", "object", "array", "null"]
+        },
+        "quizStudents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuizInstanceStudent"
+          }
+        },
+        "pathInformation": {
+          "type": ["number", "string", "boolean", "object", "array", "null"]
+        },
+        "studentPathInstance": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/StudentPathInstance"
+          }
+        }
+      }
+    },
+    "QuizInstance": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dateFrom": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "dateTo": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "mark": {
+          "type": "number"
+        },
+        "quizStudents": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/QuizInstanceStudent"
+          }
+        },
+        "questions": {
+          "type": ["number", "string", "boolean", "object", "array", "null"]
+        },
+        "courseInstanceName": {
+          "type": "string"
+        },
+        "courseInstance": {
+          "$ref": "#/definitions/CourseInstance"
+        }
+      }
+    },
+    "QuizInstanceStudent": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "fullMark": {
+          "type": "number"
+        },
+        "mark": {
+          "type": "number"
+        },
+        "date": {
+          "type": "string",
+          "format": "date-time"
+        },
+        "quizName": {
+          "type": "string"
+        },
+        "quiz": {
+          "$ref": "#/definitions/QuizInstance"
+        },
+        "studentName": {
+          "type": "string"
+        },
+        "student": {
+          "$ref": "#/definitions/Student"
+        },
+        "pathInstanceString": {
+          "type": "string"
+        },
+        "pathInstance": {
+          "$ref": "#/definitions/PathInstance"
+        },
+        "answerOptions": {
+          "type": ["number", "string", "boolean", "object", "array", "null"]
+        }
+      }
+    },
+    "Teacher": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "phone": {
           "type": "integer"
         },
         "email": {
           "type": "string"
         },
-        "name": {
-          "type": "string"
-        },
-        "active": {
-          "type": "boolean"
-        },
-        "post": {
-          "$ref": "#/definitions/Post"
-        },
-        "postName": {
-          "type": "string"
-        }
-      }
-    },
-    "Post": {
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "integer"
-        },
-        "name": {
-          "type": "string"
-        },
-        "content": {
-          "type": [
-            "string",
-            "null"
-          ]
-        },
-        "published": {
-          "type": "boolean",
-          "default": false
-        },
-        "users": {
+        "courseInstances": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/User"
+            "$ref": "#/definitions/CourseInstance"
           }
         }
       }
@@ -54,11 +330,32 @@
   },
   "type": "object",
   "properties": {
-    "user": {
-      "$ref": "#/definitions/User"
+    "path": {
+      "$ref": "#/definitions/Path"
     },
-    "post": {
-      "$ref": "#/definitions/Post"
+    "pathInstance": {
+      "$ref": "#/definitions/PathInstance"
+    },
+    "course": {
+      "$ref": "#/definitions/Course"
+    },
+    "courseInstance": {
+      "$ref": "#/definitions/CourseInstance"
+    },
+    "studentPathInstance": {
+      "$ref": "#/definitions/StudentPathInstance"
+    },
+    "student": {
+      "$ref": "#/definitions/Student"
+    },
+    "quizInstance": {
+      "$ref": "#/definitions/QuizInstance"
+    },
+    "quizInstanceStudent": {
+      "$ref": "#/definitions/QuizInstanceStudent"
+    },
+    "teacher": {
+      "$ref": "#/definitions/Teacher"
     }
   }
 }
