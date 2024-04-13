@@ -6,6 +6,5 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "editor.formatOnSave": true,
-  "files.eol": "\n"
+  "editor.formatOnSave": true
 }

@@ -47,7 +47,7 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
   constructor() {
     this.filterControl.valueChanges.pipe(takeUntilDestroyed(), debounceTime(300)).subscribe(() => {
       if (!this.filterControl.value || typeof this.filterControl.value === 'string') {
-        this.findAll();
+        this.filterByName();
       } else {
         this.selectedValue = this.filterControl.value;
         this.onChange(this.selectedValue.id);
@@ -58,10 +58,10 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     this.service = this.dbService[toLowerCaseFirstLetter(this.entityName) as keyof DBService] as never;
-    this.findAll();
+    this.filterByName();
   }
 
-  findAll() {
+  filterByName(): void {
     const where = this.filterControl.value ? { name: { contains: this.filterControl.value } } : undefined;
     this.service.findAll({ where }).subscribe((result: resultType) => {
       this.result = result;
@@ -71,13 +71,11 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
   onChange: (id: number) => void;
 
   writeValue(obj: number): void {
-    // this.selectedValue = obj;
     this.service.findAll({ where: { id: obj } }).subscribe((result: resultType) => {
       this.result = result;
       this.selectedValue = this.result.items[0];
       this.filterControl.setValue(this.selectedValue);
     });
-    // this.filterControl.setValue(this.selectedValue.name);
   }
   registerOnChange(fn: (id: number) => void): void {
     this.onChange = fn;

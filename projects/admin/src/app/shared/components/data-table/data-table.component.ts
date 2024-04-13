@@ -55,6 +55,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
     this.fetchData();
 
     this.tableColumns = [];
+    const columnsToRmove: string[] = [];
     for (const key in this.schemaInfo.schema.properties) {
       const property: JSONSchema = this.schemaInfo.schema.properties[key];
       const type = getPropertyType(property);
@@ -62,7 +63,6 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
         const tableColumn: TableColumn<T> = {
           name: key,
           dataKey: key as keyof T,
-          // fn: this.getRelationFn(key),
           componentDef: {
             component: RelationLinkComponent,
             inputs: {
@@ -72,6 +72,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
           },
         };
         this.tableColumns.push(tableColumn);
+        columnsToRmove.push(key + 'Name');
       } else if (type !== 'array') {
         const tableColumn: TableColumn<T> = {
           name: key,
@@ -81,6 +82,9 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
         this.tableColumns.push(tableColumn);
       }
     }
+
+    this.tableColumns = this.tableColumns.filter((t) => columnsToRmove.includes(t.name));
+
     this.tableColumns.push({
       name: 'action',
       componentDef: {
@@ -111,17 +115,5 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
     } else {
       return undefined;
     }
-  }
-
-  private getRelationFn(key: string): ((value: T[keyof T] | undefined, x: T) => string) | undefined {
-    return (_value: T[keyof T] | undefined, x: T) => {
-      const idKey = (key + 'Id') as keyof T;
-      const nameKey = (key + 'Name') as keyof T;
-      if (x[idKey]) {
-        return x[idKey] + ': ' + x[nameKey];
-      } else {
-        return '';
-      }
-    };
   }
 }

@@ -8,8 +8,7 @@ import { BasicRecord, TableColumnComponent } from '../../../../../core/component
   selector: 'app-relation-link',
   standalone: true,
   imports: [CommonModule, RouterModule],
-  templateUrl: './relation-link.component.html',
-  styleUrl: './relation-link.component.scss',
+  template: `<a [routerLink]="['/edit', refEntityName, id]">{{ id }}:{{ name }}</a>`,
 })
 export class RelationLinkComponent<T extends BasicRecord> implements TableColumnComponent<T>, OnInit {
   @Input() record: T;
