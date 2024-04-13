@@ -37,13 +37,6 @@ export class AppComponent implements OnDestroy {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
     this.mobileQuery.addListener(this._mobileQueryListener);
-    api.user.findAll({
-      where: {
-        id: {
-          gte: 4,
-        },
-      },
-    });
   }
 
   ngOnDestroy(): void {

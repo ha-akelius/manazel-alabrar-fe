@@ -1,25 +1,47 @@
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
+
+const storage = {
+  username: 'username',
+  password: 'password',
+  token: 'token',
+};
+
+export type LoginStatus = 'Success' | 'Unauthorized' | 'unkown_error';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private loggedInSignal = signal<boolean>(this.hasToken());
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private httpClient: HttpClient,
+  ) {}
 
-  private hasToken(): boolean {
-    return !!localStorage.getItem('username') && !!localStorage.getItem('password');
+  getToken(): string | null {
+    return localStorage.getItem(storage.token);
   }
 
-  logIn(username: string, password: string): void {
-    localStorage.setItem('username', username);
-    localStorage.setItem('password', password);
-    this.loggedInSignal.set(true);
+  logIn(username: string, password: string): Promise<LoginStatus> {
+    localStorage.setItem(storage.username, username);
+    localStorage.setItem(storage.password, password);
+    return new Promise<LoginStatus>((resolve) => {
+      this.httpClient.post<{ access_token: string }>('/api/auth/login', { username, password }).subscribe({
+        next: ({ access_token }) => {
+          localStorage.setItem(storage.token, access_token);
+          this.loggedInSignal.set(true);
+          resolve('Success');
+        },
+        error: (error: HttpErrorResponse) => {
+          this.loggedInSignal.set(false);
+          resolve(error.status === 401 ? 'Unauthorized' : 'unkown_error');
+        },
+      });
+    });
   }
 
   logOut(): void {
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
     this.loggedInSignal.set(false);
     this.router.navigate(['/login']);
   }
@@ -34,5 +56,9 @@ export class AuthService {
       return false;
     }
     return true;
+  }
+
+  private hasToken(): boolean {
+    return !!localStorage.getItem(storage.token);
   }
 }
