@@ -5,19 +5,31 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { DBService } from '../../../../../../../src/app/core/services/db.service';
 import { APIService } from '../../../../core/services/api.service';
 import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getFirstType, getPropertyType, schemaInfo } from '../../model/schame';
+import { RelationComponent } from './relation/relation.component';
 
 interface PropertyInformation {
   name: string;
   property: JSONSchema;
+  propertyName: string;
+  ref: keyof DBService | undefined;
 }
 
 @Component({
   standalone: true,
   selector: 'app-dynamic-form',
-  imports: [MatInputModule, ReactiveFormsModule, MatSlideToggleModule, MatButtonModule, CommonModule, MatCardModule],
+  imports: [
+    MatInputModule,
+    ReactiveFormsModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    CommonModule,
+    MatCardModule,
+    RelationComponent,
+  ],
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
 })
@@ -35,13 +47,18 @@ export class DynamicFormComponent implements OnInit {
     const formGroup = new FormGroup({});
     for (const [propertyName, property] of Object.entries(this.schemaInfo.schema.properties)) {
       const type = getPropertyType(property);
+      const refs = property.$ref?.split('/');
+      const ref = refs ? (refs[refs.length - 1] as keyof DBService) : undefined;
+      const controlName = propertyName + (ref ? 'Id' : '');
       if (propertyName !== 'id' && type !== 'array') {
         this.propertiesInfo.push({
-          name: propertyName,
+          name: controlName,
+          propertyName: propertyName,
           property: property,
+          ref: ref,
         });
         const control = new FormControl(property.default, this.collectValidators(propertyName, property));
-        formGroup.addControl(propertyName, control);
+        formGroup.addControl(controlName, control);
       }
     }
 
@@ -78,6 +95,10 @@ export class DynamicFormComponent implements OnInit {
 
   cancel() {
     this.formResult.emit(null);
+  }
+
+  fillRelationName($event: string, property: PropertyInformation) {
+    this.dynamicForm.get(property.propertyName + 'Name')?.setValue($event);
   }
 
   private collectValidators(propertyName: string, property: JSONSchema): ValidatorFn[] {

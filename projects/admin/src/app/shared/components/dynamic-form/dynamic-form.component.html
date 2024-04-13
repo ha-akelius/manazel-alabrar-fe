@@ -1,39 +1,42 @@
-<div class="card-container">
-  <mat-card class="mat-card-ed">
-    <form [formGroup]="dynamicForm">
-      <mat-card-header>
-        <h2>{{ pageTitle }}</h2>
-      </mat-card-header>
+<mat-card class="card-container">
+  <mat-card-header>
+    <h2>{{ pageTitle }}</h2>
+  </mat-card-header>
+  <form [formGroup]="dynamicForm" class="form-group row">
+    <ng-container *ngFor="let propInfo of propertiesInfo">
+      <mat-form-field
+        *ngIf="['string', 'number', 'integer'].includes(getFirstType(propInfo.property) ?? '')"
+        class="col-xs-12 col-sm-6 col-lg-4"
+      >
+        <mat-label>{{ propInfo.name }}</mat-label>
+        <input
+          matInput
+          [type]="getFirstType(propInfo.property) ?? ''"
+          [required]="schemaInfo.schema.required?.includes(propInfo.name) ?? false"
+          [formControlName]="propInfo.name"
+        />
+        <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('email')"> Please enter valid email form </mat-error>
+        <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('pattern')">
+          The name should be between 3-20 letter
+        </mat-error>
 
-      <ng-container *ngFor="let propInfo of propertiesInfo">
-        <div class="col-xs-12 col-sm-6 col-lg-4 form-group">
-          <mat-form-field class="padded-field">
-            <mat-label>{{ propInfo.name }}</mat-label>
+        <!--  -->
+      </mat-form-field>
 
-            <input
-              matInput
-              [type]="getFirstType(propInfo.property) ?? ''"
-              [required]="schemaInfo.schema.required?.includes(propInfo.name) ?? false"
-              [formControlName]="propInfo.name"
-            />
-            <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('email')">
-              Please enter valid email form
-            </mat-error>
-            <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('pattern')">
-              The name should be between 3-20 letter
-            </mat-error>
-          </mat-form-field>
+      <app-relation
+        *ngIf="propInfo.ref"
+        [entityName]="propInfo.ref"
+        [formControlName]="propInfo.name"
+        (name)="fillRelationName($event, propInfo)"
+      />
 
-          <mat-form-field *ngIf="getFirstType(propInfo.property) === 'boolean'">
-            <mat-slide-toggle [formControlName]="propInfo.name"> {{ propInfo.name }} </mat-slide-toggle>
-          </mat-form-field>
-        </div>
-      </ng-container>
-
-      <div>
-        <button mat-raised-button color="primary" (click)="save()">Submit</button>
-        <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
-      </div>
-    </form>
-  </mat-card>
-</div>
+      <mat-slide-toggle
+        *ngIf="getFirstType(propInfo.property) === 'boolean'"
+        class="col-xs-12 col-sm-6 col-lg-4"
+        [formControlName]="propInfo.name"
+      >
+        {{ propInfo.name }}
+      </mat-slide-toggle>
+    </ng-container>
+  </form>
+</mat-card>

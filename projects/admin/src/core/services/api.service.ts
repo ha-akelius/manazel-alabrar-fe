@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Path, Prisma } from '@prisma/client';
+import { Path, PathInstance, Prisma } from '@prisma/client';
 import { RestApiService } from '../../shared/services/rest-api.service';
 
 @Injectable({
@@ -7,4 +7,10 @@ import { RestApiService } from '../../shared/services/rest-api.service';
 })
 export class APIService {
   path = new RestApiService<Path, Prisma.PathFindManyArgs, Prisma.PathCreateInput, Prisma.PathUpdateInput>('path');
+  pathInstance = new RestApiService<
+    PathInstance,
+    Prisma.PathInstanceFindManyArgs,
+    Prisma.PathInstanceCreateInput,
+    Prisma.PathInstanceUpdateInput
+  >('pathInstance');
 }

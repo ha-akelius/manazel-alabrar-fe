@@ -14,6 +14,8 @@ import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getPropertyType, numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
+import { RelationLinkComponent } from './relation-link/relation-link.component';
+
 @Component({
   selector: 'app-data-table',
   standalone: true,
@@ -53,10 +55,25 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
     this.fetchData();
 
     this.tableColumns = [];
+    const columnsToRmove: string[] = [];
     for (const key in this.schemaInfo.schema.properties) {
       const property: JSONSchema = this.schemaInfo.schema.properties[key];
       const type = getPropertyType(property);
-      if (type !== 'array') {
+      if (property.$ref) {
+        const tableColumn: TableColumn<T> = {
+          name: key,
+          dataKey: key as keyof T,
+          componentDef: {
+            component: RelationLinkComponent,
+            inputs: {
+              key: key,
+              refEntityName: key,
+            },
+          },
+        };
+        this.tableColumns.push(tableColumn);
+        columnsToRmove.push(key + 'Name');
+      } else if (type !== 'array') {
         const tableColumn: TableColumn<T> = {
           name: key,
           dataKey: key as keyof T,
@@ -65,6 +82,9 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
         this.tableColumns.push(tableColumn);
       }
     }
+
+    this.tableColumns = this.tableColumns.filter((t) => columnsToRmove.includes(t.name));
+
     this.tableColumns.push({
       name: 'action',
       componentDef: {

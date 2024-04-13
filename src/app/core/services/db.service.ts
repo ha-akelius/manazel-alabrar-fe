@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Path, Prisma } from '@prisma/client';
+import { Path, PathInstance, Prisma } from '@prisma/client';
 import { RestApiService } from '../../shared/services/rest-api.service';
 
 @Injectable({
@@ -11,8 +11,12 @@ export class DBService {
     'path',
     this.httpClient,
   );
+  pathInstance = new RestApiService<
+    PathInstance,
+    Prisma.PathInstanceFindManyArgs,
+    Prisma.PathInstanceCreateInput,
+    Prisma.PathInstanceUpdateInput
+  >('pathInstance', this.httpClient);
 
-  constructor(private httpClient: HttpClient) {
-    this.path.findAll();
-  }
+  constructor(private httpClient: HttpClient) {}
 }
