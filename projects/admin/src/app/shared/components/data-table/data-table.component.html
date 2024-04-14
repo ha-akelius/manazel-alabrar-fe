@@ -1,8 +1,8 @@
 <div class="container">
-  <h2>User</h2>
+  <h2>{{ entityName }}</h2>
   <div class="button-group">
-    <button mat-raised-button class="custom-button" color="primary" [routerLink]="['../../', 'create', entityName]">
-      + Add New User
+    <button mat-raised-button color="primary" [routerLink]="['../../', 'create', entityName]">
+      + Add New {{ entityName }}
     </button>
     <button [matMenuTriggerFor]="menu" aria-label="Settings menu">
       <mat-icon>settings</mat-icon>

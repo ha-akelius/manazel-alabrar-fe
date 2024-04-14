@@ -44,7 +44,7 @@ export class LoginComponent {
       const { username, password } = this.loginForm.getRawValue();
       this.authService.logIn(username, password).then((loginStatus) => {
         if (loginStatus === 'Success') {
-          this.router.navigate(['/home']);
+          this.router.navigate(['/dashboard']);
         } else {
           this.loginStatus = loginStatus;
         }
