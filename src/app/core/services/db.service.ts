@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Path, PathInstance, Prisma } from '@prisma/client';
+import { Course, Path, PathInstance, Prisma } from '@prisma/client';
 import { RestApiService } from '../../shared/services/rest-api.service';
+import { CourseInstance } from '../../user-pages/models/schema';
 
 @Injectable({
   providedIn: 'root',
@@ -18,5 +19,15 @@ export class DBService {
     Prisma.PathInstanceUpdateInput
   >('pathInstance', this.httpClient);
 
+  course = new RestApiService<Course, Prisma.CourseFindManyArgs, Prisma.CourseCreateInput, Prisma.CourseUpdateInput>(
+    'course',
+    this.httpClient,
+  );
+  courseInstance = new RestApiService<
+    CourseInstance,
+    Prisma.CourseInstanceFindManyArgs,
+    Prisma.CourseInstanceCreateInput,
+    Prisma.CourseInstanceUpdateInput
+  >('courseInstance', this.httpClient);
   constructor(private httpClient: HttpClient) {}
 }
