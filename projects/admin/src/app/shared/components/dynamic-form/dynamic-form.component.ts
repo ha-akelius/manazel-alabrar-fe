@@ -5,7 +5,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
-import { DBService } from '../../../../../../../src/app/core/services/db.service';
 import { APIService } from '../../../../core/services/api.service';
 import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getFirstType, getPropertyType, schemaInfo } from '../../model/schame';
@@ -15,7 +14,7 @@ interface PropertyInformation {
   name: string;
   property: JSONSchema;
   propertyName: string;
-  ref: keyof DBService | undefined;
+  ref: keyof APIService | undefined;
 }
 
 @Component({
@@ -48,7 +47,7 @@ export class DynamicFormComponent implements OnInit {
     for (const [propertyName, property] of Object.entries(this.schemaInfo.schema.properties)) {
       const type = getPropertyType(property);
       const refs = property.$ref?.split('/');
-      const ref = refs ? (refs[refs.length - 1] as keyof DBService) : undefined;
+      const ref = refs ? (refs[refs.length - 1] as keyof APIService) : undefined;
       const controlName = propertyName + (ref ? 'Id' : '');
       if (propertyName !== 'id' && type !== 'array') {
         this.propertiesInfo.push({
