@@ -6,9 +6,9 @@ import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { debounceTime } from 'rxjs';
+import { APIService } from '../../../../../core/services/api.service';
 import { Result } from '../../../../../shared/models/result';
 import { RestApiService } from '../../../../../shared/services/rest-api.service';
-import { DBService } from './../../../../../../../../src/app/core/services/db.service';
 
 type realtionType = { id: number; name: string };
 type resultType = Result<realtionType>;
@@ -37,7 +37,7 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
   @Input({ required: true }) entityName: string;
   @Output() name = new EventEmitter<string>();
 
-  dbService = inject(DBService);
+  apiService = inject(APIService);
   service: RestApiService<realtionType, unknown, unknown, unknown>;
   result: resultType = {
     items: [],
@@ -57,7 +57,7 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
   }
 
   ngOnInit(): void {
-    this.service = this.dbService[toLowerCaseFirstLetter(this.entityName) as keyof DBService] as never;
+    this.service = this.apiService[toLowerCaseFirstLetter(this.entityName) as keyof APIService] as never;
     this.filterByName();
   }
 

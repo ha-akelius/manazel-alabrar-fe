@@ -18,6 +18,10 @@ generator jsonSchema {
   output   = "../src/app/core/models"
 }
 
+generator idt {
+  provider = "prisma-idt-generator"
+}
+
 model Path {
   id                  Int                   @id @default(autoincrement())
   name                String
