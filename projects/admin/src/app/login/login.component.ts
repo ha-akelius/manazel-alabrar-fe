@@ -55,4 +55,13 @@ export class LoginComponent {
       });
     }
   }
+
+  changeToEnglish() {
+    document.documentElement.lang = 'en';
+    document.body.dir = 'ltr';
+  }
+  changeToArabic() {
+    document.documentElement.lang = 'ar';
+    document.body.dir = 'rtl';
+  }
 }
