@@ -5,8 +5,20 @@
     </mat-card-header>
     <form [formGroup]="dynamicForm">
       <ng-container *ngFor="let propInfo of propertiesInfo">
+        <ng-container *ngIf="propInfo.property.format === 'date-time'">
+          <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 ; padded-field">
+            <mat-label>{{ propInfo.name }}</mat-label>
+            <input matInput [matDatepicker]="myDatepicker" placeholder="Choose a date" (click)="myDatepicker.open()" />
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+          </mat-form-field>
+        </ng-container>
+
         <mat-form-field
-          *ngIf="['string', 'number', 'integer'].includes(getFirstType(propInfo.property) ?? '')"
+          *ngIf="
+            ['string', 'number', 'integer'].includes(getFirstType(propInfo.property) ?? '') &&
+            propInfo.property.format !== 'date-time'
+          "
           class="col-xs-12 col-sm-6 col-lg-4 ; padded-field"
         >
           <mat-label>{{ propInfo.name }}</mat-label>
@@ -22,8 +34,6 @@
           <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('pattern')">
             The name should be between 3-20 letter
           </mat-error>
-
-          <!--  -->
         </mat-form-field>
 
         <app-relation

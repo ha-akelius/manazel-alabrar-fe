@@ -3,13 +3,13 @@ import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
 import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getFirstType, getPropertyType, schemaInfo } from '../../model/schame';
 import { RelationComponent } from './relation/relation.component';
-
 interface PropertyInformation {
   name: string;
   property: JSONSchema;
@@ -23,6 +23,7 @@ interface PropertyInformation {
   imports: [
     MatInputModule,
     ReactiveFormsModule,
+    MatDatepickerModule,
     MatSlideToggleModule,
     MatButtonModule,
     CommonModule,
