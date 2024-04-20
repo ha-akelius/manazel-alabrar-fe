@@ -1,0 +1,45 @@
+{
+  "name": "prisma-idt-generator",
+  "version": "0.1.0",
+  "main": "dist/generator.js",
+  "bin": {
+    "prisma-idt-generator": "dist/bin.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "clean": "rm -rf node_modules",
+    "tsc": "tsc --noEmit",
+    "build": "tsc",
+    "format": "prettier --write \"src/**/*.{js,ts}\"",
+    "format:check": "prettier --list-different \"src/**/*.{js,ts}\"",
+    "lint": "eslint \"./src/**/*.{js, jsx,ts,tsx}\" --quiet --fix && eslint \"./**/*.{js, jsx,ts,tsx}\" --quiet --fix"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@prisma/generator-helper": "^5.2.0"
+  },
+  "devDependencies": {
+    "@prisma/client": "^5.2.0",
+    "@types/node": "^20.5.6",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
+    "eslint": "^8.48.0",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-import-resolver-typescript": "^3.6.0",
+    "eslint-plugin-import": "^2.28.1",
+    "lint-staged": "^14.0.1",
+    "prettier": "^3.0.2",
+    "prisma": "^5.2.0",
+    "typescript": "^5.2.2"
+  },
+  "lint-staged": {
+    "*.{ts,tsx,js,jsx}": [
+      "eslint"
+    ],
+    "*.{js,jsx,ts,tsx,css,scss,html}": [
+      "prettier --write"
+    ]
+  }
+}

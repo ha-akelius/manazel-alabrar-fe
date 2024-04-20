@@ -34,7 +34,7 @@ export class DashboardComponent {
   formStatus = FormStatus.Normal;
   productlist?: ProductModel[];
   editdata?: ProductModel;
-  displayedColums: string[] = ['id', 'name', 'description', 'price', 'action'];
+  displayedColums: string[] = ['id', 'name', 'description', 'action'];
   datasource = new MatTableDataSource<ProductModel>([]);
 
   constructor(

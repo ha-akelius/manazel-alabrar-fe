@@ -1,5 +1,5 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnInit, inject } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -32,7 +32,7 @@ import { RelationLinkComponent } from './relation-link/relation-link.component';
   ],
   providers: [DatePipe],
 })
-export class DataTableComponent<T extends BasicRecord> implements OnInit {
+export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChanges {
   datePipe = inject(DatePipe);
   apiService = inject(APIService);
 
@@ -47,6 +47,9 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
 
   constructor() {
     this.filters.valueChanges.pipe(takeUntilDestroyed()).subscribe((filters) => this.fetchData(filters));
+  }
+  ngOnChanges(): void {
+    this.ngOnInit();
   }
 
   ngOnInit(): void {
@@ -83,7 +86,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit {
       }
     }
 
-    this.tableColumns = this.tableColumns.filter((t) => columnsToRmove.includes(t.name));
+    this.tableColumns = this.tableColumns.filter((t) => !columnsToRmove.includes(t.name));
 
     this.tableColumns.push({
       name: 'action',
