@@ -52,6 +52,7 @@ model Course {
   path            Path             @relation(fields: [pathId], references: [id])
   courseInstances CourseInstance[]
   lessons         Json
+  quiz            Json
 }
 
 model CourseInstance {
