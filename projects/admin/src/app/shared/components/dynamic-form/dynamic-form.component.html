@@ -4,54 +4,56 @@
       <h2>{{ pageTitle }}</h2>
     </mat-card-header>
     <form [formGroup]="dynamicForm">
-      <ng-container *ngFor="let propInfo of propertiesInfo">
-        <ng-container *ngIf="propInfo.property.format === 'date-time'">
-          <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 ; padded-field">
-            <mat-label>{{ propInfo.name }}</mat-label>
-            <input matInput [matDatepicker]="myDatepicker" placeholder="Choose a date" (click)="myDatepicker.open()" />
-            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-            <mat-datepicker #myDatepicker></mat-datepicker>
-          </mat-form-field>
-        </ng-container>
-
-        <mat-form-field
-          *ngIf="
-            ['string', 'number', 'integer'].includes(getFirstType(propInfo.property) ?? '') &&
-            propInfo.property.format !== 'date-time'
-          "
-          class="col-xs-12 col-sm-6 col-lg-4 ; padded-field"
-        >
-          <mat-label>{{ propInfo.name }}</mat-label>
-          <input
-            matInput
-            [type]="getFirstType(propInfo.property) ?? ''"
-            [required]="schemaInfo.schema.required?.includes(propInfo.name) ?? false"
-            [formControlName]="propInfo.name"
-          />
-          <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('email')">
-            Please enter valid email form
-          </mat-error>
-          <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('pattern')">
-            The name should be between 3-20 letter
-          </mat-error>
-        </mat-form-field>
-
-        <app-relation
-          *ngIf="propInfo.ref"
-          [entityName]="propInfo.ref"
-          [formControlName]="propInfo.name"
-          (name)="fillRelationName($event, propInfo)"
-          class="padded-field"
-        />
-
-        <mat-slide-toggle
-          *ngIf="getFirstType(propInfo.property) === 'boolean'"
-          class="col-xs-12 col-sm-6 col-lg-4"
-          [formControlName]="propInfo.name"
-        >
-          {{ propInfo.name }}
-        </mat-slide-toggle>
-      </ng-container>
+      @for (propInfo of schemaInfo.propertiesInfo; track $index) {
+        @switch (propInfo.inputType) {
+          @case (inputType.dateTime) {
+            <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 ; padded-field">
+              <mat-label>{{ propInfo.name }}</mat-label>
+              <input
+                matInput
+                [matDatepicker]="myDatepicker"
+                placeholder="Choose a date"
+                (click)="myDatepicker.open()"
+              />
+              <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+              <mat-datepicker #myDatepicker></mat-datepicker>
+            </mat-form-field>
+          }
+          @case (inputType.input) {
+            <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 ; padded-field">
+              <mat-label>{{ propInfo.name }}</mat-label>
+              <input
+                matInput
+                [type]="propInfo.firstType ?? ''"
+                [required]="schemaInfo.schema.required?.includes(propInfo.name) ?? false"
+                [formControlName]="propInfo.name"
+              />
+              <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('email')">
+                Please enter valid email form
+              </mat-error>
+              <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('pattern')">
+                The name should be between 3-20 letter
+              </mat-error>
+            </mat-form-field>
+          }
+          @case (inputType.relation) {
+            <app-relation
+              [entityName]="propInfo.ref!"
+              [formControlName]="propInfo.name"
+              (name)="fillRelationName($event, propInfo)"
+              class="padded-field"
+            />
+          }
+          @case (inputType.boolean) {
+            <mat-slide-toggle class="col-xs-12 col-sm-6 col-lg-4" [formControlName]="propInfo.name">
+              {{ propInfo.name }}
+            </mat-slide-toggle>
+          }
+          @default {
+            unknown
+          }
+        }
+      }
       <button mat-raised-button color="primary" (click)="save()">Submit</button>
       <button mat-raised-button color="warn" (click)="cancel()">Cancel</button>
     </form>

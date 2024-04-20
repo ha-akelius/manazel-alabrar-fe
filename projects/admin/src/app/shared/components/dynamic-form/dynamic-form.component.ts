@@ -7,15 +7,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
-import { JSONSchema, SchemaInfo } from '../../model/json-schema';
-import { getFirstType, getPropertyType, schemaInfo } from '../../model/schame';
+import { InputType, JSONSchema, PropertyInformation, SchemaInfo } from '../../model/json-schema';
+import { getFirstType, schemaInfo } from '../../model/schame';
 import { RelationComponent } from './relation/relation.component';
-interface PropertyInformation {
-  name: string;
-  property: JSONSchema;
-  propertyName: string;
-  ref: keyof APIService | undefined;
-}
 
 @Component({
   standalone: true,
@@ -40,28 +34,18 @@ export class DynamicFormComponent implements OnInit {
   @Output() formResult = new EventEmitter<typeof this.value | null>();
   dynamicForm: FormGroup = new FormGroup({});
   schemaInfo!: SchemaInfo;
-  propertiesInfo: PropertyInformation[] = [];
+  inputType = InputType;
   pageTitle: string = 'Add ' + this.entityName;
   getFirstType = getFirstType;
   createFormGroup() {
     const formGroup = new FormGroup({});
-    for (const [propertyName, property] of Object.entries(this.schemaInfo.schema.properties)) {
-      const type = getPropertyType(property);
-      const refs = property.$ref?.split('/');
-      const ref = refs ? (refs[refs.length - 1] as keyof APIService) : undefined;
-      const controlName = propertyName + (ref ? 'Id' : '');
-      if (propertyName !== 'id' && type !== 'array') {
-        this.propertiesInfo.push({
-          name: controlName,
-          propertyName: propertyName,
-          property: property,
-          ref: ref,
-        });
-        const control = new FormControl(property.default, this.collectValidators(propertyName, property));
-        formGroup.addControl(controlName, control);
-      }
+    for (const propInfo of this.schemaInfo.propertiesInfo) {
+      const control = new FormControl(
+        propInfo.property.default,
+        this.collectValidators(propInfo.propertyName, propInfo.property),
+      );
+      formGroup.addControl(propInfo.name, control);
     }
-
     this.dynamicForm = formGroup;
   }
 
