@@ -1,4 +1,4 @@
-import { GeneratorOptions } from '@prisma/generator-helper';
+import { DMMF, GeneratorOptions } from '@prisma/generator-helper';
 import fs from 'fs';
 import path from 'path';
 
@@ -15,6 +15,11 @@ function toSmallLetter(str: string): string {
 
 export default async function onGenerate(options: GeneratorOptions) {
   const models = options.dmmf.datamodel.models;
+  generateAPIService(models);
+  generateDummyInterfaces(models);
+}
+
+function generateAPIService(models: GeneratorOptions['dmmf']['datamodel']['models']) {
   const file = 'projects/admin/src/core/services/api.service.ts';
   const outputPath = path.resolve(file);
   fs.rmSync(outputPath);
@@ -37,6 +42,20 @@ export default async function onGenerate(options: GeneratorOptions) {
   content += '}';
 
   createFile(outputPath, content);
+}
+
+function generateDummyInterfaces(models: DMMF.Model[]) {
+  let content = '';
+  models.forEach((e) => {
+    content += `
+  export class ${e.name} {}
+`;
+  });
+  const file = 'src/app/core/models/dummy-interfaces.ts';
+  if (fs.existsSync(file)) {
+    fs.rmSync(file);
+  }
+  createFile(file, content);
 }
 
 function createFile(file: string, content: string): void {

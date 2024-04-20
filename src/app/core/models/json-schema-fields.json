@@ -1,0 +1,145 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "definitions": {
+    "Answer": {
+      "additionalProperties": false,
+      "properties": {
+        "correct": {
+          "type": "boolean"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "correct"
+      ],
+      "type": "object"
+    },
+    "Lesson": {
+      "additionalProperties": false,
+      "properties": {
+        "audio": {
+          "$ref": "#/definitions/media"
+        },
+        "date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "pageNumber": {
+          "type": "number"
+        },
+        "questins": {
+          "items": {
+            "$ref": "#/definitions/Question"
+          },
+          "type": "array"
+        },
+        "students": {
+          "items": {
+            "$ref": "#/definitions/StudentLesson"
+          },
+          "type": "array"
+        },
+        "toPageNumber": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "description",
+        "pageNumber",
+        "toPageNumber",
+        "audio",
+        "date",
+        "questins",
+        "students"
+      ],
+      "type": "object"
+    },
+    "Question": {
+      "additionalProperties": false,
+      "properties": {
+        "answers": {
+          "items": {
+            "$ref": "#/definitions/Answer"
+          },
+          "type": "array"
+        },
+        "mark": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "questionType": {
+          "$ref": "#/definitions/QuestionType"
+        }
+      },
+      "required": [
+        "questionType",
+        "name",
+        "answers",
+        "mark"
+      ],
+      "type": "object"
+    },
+    "QuestionType": {
+      "enum": [
+        "SingleChoice",
+        "MultiChoice"
+      ],
+      "type": "string"
+    },
+    "Student": {
+      "additionalProperties": false,
+      "type": "object"
+    },
+    "StudentLesson": {
+      "additionalProperties": false,
+      "properties": {
+        "answeredOptions": {
+          "type": "string"
+        },
+        "done": {
+          "type": "boolean"
+        },
+        "mark": {
+          "type": "number"
+        },
+        "student": {
+          "$ref": "#/definitions/Student"
+        },
+        "studentName": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "student",
+        "studentName",
+        "done",
+        "answeredOptions"
+      ],
+      "type": "object"
+    },
+    "media": {
+      "additionalProperties": false,
+      "properties": {
+        "url": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "url"
+      ],
+      "type": "object"
+    }
+  }
+}

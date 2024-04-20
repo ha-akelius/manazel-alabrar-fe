@@ -110,6 +110,16 @@
             "array",
             "null"
           ]
+        },
+        "quiz": {
+          "type": [
+            "number",
+            "string",
+            "boolean",
+            "object",
+            "array",
+            "null"
+          ]
         }
       }
     },
