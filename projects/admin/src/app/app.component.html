@@ -6,7 +6,11 @@
     <h1 class="example-app-name">Responsive App</h1>
   </mat-toolbar>
 
-  <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+  <mat-sidenav-container
+    [dir]="isRtl() ? 'rtl' : 'ltr'"
+    class="example-sidenav-container"
+    [style.marginTop.px]="mobileQuery.matches ? 56 : 0"
+  >
     <mat-sidenav
       #snav
       [mode]="mobileQuery.matches ? 'over' : 'side'"
