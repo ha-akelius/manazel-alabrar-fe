@@ -16,7 +16,8 @@
     "analyzer": "ng build  --configuration production --build-optimizer --stats-json && webpack-bundle-analyzer dist/manazel-alabrar-fe/stats.json",
     "serve:ssr:manazel-alabrar-fe": "node dist/manazel-alabrar-fe/server/server.mjs",
     "lint": "ng lint",
-    "prepare": "husky"
+    "prepare": "husky",
+    "jsonschemafromts:generate": "ts-json-schema-generator --path './src/app/core/models/json-json-schema.ts' "
   },
   "private": true,
   "dependencies": {
