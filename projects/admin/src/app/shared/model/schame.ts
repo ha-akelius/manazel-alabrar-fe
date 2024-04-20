@@ -2,7 +2,7 @@ import { JSONSchema7Type, JSONSchema7TypeName } from 'json-schema';
 import schema from '../../../../../../src/app/core/models/json-schema.json';
 import { APIService } from '../../../core/services/api.service';
 import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
-import { JSONSchema, SchemaInfo } from './json-schema';
+import { InputType, JSONSchema, PropertyInformation, SchemaInfo } from './json-schema';
 
 const schemaJson: JSONSchema = schema as unknown as JSONSchema;
 
@@ -25,10 +25,53 @@ export function getPropertyType(property: JSONSchema): JSONSchema7TypeName {
   return Array.isArray(property.type) ? property.type[0] : property.type!;
 }
 
+function getInputType(
+  property: JSONSchema,
+  firstType: JSONSchema7TypeName | undefined,
+  ref: string | undefined,
+): InputType {
+  if (property.format === 'date-time') {
+    return InputType.dateTime;
+  } else if (['string', 'number', 'integer'].includes(firstType ?? '')) {
+    return InputType.input;
+  } else if (ref) {
+    return InputType.relation;
+  } else if (firstType === 'boolean') {
+    return InputType.boolean;
+  } else {
+    return InputType.unknown;
+  }
+}
+
 export function schemaInfo<T>(entityName: string, apiService: APIService): SchemaInfo<T> {
   const dataSchema: JSONSchema = getJSONSchema(entityName);
   const restApiService: RestApiServiceUnkown = getCaseInsensitiveProperty(apiService, entityName);
-  return { schema: dataSchema, api: restApiService as RestApiServiceUnkown<T> };
+  const propertiesInfo: PropertyInformation[] = getPropertiesInfo(dataSchema);
+
+  return { propertiesInfo, schema: dataSchema, api: restApiService as RestApiServiceUnkown<T> };
+}
+
+function getPropertiesInfo(dataSchema: JSONSchema) {
+  const propertiesInfo: PropertyInformation[] = [];
+  for (const [propertyName, property] of Object.entries(dataSchema.properties)) {
+    const type = getPropertyType(property);
+    const refs = property.$ref?.split('/');
+    const ref = refs ? (refs[refs.length - 1] as keyof APIService) : undefined;
+    const controlName = propertyName + (ref ? 'Id' : '');
+    if (propertyName !== 'id' && type !== 'array') {
+      const firstType = getFirstType(property);
+      const inputType = getInputType(property, firstType, ref);
+      propertiesInfo.push({
+        name: controlName,
+        propertyName: propertyName,
+        property: property,
+        firstType: firstType,
+        inputType: inputType,
+        ref: ref,
+      });
+    }
+  }
+  return propertiesInfo;
 }
 
 export function getFirstType(property: JSONSchema): JSONSchema7TypeName | undefined {
