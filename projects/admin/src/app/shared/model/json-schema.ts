@@ -33,3 +33,8 @@ export interface PropertyInformation {
   firstType: string | undefined;
   ref: keyof APIService | undefined;
 }
+
+export type PropType<T> = Omit<
+  T,
+  'createdDate' | 'createdUserName' | 'createdUserId' | 'updatedDate' | 'updatedUserName' | 'updatedUserId'
+>;

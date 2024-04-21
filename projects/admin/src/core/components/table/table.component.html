@@ -10,11 +10,11 @@
           [mat-sort-header]="tableColumn.name"
           [arrowPosition]="tableColumn.position === 'right' ? 'before' : 'after'"
         >
-          {{ tableColumn.name | translate }}
+          {{ tableColumn.displayName }}
         </th>
       } @else {
         <th mat-header-cell *matHeaderCellDef [class.text-right]="tableColumn.position === 'right'">
-          {{ tableColumn.name | translate }}
+          {{ tableColumn.displayName }}
         </th>
       }
       <!-- else not sortable -->

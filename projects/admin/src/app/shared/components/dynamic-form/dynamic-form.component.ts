@@ -7,6 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
+import { translations } from '../../../translations';
 import { InputType, JSONSchema, PropertyInformation, SchemaInfo } from '../../model/json-schema';
 import { getFirstType, schemaInfo } from '../../model/schame';
 import { RelationComponent } from './relation/relation.component';
@@ -37,6 +38,8 @@ export class DynamicFormComponent implements OnInit {
   inputType = InputType;
   pageTitle: string = 'Add ' + this.entityName;
   getFirstType = getFirstType;
+  entityTranslations: Record<string, string>;
+  translations = translations.general;
   createFormGroup() {
     const formGroup = new FormGroup({});
     for (const propInfo of this.schemaInfo.propertiesInfo) {
@@ -51,6 +54,7 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.schemaInfo = schemaInfo(this.entityName, this.apiService);
+    this.entityTranslations = translations[this.entityName as keyof typeof translations];
     this.createFormGroup();
 
     if (this.value) {

@@ -10,6 +10,7 @@ import { BasicRecord, TableColumn } from '../../../../core/components/table/tabl
 import { TableComponent } from '../../../../core/components/table/table.component';
 import { APIService } from '../../../../core/services/api.service';
 import { Result } from '../../../../shared/models/result';
+import { translations } from '../../../translations';
 import { JSONSchema, SchemaInfo } from '../../model/json-schema';
 import { getPropertyType, numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
@@ -44,6 +45,8 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
     pages: 0,
   };
   filters = new FormControl([] as Filter[], { nonNullable: true });
+  entityTranslations: Record<string, string>;
+  translations = translations.general;
 
   constructor() {
     this.filters.valueChanges.pipe(takeUntilDestroyed()).subscribe((filters) => this.fetchData(filters));
@@ -54,6 +57,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
 
   ngOnInit(): void {
     this.schemaInfo = schemaInfo(this.entityName, this.apiService);
+    this.entityTranslations = translations[this.entityName as keyof typeof translations];
 
     this.fetchData();
 
@@ -65,6 +69,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
       if (property.$ref) {
         const tableColumn: TableColumn<T> = {
           name: key,
+          displayName: this.entityTranslations[key],
           dataKey: key as keyof T,
           componentDef: {
             component: RelationLinkComponent,
@@ -79,6 +84,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
       } else if (type !== 'array') {
         const tableColumn: TableColumn<T> = {
           name: key,
+          displayName: this.entityTranslations[key],
           dataKey: key as keyof T,
           fn: this.getFn(key),
         };
@@ -90,6 +96,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
 
     this.tableColumns.push({
       name: 'action',
+      displayName: 'action',
       componentDef: {
         component: ActionsDataTableComponent<T>,
         inputs: { entityName: this.entityName },

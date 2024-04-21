@@ -1,0 +1,12 @@
+{
+  "locales": [
+    "en-US",
+    "ar"
+  ],
+  "editor": {
+    "messageLocations": [
+      "projects/admin/src/locale/messages.xlf",
+      "projects/admin/src/locale/messages.ar.xlf"
+    ]
+  }
+}
