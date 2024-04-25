@@ -17,7 +17,7 @@ export default async function onGenerate(options: GeneratorOptions) {
   const models = options.dmmf.datamodel.models;
   generateTrnaslations(models);
   generateAPIService(models);
-  generateDummyInterfaces(models);
+  generateHooks(models);
 }
 
 function generateAPIService(models: GeneratorOptions['dmmf']['datamodel']['models']) {
@@ -45,18 +45,28 @@ function generateAPIService(models: GeneratorOptions['dmmf']['datamodel']['model
   createFile(outputPath, content);
 }
 
-function generateDummyInterfaces(models: DMMF.Model[]) {
+function generateHooks(models: DMMF.Model[]) {
+  const file = 'projects/admin/src/models/hooks/';
+
   let content = '';
   models.forEach((e) => {
-    content += `
-  export class ${e.name} {}
-`;
+    content += `export * from './${toKebabCase(e.name)}-hooks';`;
+    const hookFile = file + toKebabCase(e.name) + '-hooks.ts';
+    // if (!fs.existsSync(hookFile)) {
+    const hookContent = `import { ${e.name} } from '@prisma/client';
+  import { HookType } from '../../app/shared/model/json-schema';
+  import { ImportantProps } from '../utils/type-utils';
+
+  export const ${toSmallLetter(e.name)}Hooks: HookType<ImportantProps<${e.name}>> = {};
+
+  `;
+    createFile(hookFile, hookContent);
+    // }
   });
-  const file = 'src/app/core/models/dummy-interfaces.ts';
-  if (fs.existsSync(file)) {
-    fs.rmSync(file);
+  if (!fs.existsSync(file + 'index.ts')) {
+    fs.rmSync(file + 'index.ts');
   }
-  createFile(file, content);
+  createFile(file + 'index.ts', content);
 }
 
 function createFile(file: string, content: string): void {

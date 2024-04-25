@@ -1,18 +1,18 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, inject } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Type, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
-import { BasicRecord, TableColumn } from '../../../../core/components/table/table';
+import { BasicRecord, TableColumn, TableColumnComponent } from '../../../../core/components/table/table';
 import { TableComponent } from '../../../../core/components/table/table.component';
 import { APIService } from '../../../../core/services/api.service';
 import { Result } from '../../../../shared/models/result';
 import { translations } from '../../../translations';
-import { JSONSchema, SchemaInfo, excludeFields } from '../../model/json-schema';
-import { getPropertyType, numberTypes, schemaInfo } from '../../model/schame';
+import { SchemaInfo } from '../../model/json-schema';
+import { numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
 import { RelationLinkComponent } from './relation-link/relation-link.component';
@@ -61,33 +61,32 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
 
     this.tableColumns = [];
     const columnsToRmove: string[] = [];
-    for (const key in this.schemaInfo.schema.properties) {
-      if (excludeFields.includes(key)) {
-        continue;
-      }
-      const property: JSONSchema = this.schemaInfo.schema.properties[key];
-      const type = getPropertyType(property);
-      if (property.$ref) {
+    for (const propInfo of this.schemaInfo.propertiesInfo) {
+      if (propInfo.ref) {
         const tableColumn: TableColumn<T> = {
-          name: key,
-          displayName: this.schemaInfo.entityTranslations[key],
-          dataKey: key as keyof T,
+          name: propInfo.propertyName,
+          displayName: this.schemaInfo.entityTranslations[propInfo.propertyName],
+          dataKey: propInfo.propertyName as keyof T,
           componentDef: {
             component: RelationLinkComponent,
             inputs: {
-              key: key,
-              refEntityName: key,
+              key: propInfo.propertyName,
+              refEntityName: propInfo.propertyName,
             },
           },
         };
         this.tableColumns.push(tableColumn);
-        columnsToRmove.push(key + 'Name');
-      } else if (type !== 'array') {
+        columnsToRmove.push(propInfo.propertyName + 'Name');
+        // } else if (type !== 'array') {
+      } else {
         const tableColumn: TableColumn<T> = {
-          name: key,
-          displayName: this.schemaInfo.entityTranslations[key],
-          dataKey: key as keyof T,
-          fn: this.getFn(key),
+          name: propInfo.propertyName,
+          displayName: this.schemaInfo.entityTranslations[propInfo.propertyName],
+          dataKey: propInfo.propertyName as keyof T,
+          fn: this.getFn(propInfo.propertyName),
+          componentDef: propInfo.hooks?.list
+            ? { component: propInfo.hooks.list as Type<TableColumnComponent<unknown, T>> }
+            : undefined,
         };
         this.tableColumns.push(tableColumn);
       }

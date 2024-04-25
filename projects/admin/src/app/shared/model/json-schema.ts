@@ -1,4 +1,7 @@
+import { ComponentType } from '@angular/cdk/portal';
+import { Type } from '@angular/core';
 import { JSONSchema7 } from 'json-schema';
+import { TableColumnComponent } from '../../../core/components/table/table';
 import { APIService } from '../../../core/services/api.service';
 import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
 
@@ -18,6 +21,16 @@ export type SchemaInfo<T = unknown> = {
   entityTranslations: Record<string, string>;
 };
 
+export interface ComponentHooks {
+  form?: ComponentType<never>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  list?: Type<TableColumnComponent<any>>;
+}
+
+export type HookType<T> = {
+  [P in keyof T]?: ComponentHooks;
+};
+
 export enum InputType {
   input,
   dateTime,
@@ -34,6 +47,7 @@ export interface PropertyInformation {
   hide?: boolean;
   firstType: string | undefined;
   ref: keyof APIService | undefined;
+  hooks?: ComponentHooks;
 }
 
 export type PropType<T> = Omit<

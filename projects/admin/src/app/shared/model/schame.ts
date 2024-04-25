@@ -1,6 +1,7 @@
 import { JSONSchema7Type, JSONSchema7TypeName } from 'json-schema';
 import schema from '../../../../../../src/app/core/models/json-schema.json';
 import { APIService } from '../../../core/services/api.service';
+import * as hooks from '../../../models/hooks';
 import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
 import { translations } from '../../translations';
 import { InputType, JSONSchema, PropertyInformation, SchemaInfo, excludeFields } from './json-schema';
@@ -47,29 +48,32 @@ export function schemaInfo<T>(entityName: string, apiService: APIService): Schem
   const key = getJSONKey(entityName)!;
   const jsonSchema = schema.definitions[key as keyof typeof schema.definitions] as unknown as JSONSchema;
   const restApiService: RestApiServiceUnkown = apiService[toSmallLetter(key) as keyof typeof apiService];
-  const propertiesInfo: PropertyInformation[] = getPropertiesInfo(jsonSchema);
+  const propertiesInfo: PropertyInformation[] = getPropertiesInfo(key, jsonSchema);
   const entityTranslations = translations[toSmallLetter(key) as keyof typeof translations];
 
   return { propertiesInfo, schema: jsonSchema!, entityTranslations, api: restApiService as RestApiServiceUnkown<T> };
 }
 
-function getPropertiesInfo(dataSchema: JSONSchema) {
+function getPropertiesInfo(key: string, dataSchema: JSONSchema) {
   const propertiesInfo: PropertyInformation[] = [];
   const relations: string[] = [];
+  const modelHooks = hooks[key as keyof typeof hooks];
   for (const [propertyName, property] of Object.entries(dataSchema.properties)) {
     if (excludeFields.includes(propertyName)) {
       continue;
     }
-    const type = getPropertyType(property);
+    // const type = getPropertyType(property);
     const refs = property.$ref?.split('/');
     const ref = refs ? (refs[refs.length - 1] as keyof APIService) : undefined;
     const controlName = propertyName + (ref ? 'Id' : '');
-    if (propertyName !== 'id' && type !== 'array') {
+    // if (propertyName !== 'id' && type !== 'array') {
+    if (propertyName !== 'id') {
       const firstType = getFirstType(property);
       const inputType = getInputType(property, firstType, ref);
       if (ref) {
         relations.push(propertyName + 'Name');
       }
+      const proHooks = modelHooks ? modelHooks[propertyName as keyof typeof modelHooks] : undefined;
       propertiesInfo.push({
         name: controlName,
         propertyName: propertyName,
@@ -77,6 +81,7 @@ function getPropertiesInfo(dataSchema: JSONSchema) {
         firstType: firstType,
         inputType: inputType,
         ref: ref,
+        hooks: proHooks,
       });
     }
   }

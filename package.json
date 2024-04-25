@@ -13,7 +13,7 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "preprisma:generate": "npm run build --prefix prisma-idt-generator && npm i ./prisma-idt-generator",
-    "prisma:generate": "npx prisma generate && npx prettier projects/admin/src/core/services/api.service.ts --write && npx prettier src/app/core/models/dummy-interfaces.ts --write && npx prettier projects/admin/src/app/translations/ --write",
+    "prisma:generate": "npx prisma generate && npx prettier projects/admin/src/core/services/api.service.ts --write && npx prettier projects/admin/src/models/**/* --write && npx prettier projects/admin/src/app/translations/ --write",
     "translate": "cd translations && node translate-generate.js ",
     "deploy": "npm run translate && ng build  --configuration production  --base-href /manazel-alabrar-fe/ && cp dist/manazel-alabrar-fe/index.html dist/manazel-alabrar-fe/404.html",
     "analyzer": "ng build  --configuration production --build-optimizer --stats-json && webpack-bundle-analyzer dist/manazel-alabrar-fe/stats.json",
@@ -51,6 +51,7 @@
     "sweetalert2": "^11.4.8",
     "swiper": "^9.2.0",
     "tslib": "^2.3.0",
+    "zod": "^3.23.4",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {

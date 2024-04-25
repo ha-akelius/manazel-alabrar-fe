@@ -13,7 +13,7 @@ import { schemaInfo } from '../../../model/schame';
   templateUrl: './actions-data-table.component.html',
   styleUrl: './actions-data-table.component.scss',
 })
-export class ActionsDataTableComponent<T extends BasicRecord> extends TableColumnComponent<T> implements OnInit {
+export class ActionsDataTableComponent<T extends BasicRecord> extends TableColumnComponent<void, T> implements OnInit {
   apiService = inject(APIService);
   schemaInfo!: SchemaInfo;
 

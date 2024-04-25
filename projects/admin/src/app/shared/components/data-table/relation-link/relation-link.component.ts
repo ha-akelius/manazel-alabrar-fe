@@ -1,7 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { Subject } from 'rxjs';
 import { BasicRecord, TableColumnComponent } from '../../../../../core/components/table/table';
 
 @Component({
@@ -10,19 +9,15 @@ import { BasicRecord, TableColumnComponent } from '../../../../../core/component
   imports: [CommonModule, RouterModule],
   template: `<a [routerLink]="['/edit', refEntityName, id]">{{ id }}:{{ name }}</a>`,
 })
-export class RelationLinkComponent<T extends BasicRecord> implements TableColumnComponent<T>, OnInit {
-  @Input() record: T;
-  @Input() entityName: string;
-  @Input() onChange: Subject<void>;
-  @Input() key: string;
+export class RelationLinkComponent<T extends BasicRecord> extends TableColumnComponent<number, T> implements OnInit {
   @Input() refEntityName: string;
 
   id: number;
   name: string;
 
   ngOnInit(): void {
-    const idKey = (this.key + 'Id') as keyof T;
-    const nameKey = (this.key + 'Name') as keyof T;
+    const idKey = (this.key + 'Id') as keyof typeof this.record;
+    const nameKey = (this.key + 'Name') as keyof typeof this.record;
     this.id = this.record[idKey] as number;
     this.name = this.record[nameKey] as string;
   }
