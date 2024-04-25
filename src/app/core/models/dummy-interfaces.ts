@@ -8,10 +8,12 @@ export class CourseInstance {}
 
 export class StudentPathInstance {}
 
-export class Student {}
-
 export class QuizInstance {}
 
 export class QuizInstanceStudent {}
 
+export class Student {}
+
 export class Teacher {}
+
+export class User {}

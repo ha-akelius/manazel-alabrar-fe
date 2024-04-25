@@ -2,20 +2,16 @@ import { JSONSchema7Type, JSONSchema7TypeName } from 'json-schema';
 import schema from '../../../../../../src/app/core/models/json-schema.json';
 import { APIService } from '../../../core/services/api.service';
 import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
-import { InputType, JSONSchema, PropertyInformation, SchemaInfo } from './json-schema';
+import { translations } from '../../translations';
+import { InputType, JSONSchema, PropertyInformation, SchemaInfo, excludeFields } from './json-schema';
 
 const schemaJson: JSONSchema = schema as unknown as JSONSchema;
 
-export function getJSONSchema(entityName: string): JSONSchema {
-  return getCaseInsensitiveProperty(schemaJson.definitions, entityName);
-}
-
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-function getCaseInsensitiveProperty(obj: object, prop: string): any {
-  const propLower = prop.toLowerCase();
-  for (const key in obj) {
+function getJSONKey(entityName: string): string | undefined {
+  const propLower = entityName.toLowerCase();
+  for (const key in schemaJson.definitions) {
     if (key.toLowerCase() === propLower) {
-      return obj[key as keyof typeof obj];
+      return key;
     }
   }
   return undefined; // Or throw an error if the property is not found
@@ -23,6 +19,10 @@ function getCaseInsensitiveProperty(obj: object, prop: string): any {
 
 export function getPropertyType(property: JSONSchema): JSONSchema7TypeName {
   return Array.isArray(property.type) ? property.type[0] : property.type!;
+}
+
+function toSmallLetter(str: string): string {
+  return str.charAt(0).toLocaleLowerCase() + str.substring(1);
 }
 
 function getInputType(
@@ -44,16 +44,21 @@ function getInputType(
 }
 
 export function schemaInfo<T>(entityName: string, apiService: APIService): SchemaInfo<T> {
-  const dataSchema: JSONSchema = getJSONSchema(entityName);
-  const restApiService: RestApiServiceUnkown = getCaseInsensitiveProperty(apiService, entityName);
-  const propertiesInfo: PropertyInformation[] = getPropertiesInfo(dataSchema);
+  const key = getJSONKey(entityName)!;
+  const jsonSchema = schema.definitions[key as keyof typeof schema.definitions] as unknown as JSONSchema;
+  const restApiService: RestApiServiceUnkown = apiService[toSmallLetter(key) as keyof typeof apiService];
+  const propertiesInfo: PropertyInformation[] = getPropertiesInfo(jsonSchema);
+  const entityTranslations = translations[toSmallLetter(key) as keyof typeof translations];
 
-  return { propertiesInfo, schema: dataSchema, api: restApiService as RestApiServiceUnkown<T> };
+  return { propertiesInfo, schema: jsonSchema!, entityTranslations, api: restApiService as RestApiServiceUnkown<T> };
 }
 
 function getPropertiesInfo(dataSchema: JSONSchema) {
   const propertiesInfo: PropertyInformation[] = [];
   for (const [propertyName, property] of Object.entries(dataSchema.properties)) {
+    if (excludeFields.includes(propertyName)) {
+      continue;
+    }
     const type = getPropertyType(property);
     const refs = property.$ref?.split('/');
     const ref = refs ? (refs[refs.length - 1] as keyof APIService) : undefined;

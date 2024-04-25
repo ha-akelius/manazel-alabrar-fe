@@ -10,4 +10,6 @@ export const pathInstance: Record<keyof PropType<PathInstance>, string> = {
   numberOfStudents: $localize`number of student`,
   numberOfRegisteredStudents: $localize`number of registered student`,
   stilOpen: $localize`still open`,
+  pathId: $localize`path`,
+  pathName: '',
 };

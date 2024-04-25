@@ -378,6 +378,30 @@
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="8346941025098344805" datatype="html">
+        <source>language</source>
+        <target state="translated">اللغة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/user.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5584623107240304279" datatype="html">
+        <source>roles</source>
+        <target state="translated">الأدوار</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/user.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2347724151568473592" datatype="html">
+        <source>language</source>
+        <target state="translated">اللغة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/user.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

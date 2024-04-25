@@ -28,6 +28,13 @@ model Path {
   description         String
   courses             Course[]
   studentPathInstance StudentPathInstance[]
+  pathInstances       PathInstance[]
+  createdDate         DateTime
+  updatedDate         DateTime
+  createdUserName     String
+  createdUserId       Int
+  updatedUserName     String
+  updatedUserId       Int
 }
 
 model PathInstance {
@@ -37,11 +44,20 @@ model PathInstance {
   dateFrom                   DateTime
   dateTo                     DateTime
   numberOfStudents           Int
-  numberOfRegisteredStudents Int
+  numberOfRegisteredStudents Int                   @default(0)
   stilOpen                   Boolean?              @default(false)
   quizInstanceStudents       QuizInstanceStudent[]
   studentPathInstance        StudentPathInstance[]
   CourseInstance             CourseInstance[]
+  pathId                     Int
+  pathName                   String
+  path                       Path                  @relation(fields: [pathId], references: [id])
+  createdDate                DateTime
+  updatedDate                DateTime
+  createdUserName            String
+  createdUserId              Int
+  updatedUserName            String
+  updatedUserId              Int
 }
 
 model Course {
@@ -53,6 +69,12 @@ model Course {
   courseInstances CourseInstance[]
   lessons         Json
   quiz            Json
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
 }
 
 model CourseInstance {
@@ -75,6 +97,12 @@ model CourseInstance {
   teacherId        Int
   teacherName      String
   teacher          Teacher        @relation(fields: [teacherId], references: [id])
+  createdDate      DateTime
+  updatedDate      DateTime
+  createdUserName  String
+  createdUserId    Int
+  updatedUserName  String
+  updatedUserId    Int
 }
 
 model StudentPathInstance {
@@ -90,16 +118,12 @@ model StudentPathInstance {
   pathId           Int
   path             Path         @relation(fields: [pathId], references: [id])
   pathName         String
-}
-
-model Student {
-  id                  Int                   @id @default(autoincrement())
-  name                String
-  password            String
-  student_info        Json
-  quizStudents        QuizInstanceStudent[]
-  pathInformation     Json
-  studentPathInstance StudentPathInstance[]
+  createdDate      DateTime
+  updatedDate      DateTime
+  createdUserName  String
+  createdUserId    Int
+  updatedUserName  String
+  updatedUserId    Int
 }
 
 model QuizInstance {
@@ -113,6 +137,12 @@ model QuizInstance {
   courseInstanceId   Int
   courseInstanceName String
   courseInstance     CourseInstance        @relation(fields: [courseInstanceId], references: [id])
+  createdDate        DateTime
+  updatedDate        DateTime
+  createdUserName    String
+  createdUserId      Int
+  updatedUserName    String
+  updatedUserId      Int
 }
 
 model QuizInstanceStudent {
@@ -130,13 +160,67 @@ model QuizInstanceStudent {
   pathInstanceString String
   pathInstance       PathInstance @relation(fields: [pathInstanceId], references: [id])
   answerOptions      Json
+  createdDate        DateTime
+  updatedDate        DateTime
+  createdUserName    String
+  createdUserId      Int
+  updatedUserName    String
+  updatedUserId      Int
+}
+
+model Student {
+  id                  Int                   @id
+  name                String
+  user                User                  @relation(fields: [id], references: [id])
+  student_info        Json
+  quizStudents        QuizInstanceStudent[]
+  pathInformation     Json
+  studentPathInstance StudentPathInstance[]
+  createdDate         DateTime
+  updatedDate         DateTime
+  createdUserName     String
+  createdUserId       Int
+  updatedUserName     String
+  updatedUserId       Int
 }
 
 model Teacher {
-  id              Int              @id @default(autoincrement())
+  id              Int              @id
   name            String
-  password        String
-  phone           Int
-  email           String           @unique
+  user            User             @relation(fields: [id], references: [id])
   courseInstances CourseInstance[]
+
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
+}
+
+model User {
+  id              Int      @id @default(autoincrement())
+  name            String
+  email           String   @unique
+  password        String
+  language        Language
+  roles           Role[]
+  teacher         Teacher?
+  studnet         Student?
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
+}
+
+enum Role {
+  TEACHER
+  STUDENT
+}
+
+enum Language {
+  ar
+  en_EN
 }

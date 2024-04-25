@@ -1,3 +1,4 @@
+import { user } from './user';
 import { course } from './course';
 import { courseInstance } from './course-instance';
 import { general } from './general';
@@ -20,4 +21,5 @@ export const translations = {
   quizInstance,
   quizInstanceStudent,
   teacher,
+  user,
 };

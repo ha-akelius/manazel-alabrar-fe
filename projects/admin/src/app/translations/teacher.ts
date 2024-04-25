@@ -4,7 +4,4 @@ import { PropType } from '../shared/model/json-schema';
 export const teacher: Record<keyof PropType<Teacher>, string> = {
   id: $localize`number`,
   name: $localize`name`,
-  password: $localize`password`,
-  phone: $localize`phone`,
-  email: $localize`email`,
 };

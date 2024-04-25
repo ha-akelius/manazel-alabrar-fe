@@ -11,7 +11,7 @@ import { TableComponent } from '../../../../core/components/table/table.componen
 import { APIService } from '../../../../core/services/api.service';
 import { Result } from '../../../../shared/models/result';
 import { translations } from '../../../translations';
-import { JSONSchema, SchemaInfo } from '../../model/json-schema';
+import { JSONSchema, SchemaInfo, excludeFields } from '../../model/json-schema';
 import { getPropertyType, numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
@@ -45,7 +45,6 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
     pages: 0,
   };
   filters = new FormControl([] as Filter[], { nonNullable: true });
-  entityTranslations: Record<string, string>;
   translations = translations.general;
 
   constructor() {
@@ -57,19 +56,21 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
 
   ngOnInit(): void {
     this.schemaInfo = schemaInfo(this.entityName, this.apiService);
-    this.entityTranslations = translations[this.entityName as keyof typeof translations];
 
     this.fetchData();
 
     this.tableColumns = [];
     const columnsToRmove: string[] = [];
     for (const key in this.schemaInfo.schema.properties) {
+      if (excludeFields.includes(key)) {
+        continue;
+      }
       const property: JSONSchema = this.schemaInfo.schema.properties[key];
       const type = getPropertyType(property);
       if (property.$ref) {
         const tableColumn: TableColumn<T> = {
           name: key,
-          displayName: this.entityTranslations[key],
+          displayName: this.schemaInfo.entityTranslations[key],
           dataKey: key as keyof T,
           componentDef: {
             component: RelationLinkComponent,
@@ -84,7 +85,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
       } else if (type !== 'array') {
         const tableColumn: TableColumn<T> = {
           name: key,
-          displayName: this.entityTranslations[key],
+          displayName: this.schemaInfo.entityTranslations[key],
           dataKey: key as keyof T,
           fn: this.getFn(key),
         };
@@ -120,7 +121,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
   }
 
   private getFn(key: string): ((value: T[keyof T] | undefined) => string) | undefined {
-    if (key.toLocaleLowerCase().indexOf('date') > 0) {
+    if (key.toLocaleLowerCase().indexOf('date') > 0 && key.toLocaleLowerCase().indexOf('update') < 0) {
       return (value: T[keyof T] | undefined) => this.datePipe.transform(value as string) ?? '';
     } else {
       return undefined;

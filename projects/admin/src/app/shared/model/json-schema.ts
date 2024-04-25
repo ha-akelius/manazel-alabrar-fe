@@ -15,6 +15,7 @@ export type SchemaInfo<T = unknown> = {
   propertiesInfo: PropertyInformation[];
   schema: JSONSchema;
   api: RestApiServiceUnkown<T>;
+  entityTranslations: Record<string, string>;
 };
 
 export enum InputType {
@@ -38,3 +39,12 @@ export type PropType<T> = Omit<
   T,
   'createdDate' | 'createdUserName' | 'createdUserId' | 'updatedDate' | 'updatedUserName' | 'updatedUserId'
 >;
+
+export const excludeFields = [
+  'createdDate',
+  'createdUserName',
+  'createdUserId',
+  'updatedDate',
+  'updatedUserName',
+  'updatedUserId',
+];

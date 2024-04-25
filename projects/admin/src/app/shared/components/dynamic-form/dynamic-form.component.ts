@@ -38,7 +38,6 @@ export class DynamicFormComponent implements OnInit {
   inputType = InputType;
   pageTitle: string = 'Add ' + this.entityName;
   getFirstType = getFirstType;
-  entityTranslations: Record<string, string>;
   translations = translations.general;
   createFormGroup() {
     const formGroup = new FormGroup({});
@@ -54,7 +53,6 @@ export class DynamicFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.schemaInfo = schemaInfo(this.entityName, this.apiService);
-    this.entityTranslations = translations[this.entityName as keyof typeof translations];
     this.createFormGroup();
 
     if (this.value) {

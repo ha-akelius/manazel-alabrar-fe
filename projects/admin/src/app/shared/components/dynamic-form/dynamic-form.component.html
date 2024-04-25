@@ -7,8 +7,8 @@
       @for (propInfo of schemaInfo.propertiesInfo; track $index) {
         @switch (propInfo.inputType) {
           @case (inputType.dateTime) {
-            <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 ; padded-field">
-              <mat-label>{{ entityTranslations[propInfo.name] }}</mat-label>
+            <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
+              <mat-label>{{ schemaInfo.entityTranslations[propInfo.name] }}</mat-label>
               <input
                 matInput
                 [matDatepicker]="myDatepicker"
@@ -20,9 +20,9 @@
             </mat-form-field>
           }
           @case (inputType.input) {
-            <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 ; padded-field">
+            <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
               <!-- <mat-label>{{ propInfo.name }}</mat-label> -->
-              <mat-label>{{ entityTranslations[propInfo.name] }}</mat-label>
+              <mat-label>{{ schemaInfo.entityTranslations[propInfo.name] }}</mat-label>
               <input
                 matInput
                 [type]="propInfo.firstType ?? ''"
@@ -46,7 +46,7 @@
             />
           }
           @case (inputType.boolean) {
-            <mat-slide-toggle class="col-xs-12 col-sm-6 col-lg-4" [formControlName]="propInfo.name">
+            <mat-slide-toggle class="col-xs-12 col-sm-6 col-lg-4 padded-field" [formControlName]="propInfo.name">
               {{ propInfo.name }}
             </mat-slide-toggle>
           }
