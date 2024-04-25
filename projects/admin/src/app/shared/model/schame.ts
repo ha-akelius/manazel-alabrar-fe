@@ -57,7 +57,7 @@ export function schemaInfo<T>(entityName: string, apiService: APIService): Schem
 function getPropertiesInfo(key: string, dataSchema: JSONSchema) {
   const propertiesInfo: PropertyInformation[] = [];
   const relations: string[] = [];
-  const modelHooks = hooks[key as keyof typeof hooks];
+  const modelHooks = hooks[(toSmallLetter(key) + 'Hooks') as keyof typeof hooks];
   for (const [propertyName, property] of Object.entries(dataSchema.properties)) {
     if (excludeFields.includes(propertyName)) {
       continue;

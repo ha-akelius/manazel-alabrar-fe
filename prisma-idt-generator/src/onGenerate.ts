@@ -16,6 +16,7 @@ function toSmallLetter(str: string): string {
 export default async function onGenerate(options: GeneratorOptions) {
   const models = options.dmmf.datamodel.models;
   generateTrnaslations(models);
+  generateTrnaslationsEnum(options.dmmf.datamodel.enums);
   generateAPIService(models);
   generateHooks(models);
 }
@@ -52,16 +53,16 @@ function generateHooks(models: DMMF.Model[]) {
   models.forEach((e) => {
     content += `export * from './${toKebabCase(e.name)}-hooks';`;
     const hookFile = file + toKebabCase(e.name) + '-hooks.ts';
-    // if (!fs.existsSync(hookFile)) {
-    const hookContent = `import { ${e.name} } from '@prisma/client';
+    if (!fs.existsSync(hookFile)) {
+      const hookContent = `import { ${e.name} } from '@prisma/client';
   import { HookType } from '../../app/shared/model/json-schema';
   import { ImportantProps } from '../utils/type-utils';
 
   export const ${toSmallLetter(e.name)}Hooks: HookType<ImportantProps<${e.name}>> = {};
 
   `;
-    createFile(hookFile, hookContent);
-    // }
+      createFile(hookFile, hookContent);
+    }
   });
   if (!fs.existsSync(file + 'index.ts')) {
     fs.rmSync(file + 'index.ts');
@@ -86,6 +87,28 @@ function generateTrnaslations(models: DMMF.Model[]) {
       export const ${small}: Record<keyof PropType<${e.name}>, string> = {
       };
           `;
+      createFile(file + fileName + '.ts', content);
+
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const regex = /};$/gm;
+      const newContent = `import { ${small} } from './${fileName}';\n` + fileContent.replace(regex, `  ${small},\n};`);
+      fs.writeFileSync(filePath, newContent, 'utf8');
+    }
+  });
+}
+function generateTrnaslationsEnum(models: DMMF.DatamodelEnum[]) {
+  const file = 'projects/admin/src/app/translations/';
+  const filePath = file + 'index.ts';
+  models.forEach((e) => {
+    const small = toSmallLetter(e.name);
+    const fileName = toKebabCase(e.name);
+    if (!fs.existsSync(file + fileName + '.ts')) {
+      const content = `import { ${e.name} } from '@prisma/client';
+
+      export const ${toSmallLetter(e.name)}: Record<${e.name}, string> = {
+        ${e.values.map((v) => v.name + ': ""').join(',')}
+      };
+      `;
       createFile(file + fileName + '.ts', content);
 
       const fileContent = fs.readFileSync(filePath, 'utf8');
