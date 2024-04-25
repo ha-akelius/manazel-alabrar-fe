@@ -55,6 +55,7 @@ export function schemaInfo<T>(entityName: string, apiService: APIService): Schem
 
 function getPropertiesInfo(dataSchema: JSONSchema) {
   const propertiesInfo: PropertyInformation[] = [];
+  const relations: string[] = [];
   for (const [propertyName, property] of Object.entries(dataSchema.properties)) {
     if (excludeFields.includes(propertyName)) {
       continue;
@@ -66,6 +67,9 @@ function getPropertiesInfo(dataSchema: JSONSchema) {
     if (propertyName !== 'id' && type !== 'array') {
       const firstType = getFirstType(property);
       const inputType = getInputType(property, firstType, ref);
+      if (ref) {
+        relations.push(propertyName + 'Name');
+      }
       propertiesInfo.push({
         name: controlName,
         propertyName: propertyName,
@@ -76,6 +80,7 @@ function getPropertiesInfo(dataSchema: JSONSchema) {
       });
     }
   }
+  propertiesInfo.filter((p) => relations.includes(p.propertyName)).forEach((p) => (p.hide = true));
   return propertiesInfo;
 }
 
