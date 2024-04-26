@@ -18,9 +18,9 @@ generator jsonSchema {
   output   = "../src/app/core/models"
 }
 
-generator idt {
-  provider = "prisma-idt-generator"
-}
+// generator idt {
+//   provider = "prisma-idt-generator"
+// }
 
 model Path {
   id                  Int                   @id @default(autoincrement())
@@ -28,6 +28,12 @@ model Path {
   description         String
   courses             Course[]
   studentPathInstance StudentPathInstance[]
+  createdDate         DateTime
+  updatedDate         DateTime
+  createdUserName     String
+  createdUserId       Int
+  updatedUserName     String
+  updatedUserId       Int
 }
 
 model PathInstance {
@@ -42,6 +48,12 @@ model PathInstance {
   quizInstanceStudents       QuizInstanceStudent[]
   studentPathInstance        StudentPathInstance[]
   CourseInstance             CourseInstance[]
+  createdDate                DateTime
+  updatedDate                DateTime
+  createdUserName            String
+  createdUserId              Int
+  updatedUserName            String
+  updatedUserId              Int
 }
 
 model Course {
@@ -52,7 +64,12 @@ model Course {
   path            Path             @relation(fields: [pathId], references: [id])
   courseInstances CourseInstance[]
   lessons         Json
-  quiz            Json
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
 }
 
 model CourseInstance {
@@ -75,6 +92,12 @@ model CourseInstance {
   teacherId        Int
   teacherName      String
   teacher          Teacher        @relation(fields: [teacherId], references: [id])
+  createdDate      DateTime
+  updatedDate      DateTime
+  createdUserName  String
+  createdUserId    Int
+  updatedUserName  String
+  updatedUserId    Int
 }
 
 model StudentPathInstance {
@@ -90,16 +113,12 @@ model StudentPathInstance {
   pathId           Int
   path             Path         @relation(fields: [pathId], references: [id])
   pathName         String
-}
-
-model Student {
-  id                  Int                   @id @default(autoincrement())
-  name                String
-  password            String
-  student_info        Json
-  quizStudents        QuizInstanceStudent[]
-  pathInformation     Json
-  studentPathInstance StudentPathInstance[]
+  createdDate      DateTime
+  updatedDate      DateTime
+  createdUserName  String
+  createdUserId    Int
+  updatedUserName  String
+  updatedUserId    Int
 }
 
 model QuizInstance {
@@ -113,6 +132,12 @@ model QuizInstance {
   courseInstanceId   Int
   courseInstanceName String
   courseInstance     CourseInstance        @relation(fields: [courseInstanceId], references: [id])
+  createdDate        DateTime
+  updatedDate        DateTime
+  createdUserName    String
+  createdUserId      Int
+  updatedUserName    String
+  updatedUserId      Int
 }
 
 model QuizInstanceStudent {
@@ -130,6 +155,28 @@ model QuizInstanceStudent {
   pathInstanceString String
   pathInstance       PathInstance @relation(fields: [pathInstanceId], references: [id])
   answerOptions      Json
+  createdDate        DateTime
+  updatedDate        DateTime
+  createdUserName    String
+  createdUserId      Int
+  updatedUserName    String
+  updatedUserId      Int
+}
+
+model Student {
+  id                  Int                   @id @default(autoincrement())
+  name                String
+  password            String
+  student_info        Json
+  quizStudents        QuizInstanceStudent[]
+  pathInformation     Json
+  studentPathInstance StudentPathInstance[]
+  createdDate         DateTime
+  updatedDate         DateTime
+  createdUserName     String
+  createdUserId       Int
+  updatedUserName     String
+  updatedUserId       Int
 }
 
 model Teacher {
@@ -139,4 +186,17 @@ model Teacher {
   phone           Int
   email           String           @unique
   courseInstances CourseInstance[]
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  password String
+  language String
 }

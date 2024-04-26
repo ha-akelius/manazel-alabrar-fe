@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthService } from './auth-service.service';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { HomeComponent } from './home/home.component';
 import { DashboardComponent } from './layout/dashboard/dashboard.component';
 import { LoginComponent } from './login/login.component';
@@ -17,6 +18,7 @@ const protectedRoutes: Routes = [
       { path: 'list/:entityName', component: ListPageComponent },
       { path: 'edit/:entityName/:id', component: FormPageComponent },
       { path: 'create/:entityName', component: FormPageComponent },
+      { path: 'userprofile', component: UserProfileComponent },
     ],
   },
 ];
