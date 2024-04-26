@@ -1,14 +1,18 @@
+import { IsDate, IsInt, Length } from 'class-validator';
 import { Student } from './dummy-interfaces';
-
-export interface media {
+export class media {
   url: string;
 }
-export interface Lesson {
+export class Lesson {
+  @Length(2, 50)
   name: string;
   description: string;
+  @IsInt()
   pageNumber: number;
+  @IsInt()
   toPageNumber: number;
   audio: media;
+  @IsDate()
   date: Date;
   questins: Question[];
   students: StudentLesson[];
@@ -18,19 +22,21 @@ export enum QuestionType {
   SingleChoice = 'SingleChoice',
   MultiChoice = 'MultiChoice',
 }
-export interface Question {
+export class Question {
   questionType: QuestionType;
+  @Length(2, 50)
   name: string;
   answers: Answer[];
   mark: number;
 }
 
-export interface Answer {
+export class Answer {
+  @Length(2, 100)
   name: string;
   correct: boolean;
 }
 
-export interface StudentLesson {
+export class StudentLesson {
   student: Student;
   studentName: string;
   done: boolean;
