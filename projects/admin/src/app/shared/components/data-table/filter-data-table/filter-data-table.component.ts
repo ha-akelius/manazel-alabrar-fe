@@ -9,7 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription } from 'rxjs';
-import { PropInformation, WithPropType } from '../../../../../models/utils/type-utils';
+import { WithPropType } from '../../../../../models/utils/type-utils';
+import { GuiPropInformation } from '../../../model/json-schema';
 import { fromJsonTypeToHtmlType, htmlInputType } from '../../../model/schame';
 import { typeOperator } from './filter-data-table';
 
@@ -57,7 +58,7 @@ type FilterForm = ReturnType<typeof getFilterForm>;
   ],
 })
 export class FilterDataTableComponent implements OnDestroy {
-  @Input() schema: WithPropType<any, PropInformation<any, any>>;
+  @Input() schema: WithPropType<any, GuiPropInformation>;
   @Output() search = new EventEmitter<Filter[]>();
   filters = new FormArray<FilterForm>([]);
 
@@ -91,7 +92,7 @@ export class FilterDataTableComponent implements OnDestroy {
 
   setType(field: string, filterForm: FilterForm): void {
     const property = this.schema[field];
-    const type = property.basic.type ?? 'null';
+    const type = property.propInformation.basic.type ?? 'null';
     filterForm.controls.type.setValue(fromJsonTypeToHtmlType(field, type));
   }
 }

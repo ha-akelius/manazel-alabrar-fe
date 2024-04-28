@@ -20,10 +20,7 @@ const courseInstanceId: PropInformation<number, 'number'> = {
 const courseInstanceName: PropInformation<string, 'string'> = {
   basic: QuizInstanceGenInfo.courseInstanceName,
 };
-export const QuizInstancePropInfo: WithPropType<
-  QuizInstance,
-  PropInformation<any, any>
-> = {
+export const QuizInstancePropInfo: WithPropType<QuizInstance, PropInformation<any, any>> = {
   name: name,
   dateFrom: dateFrom,
   dateTo: dateTo,

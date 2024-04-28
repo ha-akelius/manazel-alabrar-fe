@@ -41,10 +41,7 @@ const teacherId: PropInformation<number, 'number'> = {
 const teacherName: PropInformation<string, 'string'> = {
   basic: CourseInstanceGenInfo.teacherName,
 };
-export const CourseInstancePropInfo: WithPropType<
-  CourseInstance,
-  PropInformation<any, any>
-> = {
+export const CourseInstancePropInfo: WithPropType<CourseInstance, PropInformation<any, any>> = {
   name: name,
   courseId: courseId,
   courseName: courseName,

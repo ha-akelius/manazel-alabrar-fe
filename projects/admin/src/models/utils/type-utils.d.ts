@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { z } from 'zod';
 
 export type PropType<T> = Omit<
@@ -53,6 +54,7 @@ type GetTypeName<T, Name extends string = never> = T extends string
 
 export type PropPrismaInformation<T = any, Name extends string = string> = {
   type: Name;
+  name: string;
   defaultValue?: T;
   array?: boolean;
   optional?: boolean;
@@ -65,8 +67,6 @@ declare function $localize(key: string): string;
 export type MinMx = number;
 
 export type PropExtraInformation<T> = {
-  hideInTable?: boolean;
-  hideInForm?: boolean;
   y?: T;
   min?: MinMx;
   max?: MinMx;

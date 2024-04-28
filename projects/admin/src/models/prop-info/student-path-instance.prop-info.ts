@@ -26,10 +26,7 @@ const pathId: PropInformation<number, 'number'> = {
 const pathName: PropInformation<string, 'string'> = {
   basic: StudentPathInstanceGenInfo.pathName,
 };
-export const StudentPathInstancePropInfo: WithPropType<
-  StudentPathInstance,
-  PropInformation<any, any>
-> = {
+export const StudentPathInstancePropInfo: WithPropType<StudentPathInstance, PropInformation<any, any>> = {
   mark: mark,
   fullMark: fullMark,
   studentId: studentId,

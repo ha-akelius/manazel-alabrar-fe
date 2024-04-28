@@ -29,10 +29,7 @@ const pathId: PropInformation<number, 'number'> = {
 const pathName: PropInformation<string, 'string'> = {
   basic: PathInstanceGenInfo.pathName,
 };
-export const PathInstancePropInfo: WithPropType<
-  PathInstance,
-  PropInformation<any, any>
-> = {
+export const PathInstancePropInfo: WithPropType<PathInstance, PropInformation<any, any>> = {
   name: name,
   description: description,
   dateFrom: dateFrom,

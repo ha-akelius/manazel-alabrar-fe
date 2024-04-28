@@ -218,7 +218,7 @@ model MediaFolder {
   parent     MediaFolder?  @relation("children", fields: [parentId], references: [id])
   children   MediaFolder[] @relation("children")
 
-  Media Media[]
+  medias Media[]
 }
 
 model Media {

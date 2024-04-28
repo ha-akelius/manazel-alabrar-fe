@@ -5,7 +5,4 @@ import { TeacherGenInfo } from './teacher.gen-info';
 const name: PropInformation<string, 'string'> = {
   basic: TeacherGenInfo.name,
 };
-export const TeacherPropInfo: WithPropType<
-  Teacher,
-  PropInformation<any, any>
-> = { name: name };
+export const TeacherPropInfo: WithPropType<Teacher, PropInformation<any, any>> = { name: name };

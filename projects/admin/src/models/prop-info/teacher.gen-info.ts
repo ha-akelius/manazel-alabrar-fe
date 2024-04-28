@@ -2,5 +2,6 @@
 import { PropPrismaInformation } from '../utils/type-utils';
 const name: PropPrismaInformation<string, 'string'> = {
   type: 'string',
+  name: 'name',
 };
 export const TeacherGenInfo = { name };

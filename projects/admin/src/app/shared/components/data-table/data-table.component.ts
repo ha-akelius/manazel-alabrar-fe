@@ -12,7 +12,7 @@ import { APIService } from '../../../../core/services/api.service';
 import { Result } from '../../../../shared/models/result';
 import { translations } from '../../../translations';
 import { SchemaInfo } from '../../model/json-schema';
-import { numberTypes, schemaInfo } from '../../model/schame';
+import { apiService, numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
 import { RelationLinkComponent } from './relation-link/relation-link.component';
@@ -55,44 +55,43 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
   }
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName, this.apiService);
+    this.schemaInfo = schemaInfo(this.entityName);
 
     this.fetchData();
 
     this.tableColumns = [];
-    const columnsToRmove: string[] = [];
-    for (const propInfo of this.schemaInfo.propertiesInfo) {
-      if (propInfo.ref) {
+    for (const propInfo of Object.values(this.schemaInfo.schema)) {
+      if (propInfo.guiInfo.hide?.list) {
+        continue;
+      }
+      if (propInfo.propInformation.basic.ref) {
         const tableColumn: TableColumn<T> = {
-          name: propInfo.propertyName,
-          displayName: this.schemaInfo.entityTranslations[propInfo.propertyName],
-          dataKey: propInfo.propertyName as keyof T,
+          name: propInfo.propInformation.basic.name,
+          displayName: propInfo.guiInfo.label,
+          dataKey: propInfo.propInformation.basic.name as keyof T,
           componentDef: {
             component: RelationLinkComponent,
             inputs: {
-              key: propInfo.propertyName,
-              refEntityName: propInfo.propertyName,
+              key: propInfo.propInformation.basic.name,
+              refEntityName: propInfo.propInformation.basic.ref,
             },
           },
         };
         this.tableColumns.push(tableColumn);
-        columnsToRmove.push(propInfo.propertyName + 'Name');
         // } else if (type !== 'array') {
       } else {
         const tableColumn: TableColumn<T> = {
-          name: propInfo.propertyName,
-          displayName: this.schemaInfo.entityTranslations[propInfo.propertyName],
-          dataKey: propInfo.propertyName as keyof T,
-          fn: this.getFn(propInfo.propertyName),
-          componentDef: propInfo.hooks?.list
-            ? { component: propInfo.hooks.list as Type<TableColumnComponent<unknown, T>> }
+          name: propInfo.propInformation.basic.name,
+          displayName: propInfo.guiInfo.label,
+          dataKey: propInfo.propInformation.basic.name as keyof T,
+          fn: this.getFn(propInfo.propInformation.basic.name),
+          componentDef: propInfo.guiInfo.hooks?.list
+            ? { component: propInfo.guiInfo.hooks?.list as Type<TableColumnComponent<unknown, T>> }
             : undefined,
         };
         this.tableColumns.push(tableColumn);
       }
     }
-
-    this.tableColumns = this.tableColumns.filter((t) => !columnsToRmove.includes(t.name));
 
     this.tableColumns.push({
       name: 'action',
@@ -114,9 +113,11 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
           [filter.operator]: numberTypes.includes(filter.type) ? +filter.value : filter.value,
         }),
     );
-    this.schemaInfo.api.findAll({ where }).subscribe((result) => {
-      this.result = result;
-    });
+    apiService(this.schemaInfo.api, this.apiService)
+      .findAll({ where })
+      .subscribe((result) => {
+        this.result = result as Result<T>;
+      });
   }
 
   private getFn(key: string): ((value: T[keyof T] | undefined) => string) | undefined {

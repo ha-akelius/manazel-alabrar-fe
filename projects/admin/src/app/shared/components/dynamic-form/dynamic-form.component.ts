@@ -8,11 +8,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
-import { PropInformation } from '../../../../models/utils/type-utils';
 import { translations } from '../../../translations';
-import { InputType, PropertyInformation, SchemaInfo } from '../../model/json-schema';
-import { schemaInfo } from '../../model/schame';
+import { GuiPropInformation, InputType, SchemaInfo } from '../../model/json-schema';
+import { apiService, schemaInfo } from '../../model/schame';
 import { RelationComponent } from './relation/relation.component';
+
+// Preserve original property order
+const originalOrder = (): number => {
+  return 0;
+};
 
 @Component({
   standalone: true,
@@ -40,20 +44,18 @@ export class DynamicFormComponent implements OnInit {
   inputType = InputType;
   pageTitle: string = 'Add ' + this.entityName;
   translations = translations.general;
+  originalOrder = originalOrder;
   createFormGroup() {
     const formGroup = new FormGroup({});
-    for (const propInfo of this.schemaInfo.propertiesInfo) {
-      const control = new FormControl(
-        propInfo.property.basic.defaultValue,
-        this.collectValidators(propInfo.propertyName, propInfo.property),
-      );
-      formGroup.addControl(propInfo.name, control);
+    for (const propInfo of Object.values(this.schemaInfo.schema)) {
+      const control = new FormControl(propInfo.propInformation.basic.defaultValue, this.collectValidators(propInfo));
+      formGroup.addControl(propInfo.propInformation.basic.name, control);
     }
     this.dynamicForm = formGroup;
   }
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName, this.apiService);
+    this.schemaInfo = schemaInfo(this.entityName);
     this.createFormGroup();
 
     if (this.value) {
@@ -70,11 +72,12 @@ export class DynamicFormComponent implements OnInit {
       this.dynamicForm.markAllAsTouched();
       return;
     }
+    const api = apiService(this.schemaInfo.api, this.apiService);
 
     const obs = this.value
       ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        this.schemaInfo.api.update((this.value as unknown as any).id, this.dynamicForm.value as never)
-      : this.schemaInfo.api.create(this.dynamicForm.value as never);
+        api.update((this.value as unknown as any).id, this.dynamicForm.value as never)
+      : api.create(this.dynamicForm.value as never);
     obs.subscribe((t) => {
       this.formResult.emit(t);
     });
@@ -84,26 +87,26 @@ export class DynamicFormComponent implements OnInit {
     this.formResult.emit(null);
   }
 
-  getRelation(property: PropertyInformation) {
-    return this.dynamicForm.get(property.propertyName.replace('Id', '') + 'Name')!;
+  getRelation(property: GuiPropInformation) {
+    return this.dynamicForm.get(property.propInformation.basic.name.replace('Id', '') + 'Name')!;
   }
 
-  private collectValidators(propertyName: string, property: PropInformation<any, any>): ValidatorFn[] {
+  private collectValidators(property: GuiPropInformation): ValidatorFn[] {
     const validators: ValidatorFn[] = [];
 
-    if (property.extra?.min) {
-      validators.push(Validators.min(property.extra.min));
+    if (property.propInformation.extra?.min) {
+      validators.push(Validators.min(property.propInformation.extra.min));
     }
 
-    if (property.extra?.max) {
-      validators.push(Validators.min(property.extra.max));
+    if (property.propInformation.extra?.max) {
+      validators.push(Validators.min(property.propInformation.extra.max));
     }
 
-    if (!property.basic.optional) {
+    if (!property.propInformation.basic.optional) {
       validators.push(Validators.required);
     }
 
-    if (propertyName.includes('email')) {
+    if (property.propInformation.basic.name.includes('email')) {
       validators.push(Validators.email);
     }
 
@@ -112,11 +115,11 @@ export class DynamicFormComponent implements OnInit {
     //   validators.push(Validators.maxLength(20));
     // }
 
-    const nameRegex = /^[a-zA-Z0-9]{3,20}$/;
+    // const nameRegex = /^[a-zA-Z0-9]{3,20}$/;
 
-    if (propertyName === 'name') {
-      validators.push(Validators.pattern(nameRegex));
-    }
+    // if (propertyName === 'name') {
+    //   validators.push(Validators.pattern(nameRegex));
+    // }
 
     return validators;
   }

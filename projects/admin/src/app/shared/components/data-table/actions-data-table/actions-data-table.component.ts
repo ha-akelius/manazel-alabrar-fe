@@ -4,7 +4,7 @@ import { RouterModule } from '@angular/router';
 import { BasicRecord, TableColumnComponent } from '../../../../../core/components/table/table';
 import { APIService } from '../../../../../core/services/api.service';
 import { SchemaInfo } from '../../../model/json-schema';
-import { schemaInfo } from '../../../model/schame';
+import { apiService, schemaInfo } from '../../../model/schame';
 
 @Component({
   selector: 'app-actions-data-table',
@@ -18,10 +18,11 @@ export class ActionsDataTableComponent<T extends BasicRecord> extends TableColum
   schemaInfo!: SchemaInfo;
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName, this.apiService);
+    this.schemaInfo = schemaInfo(this.entityName);
   }
 
   removeRecord(): void {
-    this.schemaInfo.api.delete(this.record.id).subscribe(() => this.onChange.next());
+    const api = apiService(this.schemaInfo.api, this.apiService);
+    api.delete(this.record.id).subscribe(() => this.onChange.next());
   }
 }

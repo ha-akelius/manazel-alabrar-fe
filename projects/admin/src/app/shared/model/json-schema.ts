@@ -4,13 +4,27 @@ import { Type } from '@angular/core';
 import { TableColumnComponent } from '../../../core/components/table/table';
 import { APIService } from '../../../core/services/api.service';
 import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
-import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
 
-export type SchemaInfo<T = unknown> = {
-  propertiesInfo: PropertyInformation[];
-  schema: WithPropType<any, PropInformation<any, any>>;
-  api: RestApiServiceUnkown<T>;
-  entityTranslations: Record<string, string>;
+export type SchemaInfo<T = any> = {
+  schema: WithPropType<T, GuiPropInformation>;
+  label: string;
+  labelPlural: string;
+  api: keyof APIService;
+};
+
+export type GuiInformation = {
+  label: string;
+  inputType: InputType;
+  hide?: {
+    form?: boolean;
+    list?: boolean;
+  };
+  hooks?: ComponentHooks;
+};
+
+export type GuiPropInformation = {
+  propInformation: PropInformation<any, any>;
+  guiInfo: GuiInformation;
 };
 
 export interface ComponentHooks {
@@ -19,26 +33,12 @@ export interface ComponentHooks {
   list?: Type<TableColumnComponent<any>>;
 }
 
-export type HookType<T> = {
-  [P in keyof T]?: ComponentHooks;
-};
-
 export enum InputType {
   input,
   dateTime,
   relation,
   boolean,
   unknown,
-}
-
-export interface PropertyInformation {
-  inputType: InputType;
-  name: string;
-  property: PropInformation<any, any>;
-  propertyName: string;
-  firstType: string | undefined;
-  ref: keyof APIService | undefined;
-  hooks?: ComponentHooks;
 }
 
 export type PropType<T> = Omit<
