@@ -1,3 +1,6 @@
+import { mediaType } from './media-type';
+import { media } from './media';
+import { mediaFolder } from './media-folder';
 import { language } from './language';
 import { role } from './role';
 import { user } from './user';
@@ -26,4 +29,7 @@ export const translations = {
   user,
   role,
   language,
+  mediaFolder,
+  media,
+  mediaType,
 };

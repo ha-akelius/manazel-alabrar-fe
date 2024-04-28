@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
@@ -7,9 +8,10 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
+import { PropInformation } from '../../../../models/utils/type-utils';
 import { translations } from '../../../translations';
-import { InputType, JSONSchema, PropertyInformation, SchemaInfo } from '../../model/json-schema';
-import { getFirstType, schemaInfo } from '../../model/schame';
+import { InputType, PropertyInformation, SchemaInfo } from '../../model/json-schema';
+import { schemaInfo } from '../../model/schame';
 import { RelationComponent } from './relation/relation.component';
 
 @Component({
@@ -37,13 +39,12 @@ export class DynamicFormComponent implements OnInit {
   schemaInfo!: SchemaInfo;
   inputType = InputType;
   pageTitle: string = 'Add ' + this.entityName;
-  getFirstType = getFirstType;
   translations = translations.general;
   createFormGroup() {
     const formGroup = new FormGroup({});
     for (const propInfo of this.schemaInfo.propertiesInfo) {
       const control = new FormControl(
-        propInfo.property.default,
+        propInfo.property.basic.defaultValue,
         this.collectValidators(propInfo.propertyName, propInfo.property),
       );
       formGroup.addControl(propInfo.name, control);
@@ -84,21 +85,21 @@ export class DynamicFormComponent implements OnInit {
   }
 
   getRelation(property: PropertyInformation) {
-    return this.dynamicForm.get(property.propertyName + 'Name')!;
+    return this.dynamicForm.get(property.propertyName.replace('Id', '') + 'Name')!;
   }
 
-  private collectValidators(propertyName: string, property: JSONSchema): ValidatorFn[] {
+  private collectValidators(propertyName: string, property: PropInformation<any, any>): ValidatorFn[] {
     const validators: ValidatorFn[] = [];
 
-    if (property.minimum) {
-      validators.push(Validators.min(property.minimum));
+    if (property.extra?.min) {
+      validators.push(Validators.min(property.extra.min));
     }
 
-    if (property.maximum) {
-      validators.push(Validators.min(property.maximum));
+    if (property.extra?.max) {
+      validators.push(Validators.min(property.extra.max));
     }
 
-    if (this.schemaInfo.schema.required?.includes(propertyName)) {
+    if (!property.basic.optional) {
       validators.push(Validators.required);
     }
 

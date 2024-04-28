@@ -13,11 +13,6 @@ datasource db {
   url      = env("POSTGRES_URL")
 }
 
-generator jsonSchema {
-  provider = "prisma-json-schema-generator"
-  output   = "../src/app/core/models"
-}
-
 generator idt {
   provider = "prisma-idt-generator"
 }
@@ -213,6 +208,35 @@ model User {
   createdUserId   Int
   updatedUserName String
   updatedUserId   Int
+}
+
+model MediaFolder {
+  id         Int           @id @default(autoincrement())
+  name       String
+  parentId   Int?
+  parentName String?
+  parent     MediaFolder?  @relation("children", fields: [parentId], references: [id])
+  children   MediaFolder[] @relation("children")
+
+  Media Media[]
+}
+
+model Media {
+  id         Int         @id @default(autoincrement())
+  name       String
+  url        String
+  ext        String
+  type       MediaType
+  size       Int
+  folderId   Int
+  folderName String
+  folder     MediaFolder @relation(fields: [folderId], references: [id])
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  PDF
 }
 
 enum Role {

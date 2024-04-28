@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { CommonModule, KeyValuePipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnDestroy, Output, forwardRef } from '@angular/core';
 import { FormArray, FormControl, FormGroup, NG_VALUE_ACCESSOR, ReactiveFormsModule, Validators } from '@angular/forms';
@@ -7,17 +8,16 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { JSONSchema7TypeName } from 'json-schema';
 import { Subscription } from 'rxjs';
-import { JSONSchema } from '../../../model/json-schema';
-import { fromJsonTypeToHtmlType, getFirstType, htmlInputType } from '../../../model/schame';
+import { PropInformation, WithPropType } from '../../../../../models/utils/type-utils';
+import { fromJsonTypeToHtmlType, htmlInputType } from '../../../model/schame';
 import { typeOperator } from './filter-data-table';
 
 export interface Filter {
   field: string;
   operator: string;
   value: string;
-  type: JSONSchema7TypeName;
+  type: string;
 }
 
 function getFilterForm() {
@@ -57,7 +57,7 @@ type FilterForm = ReturnType<typeof getFilterForm>;
   ],
 })
 export class FilterDataTableComponent implements OnDestroy {
-  @Input() schema: JSONSchema;
+  @Input() schema: WithPropType<any, PropInformation<any, any>>;
   @Output() search = new EventEmitter<Filter[]>();
   filters = new FormArray<FilterForm>([]);
 
@@ -90,8 +90,8 @@ export class FilterDataTableComponent implements OnDestroy {
   }
 
   setType(field: string, filterForm: FilterForm): void {
-    const property = this.schema.properties[field];
-    const type = getFirstType(property) ?? 'null';
+    const property = this.schema[field];
+    const type = property.basic.type ?? 'null';
     filterForm.controls.type.setValue(fromJsonTypeToHtmlType(field, type));
   }
 }

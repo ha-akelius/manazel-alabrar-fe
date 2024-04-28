@@ -5,7 +5,7 @@
     </mat-card-header>
     <form [formGroup]="dynamicForm">
       @for (propInfo of schemaInfo.propertiesInfo; track $index) {
-        @if (!propInfo.property.extra?.hideInForm) {
+        @if (!propInfo.property.hide) {
           @switch (propInfo.inputType) {
             @case (inputType.dateTime) {
               <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
@@ -27,7 +27,7 @@
                 <input
                   matInput
                   [type]="propInfo.firstType ?? ''"
-                  [required]="!propInfo.property.basic.optional"
+                  [required]="schemaInfo.schema.required?.includes(propInfo.name) ?? false"
                   [formControlName]="propInfo.name"
                 />
                 <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('email')">

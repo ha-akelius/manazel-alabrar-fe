@@ -120,7 +120,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
   }
 
   private getFn(key: string): ((value: T[keyof T] | undefined) => string) | undefined {
-    if (key.toLocaleLowerCase().indexOf('date') > 0 && key.toLocaleLowerCase().indexOf('update') < 0) {
+    if (key.toLocaleLowerCase().indexOf('date') >= 0 && key.toLocaleLowerCase().indexOf('update') < 0) {
       return (value: T[keyof T] | undefined) => this.datePipe.transform(value as string) ?? '';
     } else {
       return undefined;

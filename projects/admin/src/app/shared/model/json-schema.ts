@@ -1,22 +1,14 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { ComponentType } from '@angular/cdk/portal';
 import { Type } from '@angular/core';
-import { JSONSchema7 } from 'json-schema';
 import { TableColumnComponent } from '../../../core/components/table/table';
 import { APIService } from '../../../core/services/api.service';
+import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
 import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
-
-export type JSONSchema = Omit<JSONSchema7, 'properties'> & {
-  properties: {
-    [key: string]: JSONSchema;
-  };
-  definitions: {
-    [key: string]: JSONSchema;
-  };
-};
 
 export type SchemaInfo<T = unknown> = {
   propertiesInfo: PropertyInformation[];
-  schema: JSONSchema;
+  schema: WithPropType<any, PropInformation<any, any>>;
   api: RestApiServiceUnkown<T>;
   entityTranslations: Record<string, string>;
 };
@@ -42,9 +34,8 @@ export enum InputType {
 export interface PropertyInformation {
   inputType: InputType;
   name: string;
-  property: JSONSchema;
+  property: PropInformation<any, any>;
   propertyName: string;
-  hide?: boolean;
   firstType: string | undefined;
   ref: keyof APIService | undefined;
   hooks?: ComponentHooks;

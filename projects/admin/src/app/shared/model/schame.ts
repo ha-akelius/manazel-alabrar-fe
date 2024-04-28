@@ -1,42 +1,47 @@
-import { JSONSchema7Type, JSONSchema7TypeName } from 'json-schema';
-import schema from '../../../../../../src/app/core/models/json-schema.json';
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { APIService } from '../../../core/services/api.service';
-import * as hooks from '../../../models/hooks';
+import { hooks } from '../../../models/hooks';
+import { propInfos } from '../../../models/prop-info';
+import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
 import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
 import { translations } from '../../translations';
-import { InputType, JSONSchema, PropertyInformation, SchemaInfo, excludeFields } from './json-schema';
-
-const schemaJson: JSONSchema = schema as unknown as JSONSchema;
+import { InputType, PropertyInformation, SchemaInfo, excludeFields } from './json-schema';
 
 function getJSONKey(entityName: string): string | undefined {
   const propLower = entityName.toLowerCase();
-  for (const key in schemaJson.definitions) {
-    if (key.toLowerCase() === propLower) {
-      return key;
+  for (const key in propInfos) {
+    if (key.toLowerCase() === propLower + 'propinfo') {
+      return key.replace('PropInfo', '');
     }
   }
   return undefined; // Or throw an error if the property is not found
-}
-
-export function getPropertyType(property: JSONSchema): JSONSchema7TypeName {
-  return Array.isArray(property.type) ? property.type[0] : property.type!;
 }
 
 function toSmallLetter(str: string): string {
   return str.charAt(0).toLocaleLowerCase() + str.substring(1);
 }
 
+export function schemaInfo<T>(entityName: string, apiService: APIService): SchemaInfo<T> {
+  const key = getJSONKey(entityName)!;
+  const restApiService: RestApiServiceUnkown = apiService[toSmallLetter(key) as keyof typeof apiService];
+  const entityTranslations = translations[toSmallLetter(key) as keyof typeof translations];
+  const schema = propInfos![(key + 'PropInfo') as keyof typeof propInfos] as WithPropType<T, PropInformation<any, any>>;
+  const propertiesInfo: PropertyInformation[] = getPropertiesInfo(key, schema);
+
+  return { propertiesInfo, schema: schema, entityTranslations, api: restApiService as RestApiServiceUnkown<T> };
+}
+
 function getInputType(
-  property: JSONSchema,
-  firstType: JSONSchema7TypeName | undefined,
-  ref: string | undefined,
+  property: PropInformation<any, any>,
+  firstType: string,
+  ref: keyof APIService | undefined,
 ): InputType {
-  if (property.format === 'date-time') {
+  if (property.basic.type === 'Date') {
     return InputType.dateTime;
-  } else if (['string', 'number', 'integer'].includes(firstType ?? '')) {
-    return InputType.input;
   } else if (ref) {
     return InputType.relation;
+  } else if (['string', 'number', 'integer'].includes(firstType ?? '')) {
+    return InputType.input;
   } else if (firstType === 'boolean') {
     return InputType.boolean;
   } else {
@@ -44,34 +49,25 @@ function getInputType(
   }
 }
 
-export function schemaInfo<T>(entityName: string, apiService: APIService): SchemaInfo<T> {
-  const key = getJSONKey(entityName)!;
-  const jsonSchema = schema.definitions[key as keyof typeof schema.definitions] as unknown as JSONSchema;
-  const restApiService: RestApiServiceUnkown = apiService[toSmallLetter(key) as keyof typeof apiService];
-  const propertiesInfo: PropertyInformation[] = getPropertiesInfo(key, jsonSchema);
-  const entityTranslations = translations[toSmallLetter(key) as keyof typeof translations];
-
-  return { propertiesInfo, schema: jsonSchema!, entityTranslations, api: restApiService as RestApiServiceUnkown<T> };
-}
-
-function getPropertiesInfo(key: string, dataSchema: JSONSchema) {
+function getPropertiesInfo(key: string, dataSchema: WithPropType<any, PropInformation<any, any>>) {
   const propertiesInfo: PropertyInformation[] = [];
   const relations: string[] = [];
   const modelHooks = hooks[(toSmallLetter(key) + 'Hooks') as keyof typeof hooks];
-  for (const [propertyName, property] of Object.entries(dataSchema.properties)) {
+  for (const propertyName of Object.keys(dataSchema)) {
+    const property = dataSchema[propertyName];
     if (excludeFields.includes(propertyName)) {
       continue;
     }
     // const type = getPropertyType(property);
-    const refs = property.$ref?.split('/');
-    const ref = refs ? (refs[refs.length - 1] as keyof APIService) : undefined;
+    // const refs = property.$ref?.split('/');
+    const ref = property.basic.ref ? (toSmallLetter(property.basic.ref) as keyof APIService) : undefined;
     const controlName = propertyName + (ref ? 'Id' : '');
     // if (propertyName !== 'id' && type !== 'array') {
     if (propertyName !== 'id') {
-      const firstType = getFirstType(property);
+      const firstType = property.basic.type;
       const inputType = getInputType(property, firstType, ref);
       if (ref) {
-        relations.push(propertyName + 'Name');
+        relations.push(propertyName.replace('Id', '') + 'Name');
       }
       const proHooks = modelHooks ? modelHooks[propertyName as keyof typeof modelHooks] : undefined;
       propertiesInfo.push({
@@ -85,22 +81,13 @@ function getPropertiesInfo(key: string, dataSchema: JSONSchema) {
       });
     }
   }
-  propertiesInfo.filter((p) => relations.includes(p.propertyName)).forEach((p) => (p.hide = true));
+  // propertiesInfo.filter((p) => relations.includes(p.propertyName)).forEach((p) => (p.hide = true));
   return propertiesInfo;
-}
-
-export function getFirstType(property: JSONSchema): JSONSchema7TypeName | undefined {
-  if (typeof property.type === 'string') {
-    return property.type;
-  } else if (Array.isArray(property.type) && property.type.length > 0) {
-    return property.type[0];
-  }
-  return undefined;
 }
 
 export type htmlInputType = 'date' | 'number' | 'text';
 
-export function fromJsonTypeToHtmlType(propertyName: string, type: JSONSchema7Type): htmlInputType {
+export function fromJsonTypeToHtmlType(propertyName: string, type: string): htmlInputType {
   if (numberTypes.includes(type)) {
     return 'number';
   } else if (propertyName.toLowerCase().indexOf('date') >= 0) {
@@ -110,4 +97,4 @@ export function fromJsonTypeToHtmlType(propertyName: string, type: JSONSchema7Ty
   }
 }
 
-export const numberTypes: JSONSchema7Type[] = ['number', 'integer'];
+export const numberTypes = ['number', 'integer'];

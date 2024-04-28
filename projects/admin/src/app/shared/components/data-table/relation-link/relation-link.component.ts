@@ -16,8 +16,8 @@ export class RelationLinkComponent<T extends BasicRecord> extends TableColumnCom
   name: string;
 
   ngOnInit(): void {
-    const idKey = (this.key + 'Id') as keyof typeof this.record;
-    const nameKey = (this.key + 'Name') as keyof typeof this.record;
+    const idKey = this.key as keyof typeof this.record;
+    const nameKey = (this.key?.replace('Id', '') + 'Name') as keyof typeof this.record;
     this.id = this.record[idKey] as number;
     this.name = this.record[nameKey] as string;
   }

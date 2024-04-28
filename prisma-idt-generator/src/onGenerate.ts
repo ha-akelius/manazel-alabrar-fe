@@ -50,8 +50,10 @@ function generateHooks(models: DMMF.Model[]) {
   const file = 'projects/admin/src/models/hooks/';
 
   let content = '';
+  let content2 = 'export const hooks = {';
   models.forEach((e) => {
-    content += `export * from './${toKebabCase(e.name)}-hooks';`;
+    content += `import { ${toSmallLetter(e.name)}Hooks} from './${toKebabCase(e.name)}-hooks';`;
+    content2 += `${toSmallLetter(e.name)}Hooks,`;
     const hookFile = file + toKebabCase(e.name) + '-hooks.ts';
     if (!fs.existsSync(hookFile)) {
       const hookContent = `import { ${e.name} } from '@prisma/client';
@@ -64,10 +66,10 @@ function generateHooks(models: DMMF.Model[]) {
       createFile(hookFile, hookContent);
     }
   });
-  if (!fs.existsSync(file + 'index.ts')) {
-    fs.rmSync(file + 'index.ts');
-  }
-  createFile(file + 'index.ts', content);
+  // if (!fs.existsSync(file + 'index.ts')) {
+  fs.rmSync(file + 'index.ts');
+  // }
+  createFile(file + 'index.ts', content + content2 + '}');
 }
 
 function createFile(file: string, content: string): void {
