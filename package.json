@@ -13,14 +13,13 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "preprisma:generate": "npm run build --prefix prisma-idt-generator && npm i ./prisma-idt-generator",
-    "prisma:generate": "npx prisma generate && npx prettier projects/admin/src/core/services/api.service.ts --write && npx prettier src/app/core/models/dummy-interfaces.ts --write && npx prettier projects/admin/src/app/translations/ --write",
+    "prisma:generate": "npx prisma generate && npx prettier projects/admin/src/core/services/api.service.ts --write && npx prettier projects/admin/src/models/**/* --write && npx prettier projects/admin/src/app/translations/ --write",
     "translate": "cd translations && node translate-generate.js ",
     "deploy": "npm run translate && ng build  --configuration production  --base-href /manazel-alabrar-fe/ && cp dist/manazel-alabrar-fe/index.html dist/manazel-alabrar-fe/404.html",
     "analyzer": "ng build  --configuration production --build-optimizer --stats-json && webpack-bundle-analyzer dist/manazel-alabrar-fe/stats.json",
     "serve:ssr:manazel-alabrar-fe": "node dist/manazel-alabrar-fe/server/server.mjs",
     "lint": "ng lint",
-    "prepare": "husky",
-    "json-schema-fields": "ts-json-schema-generator --path './src/app/core/models/json-schema-fields.ts'  --out 'src/app/core/models/json-schema-fields.json' "
+    "prepare": "husky"
   },
   "private": true,
   "dependencies": {
@@ -40,7 +39,6 @@
     "@ngx-translate/core": "^15.0.0",
     "@ngx-translate/http-loader": "^8.0.0",
     "@prisma/client": "^5.10.2",
-    "@types/json-schema": "^7.0.15",
     "@types/marked": "^4.3.0",
     "express": "^4.18.2",
     "jquery": "^3.6.1",
@@ -51,6 +49,7 @@
     "sweetalert2": "^11.4.8",
     "swiper": "^9.2.0",
     "tslib": "^2.3.0",
+    "zod": "^3.23.4",
     "zone.js": "~0.14.3"
   },
   "devDependencies": {
@@ -80,8 +79,6 @@
     "karma-jasmine-html-reporter": "~2.1.0",
     "prettier": "^3.2.5",
     "prisma": "^5.10.2",
-    "prisma-json-schema-generator": "^5.1.1",
-    "ts-json-schema-generator": "^2.1.0",
     "typescript": "~5.3.3",
     "webpack-bundle-analyzer": "^4.8.0"
   }

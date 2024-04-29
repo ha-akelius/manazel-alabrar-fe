@@ -4,16 +4,18 @@
       <h2>{{ pageTitle }}</h2>
     </mat-card-header>
     <form [formGroup]="dynamicForm">
-      @for (propInfo of schemaInfo.propertiesInfo; track $index) {
-        @if (!propInfo.hide) {
-          @switch (propInfo.inputType) {
+      @for (propInfo of schemaInfo.schema | keyvalue: originalOrder; track $index) {
+        @if (!propInfo.value.guiInfo.hide?.form) {
+          @if (propInfo.value.propInformation.basic.ref) {}
+          @switch (propInfo.value.guiInfo.inputType) {
             @case (inputType.dateTime) {
               <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
-                <mat-label>{{ schemaInfo.entityTranslations[propInfo.name] }}</mat-label>
+                <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
                 <input
                   matInput
                   [matDatepicker]="myDatepicker"
                   placeholder="Choose a date"
+                  [formControlName]="propInfo.value.propInformation.basic.name"
                   (click)="myDatepicker.open()"
                 />
                 <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
@@ -21,35 +23,55 @@
               </mat-form-field>
             }
             @case (inputType.input) {
-              <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
-                <!-- <mat-label>{{ propInfo.name }}</mat-label> -->
-                <mat-label>{{ schemaInfo.entityTranslations[propInfo.name] }}</mat-label>
-                <input
-                  matInput
-                  [type]="propInfo.firstType ?? ''"
-                  [required]="schemaInfo.schema.required?.includes(propInfo.name) ?? false"
-                  [formControlName]="propInfo.name"
-                />
-                <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('email')">
-                  Please enter valid email form
-                </mat-error>
-                <mat-error *ngIf="dynamicForm.get(propInfo.name)?.hasError('pattern')">
-                  The name should be between 3-20 letter
-                </mat-error>
-              </mat-form-field>
+              @if (propInfo.value.propInformation.basic.type === "number") {
+                <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
+                  <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
+                  <input
+                    matInput
+                    type="number"
+                    [required]="!propInfo.value.propInformation.basic.optional"
+                    [formControlName]="propInfo.value.propInformation.basic.name"
+                  />
+                  <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('email')">
+                    Please enter valid email form
+                  </mat-error>
+                  <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('pattern')">
+                    The name should be between 3-20 letter
+                  </mat-error>
+                </mat-form-field>
+              } @else {
+                <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
+                  <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
+                  <input
+                    matInput
+                    [attr.type]="propInfo.value.propInformation.basic.type ?? ''"
+                    [required]="!propInfo.value.propInformation.basic.optional"
+                    [formControlName]="propInfo.value.propInformation.basic.name"
+                  />
+                  <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('email')">
+                    Please enter valid email form
+                  </mat-error>
+                  <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('pattern')">
+                    The name should be between 3-20 letter
+                  </mat-error>
+                </mat-form-field>
+              }
             }
             @case (inputType.relation) {
               <app-relation
-                [entityName]="propInfo.ref!"
-                [formControlName]="propInfo.name"
-                [name]="getRelation(propInfo).value"
-                (nameChange)="getRelation(propInfo).setValue($event)"
+                [entityName]="propInfo.value.propInformation.basic.ref!"
+                [formControlName]="propInfo.value.propInformation.basic.name"
+                [name]="getRelation(propInfo.value).value"
+                (nameChange)="getRelation(propInfo.value).setValue($event)"
                 class="padded-field"
               />
             }
             @case (inputType.boolean) {
-              <mat-slide-toggle class="col-xs-12 col-sm-6 col-lg-4 padded-field" [formControlName]="propInfo.name">
-                {{ propInfo.name }}
+              <mat-slide-toggle
+                class="col-xs-12 col-sm-6 col-lg-4 padded-field"
+                [formControlName]="propInfo.value.propInformation.basic.name"
+              >
+                {{ propInfo.value.propInformation.basic.name }}
               </mat-slide-toggle>
             }
             @default {

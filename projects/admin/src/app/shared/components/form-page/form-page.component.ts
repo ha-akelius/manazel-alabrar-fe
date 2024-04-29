@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { APIService } from '../../../../core/services/api.service';
 import { SchemaInfo } from '../../model/json-schema';
-import { schemaInfo } from '../../model/schame';
+import { apiService, schemaInfo } from '../../model/schame';
 import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
 
 @Component({
@@ -18,14 +19,16 @@ export class FormPageComponent implements OnInit {
 
   @Input() entityName: string = '';
   @Input({ required: true }) id: number;
-  value: unknown = null;
+  value: any = null;
 
   schemaInfo!: SchemaInfo;
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName, this.apiService);
+    this.schemaInfo = schemaInfo(this.entityName);
     if (this.id) {
-      this.schemaInfo.api.findOne(this.id).subscribe((value) => (this.value = value));
+      apiService(this.schemaInfo.api, this.apiService)
+        .findOne(this.id)
+        .subscribe((value: any) => (this.value = value));
     }
   }
 

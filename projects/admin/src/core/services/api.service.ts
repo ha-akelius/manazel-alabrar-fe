@@ -10,6 +10,8 @@ import {
   Student,
   Teacher,
   User,
+  MediaFolder,
+  Media,
   Prisma,
 } from '@prisma/client';
 import { RestApiService } from '../../shared/services/rest-api.service';
@@ -74,4 +76,15 @@ export class APIService {
   >('teacher');
 
   user = new RestApiService<User, Prisma.UserFindManyArgs, Prisma.UserCreateInput, Prisma.UserUpdateInput>('user');
+
+  mediaFolder = new RestApiService<
+    MediaFolder,
+    Prisma.MediaFolderFindManyArgs,
+    Prisma.MediaFolderCreateInput,
+    Prisma.MediaFolderUpdateInput
+  >('media-folder');
+
+  media = new RestApiService<Media, Prisma.MediaFindManyArgs, Prisma.MediaCreateInput, Prisma.MediaUpdateInput>(
+    'media',
+  );
 }

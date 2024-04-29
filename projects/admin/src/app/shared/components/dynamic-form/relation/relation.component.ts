@@ -14,7 +14,7 @@ type realtionType = { id: number; name: string };
 type resultType = Result<realtionType>;
 
 function toLowerCaseFirstLetter(str: string): string {
-  return str[0].toLowerCase() + str.slice(1).toLowerCase();
+  return str[0].toLowerCase() + str.slice(1);
 }
 
 @Component({

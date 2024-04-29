@@ -1,22 +1,37 @@
-import { JSONSchema7 } from 'json-schema';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { ComponentType } from '@angular/cdk/portal';
+import { Type } from '@angular/core';
+import { TableColumnComponent } from '../../../core/components/table/table';
 import { APIService } from '../../../core/services/api.service';
-import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
+import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
 
-export type JSONSchema = Omit<JSONSchema7, 'properties'> & {
-  properties: {
-    [key: string]: JSONSchema;
-  };
-  definitions: {
-    [key: string]: JSONSchema;
-  };
+export type SchemaInfo<T = any> = {
+  schema: WithPropType<T, GuiPropInformation>;
+  label: string;
+  labelPlural: string;
+  api: keyof APIService;
 };
 
-export type SchemaInfo<T = unknown> = {
-  propertiesInfo: PropertyInformation[];
-  schema: JSONSchema;
-  api: RestApiServiceUnkown<T>;
-  entityTranslations: Record<string, string>;
+export type GuiInformation = {
+  label: string;
+  inputType: InputType;
+  hide?: {
+    form?: boolean;
+    list?: boolean;
+  };
+  hooks?: ComponentHooks;
 };
+
+export type GuiPropInformation = {
+  propInformation: PropInformation<any, any>;
+  guiInfo: GuiInformation;
+};
+
+export interface ComponentHooks {
+  form?: ComponentType<never>;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  list?: Type<TableColumnComponent<any>>;
+}
 
 export enum InputType {
   input,
@@ -24,16 +39,6 @@ export enum InputType {
   relation,
   boolean,
   unknown,
-}
-
-export interface PropertyInformation {
-  inputType: InputType;
-  name: string;
-  property: JSONSchema;
-  propertyName: string;
-  hide?: boolean;
-  firstType: string | undefined;
-  ref: keyof APIService | undefined;
 }
 
 export type PropType<T> = Omit<

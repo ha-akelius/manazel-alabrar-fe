@@ -1,4 +1,4 @@
-import { Student } from './dummy-interfaces';
+import { Student } from '../../../../projects/admin/src/models/hooks';
 
 export interface media {
   url: string;
