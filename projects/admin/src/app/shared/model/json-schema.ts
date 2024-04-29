@@ -31,6 +31,7 @@ export interface PropertyInformation {
   name: string;
   property: JSONSchema;
   propertyName: string;
+  hide?: boolean;
   firstType: string | undefined;
   ref: keyof APIService | undefined;
 }
