@@ -19,7 +19,6 @@ const protectedRoutes: Routes = [
       { path: 'list/:entityName', component: ListPageComponent },
       { path: 'edit/:entityName/:id', component: FormPageComponent },
       { path: 'create/:entityName', component: FormPageComponent },
-      { path: 'userprofile', component: UserProfileComponent },
     ],
   },
 ];
