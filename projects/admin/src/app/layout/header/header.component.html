@@ -1,8 +1,14 @@
-<mat-toolbar>
-  <mat-toolbar-row>
-    <button mat-icon-button (click)="toggleSidebar()">
-      <mat-icon class="edit-text">menu</mat-icon>
-    </button>
-    <button mat-button (click)="logout()">Logout</button>
-  </mat-toolbar-row>
-</mat-toolbar>
+<button mat-button [matMenuTriggerFor]="menu">
+  <img src="./assets/user.jpg" alt="" class="user-image mr-1 p-2" />
+</button>
+
+<mat-menu #menu="matMenu">
+  <a mat-menu-item [routerLink]="'profile'">
+    <mat-icon> account_circle </mat-icon>
+    Edit Profile
+  </a>
+  <button mat-menu-item (click)="logout()">
+    <mat-icon>exit_to_app</mat-icon>
+    Logout
+  </button>
+</mat-menu>

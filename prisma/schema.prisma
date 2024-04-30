@@ -184,7 +184,6 @@ model Teacher {
   name            String
   user            User             @relation(fields: [id], references: [id])
   courseInstances CourseInstance[]
-
   createdDate     DateTime
   updatedDate     DateTime
   createdUserName String

@@ -2,7 +2,6 @@
   position: sticky;
   top: 0;
   z-index: 100;
-  background: #2a4b5e;
 }
 
 button {
@@ -11,6 +10,13 @@ button {
   background: transparent;
 }
 
-.edit-text {
-  color: #f1ebf0;
+.user-button {
+  display: flex;
+  align-items: center;
+}
+
+.user-image {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
 }

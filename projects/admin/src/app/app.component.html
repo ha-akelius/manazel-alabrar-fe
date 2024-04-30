@@ -1,9 +1,12 @@
 <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
-  <mat-toolbar color="primary" class="example-toolbar">
-    <button mat-icon-button (click)="snav.toggle()">
-      <mat-icon>menu</mat-icon>
-    </button>
-    <h1 class="example-app-name">Responsive App</h1>
+  <mat-toolbar color="primary" class="example-toolbar space-between">
+    <span class="vertical-center">
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <h1 class="example-app-name">Manazel Al Abrar</h1>
+    </span>
+    <app-header></app-header>
   </mat-toolbar>
 
   <mat-sidenav-container
