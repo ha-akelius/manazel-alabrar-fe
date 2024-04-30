@@ -3,13 +3,13 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router } from '@angular/router';
+import { Router, RouterModule } from '@angular/router';
 @Component({
   standalone: true,
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css'],
-  imports: [MatIconModule, CommonModule, MatToolbarModule, MatMenuModule],
+  imports: [MatIconModule, CommonModule, MatToolbarModule, MatMenuModule, RouterModule],
 })
 export class HeaderComponent {
   constructor(private router: Router) {}

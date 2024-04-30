@@ -19,3 +19,13 @@ html {
   --size-small: 8px;
   --size-medium: 16px;
 }
+
+.space-between {
+  display: flex;
+  justify-content: space-between;
+}
+
+.vertical-center {
+  display: flex;
+  align-items: center;
+}

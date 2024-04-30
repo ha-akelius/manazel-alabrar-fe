@@ -15,10 +15,10 @@ const protectedRoutes: Routes = [
     children: [
       { path: 'dashboard', component: DashboardComponent },
       { path: 'home', component: HomeComponent },
+      { path: 'profile', component: UserProfileComponent },
       { path: 'list/:entityName', component: ListPageComponent },
       { path: 'edit/:entityName/:id', component: FormPageComponent },
       { path: 'create/:entityName', component: FormPageComponent },
-      { path: 'userprofile', component: UserProfileComponent },
     ],
   },
 ];
