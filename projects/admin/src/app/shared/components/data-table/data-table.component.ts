@@ -1,17 +1,18 @@
 import { DatePipe } from '@angular/common';
-import { Component, Input, OnChanges, OnInit, inject } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, Type, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormControl, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { RouterModule } from '@angular/router';
-import { BasicRecord, TableColumn } from '../../../../core/components/table/table';
+import { BasicRecord, TableColumn, TableColumnComponent } from '../../../../core/components/table/table';
 import { TableComponent } from '../../../../core/components/table/table.component';
 import { APIService } from '../../../../core/services/api.service';
 import { Result } from '../../../../shared/models/result';
-import { JSONSchema, SchemaInfo } from '../../model/json-schema';
-import { getPropertyType, numberTypes, schemaInfo } from '../../model/schame';
+import { translations } from '../../../translations';
+import { SchemaInfo } from '../../model/json-schema';
+import { apiService, numberTypes, schemaInfo } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
 import { RelationLinkComponent } from './relation-link/relation-link.component';
@@ -44,6 +45,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
     pages: 0,
   };
   filters = new FormControl([] as Filter[], { nonNullable: true });
+  translations = translations.general;
 
   constructor() {
     this.filters.valueChanges.pipe(takeUntilDestroyed()).subscribe((filters) => this.fetchData(filters));
@@ -53,43 +55,47 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
   }
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName, this.apiService);
+    this.schemaInfo = schemaInfo(this.entityName);
 
     this.fetchData();
 
     this.tableColumns = [];
-    const columnsToRmove: string[] = [];
-    for (const key in this.schemaInfo.schema.properties) {
-      const property: JSONSchema = this.schemaInfo.schema.properties[key];
-      const type = getPropertyType(property);
-      if (property.$ref) {
+    for (const propInfo of Object.values(this.schemaInfo.schema)) {
+      if (propInfo.guiInfo.hide?.list) {
+        continue;
+      }
+      if (propInfo.propInformation.basic.ref) {
         const tableColumn: TableColumn<T> = {
-          name: key,
-          dataKey: key as keyof T,
+          name: propInfo.propInformation.basic.name,
+          displayName: propInfo.guiInfo.label,
+          dataKey: propInfo.propInformation.basic.name as keyof T,
           componentDef: {
             component: RelationLinkComponent,
             inputs: {
-              key: key,
-              refEntityName: key,
+              key: propInfo.propInformation.basic.name,
+              refEntityName: propInfo.propInformation.basic.ref,
             },
           },
         };
         this.tableColumns.push(tableColumn);
-        columnsToRmove.push(key + 'Name');
-      } else if (type !== 'array') {
+        // } else if (type !== 'array') {
+      } else {
         const tableColumn: TableColumn<T> = {
-          name: key,
-          dataKey: key as keyof T,
-          fn: this.getFn(key),
+          name: propInfo.propInformation.basic.name,
+          displayName: propInfo.guiInfo.label,
+          dataKey: propInfo.propInformation.basic.name as keyof T,
+          fn: this.getFn(propInfo.propInformation.basic.name),
+          componentDef: propInfo.guiInfo.hooks?.list
+            ? { component: propInfo.guiInfo.hooks?.list as Type<TableColumnComponent<unknown, T>> }
+            : undefined,
         };
         this.tableColumns.push(tableColumn);
       }
     }
 
-    this.tableColumns = this.tableColumns.filter((t) => !columnsToRmove.includes(t.name));
-
     this.tableColumns.push({
       name: 'action',
+      displayName: 'action',
       componentDef: {
         component: ActionsDataTableComponent<T>,
         inputs: { entityName: this.entityName },
@@ -107,13 +113,15 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
           [filter.operator]: numberTypes.includes(filter.type) ? +filter.value : filter.value,
         }),
     );
-    this.schemaInfo.api.findAll({ where }).subscribe((result) => {
-      this.result = result;
-    });
+    apiService(this.schemaInfo.api, this.apiService)
+      .findAll({ where })
+      .subscribe((result) => {
+        this.result = result as Result<T>;
+      });
   }
 
   private getFn(key: string): ((value: T[keyof T] | undefined) => string) | undefined {
-    if (key.toLocaleLowerCase().indexOf('date') > 0) {
+    if (key.toLocaleLowerCase().indexOf('date') >= 0 && key.toLocaleLowerCase().indexOf('update') < 0) {
       return (value: T[keyof T] | undefined) => this.datePipe.transform(value as string) ?? '';
     } else {
       return undefined;

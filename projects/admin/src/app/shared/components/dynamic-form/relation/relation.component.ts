@@ -14,7 +14,7 @@ type realtionType = { id: number; name: string };
 type resultType = Result<realtionType>;
 
 function toLowerCaseFirstLetter(str: string): string {
-  return str[0].toLowerCase() + str.slice(1).toLowerCase();
+  return str[0].toLowerCase() + str.slice(1);
 }
 
 @Component({
@@ -33,9 +33,12 @@ function toLowerCaseFirstLetter(str: string): string {
 })
 export class RelationComponent implements OnInit, ControlValueAccessor {
   filterControl = new FormControl<realtionType | string>('');
-  selectedValue: realtionType;
+  selectedValue: realtionType = { id: -1, name: '' };
   @Input({ required: true }) entityName: string;
-  @Output() name = new EventEmitter<string>();
+  @Input({ required: true }) set name(value: string) {
+    this.selectedValue.name = value;
+  }
+  @Output() nameChange = new EventEmitter<string>();
 
   apiService = inject(APIService);
   service: RestApiService<realtionType, unknown, unknown, unknown>;
@@ -51,14 +54,13 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
       } else {
         this.selectedValue = this.filterControl.value;
         this.onChange(this.selectedValue.id);
-        this.name.emit(this.selectedValue.name);
+        this.nameChange.emit(this.selectedValue.name);
       }
     });
   }
 
   ngOnInit(): void {
     this.service = this.apiService[toLowerCaseFirstLetter(this.entityName) as keyof APIService] as never;
-    this.filterByName();
   }
 
   filterByName(): void {
@@ -71,11 +73,8 @@ export class RelationComponent implements OnInit, ControlValueAccessor {
   onChange: (id: number) => void;
 
   writeValue(obj: number): void {
-    this.service.findAll({ where: { id: obj } }).subscribe((result: resultType) => {
-      this.result = result;
-      this.selectedValue = this.result.items[0];
-      this.filterControl.setValue(this.selectedValue);
-    });
+    this.selectedValue = { id: obj, name: this.selectedValue.name };
+    this.filterControl.setValue(this.selectedValue);
   }
   registerOnChange(fn: (id: number) => void): void {
     this.onChange = fn;

@@ -4,7 +4,7 @@ import { Injectable, computed, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class AppStoreService {
-  language = signal('en');
+  language = signal('ar');
   isRtl = computed(() => this.language() === 'ar');
 
   changeLanguage(language: string): void {

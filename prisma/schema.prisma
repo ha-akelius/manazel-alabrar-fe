@@ -13,14 +13,9 @@ datasource db {
   url      = env("POSTGRES_URL")
 }
 
-generator jsonSchema {
-  provider = "prisma-json-schema-generator"
-  output   = "../src/app/core/models"
+generator idt {
+  provider = "prisma-idt-generator"
 }
-
-// generator idt {
-//   provider = "prisma-idt-generator"
-// }
 
 model Path {
   id                  Int                   @id @default(autoincrement())
@@ -28,6 +23,7 @@ model Path {
   description         String
   courses             Course[]
   studentPathInstance StudentPathInstance[]
+  pathInstances       PathInstance[]
   createdDate         DateTime
   updatedDate         DateTime
   createdUserName     String
@@ -43,11 +39,14 @@ model PathInstance {
   dateFrom                   DateTime
   dateTo                     DateTime
   numberOfStudents           Int
-  numberOfRegisteredStudents Int
+  numberOfRegisteredStudents Int                   @default(0)
   stilOpen                   Boolean?              @default(false)
   quizInstanceStudents       QuizInstanceStudent[]
   studentPathInstance        StudentPathInstance[]
   CourseInstance             CourseInstance[]
+  pathId                     Int
+  pathName                   String
+  path                       Path                  @relation(fields: [pathId], references: [id])
   createdDate                DateTime
   updatedDate                DateTime
   createdUserName            String
@@ -64,6 +63,7 @@ model Course {
   path            Path             @relation(fields: [pathId], references: [id])
   courseInstances CourseInstance[]
   lessons         Json
+  quiz            Json
   createdDate     DateTime
   updatedDate     DateTime
   createdUserName String
@@ -164,9 +164,9 @@ model QuizInstanceStudent {
 }
 
 model Student {
-  id                  Int                   @id @default(autoincrement())
+  id                  Int                   @id
   name                String
-  password            String
+  user                User                  @relation(fields: [id], references: [id])
   student_info        Json
   quizStudents        QuizInstanceStudent[]
   pathInformation     Json
@@ -180,11 +180,9 @@ model Student {
 }
 
 model Teacher {
-  id              Int              @id @default(autoincrement())
+  id              Int              @id
   name            String
-  password        String
-  phone           Int
-  email           String           @unique
+  user            User             @relation(fields: [id], references: [id])
   courseInstances CourseInstance[]
   createdDate     DateTime
   updatedDate     DateTime
@@ -195,8 +193,57 @@ model Teacher {
 }
 
 model User {
-  id       Int    @id @default(autoincrement())
-  name     String
-  password String
-  language String
+  id              Int      @id @default(autoincrement())
+  name            String
+  email           String   @unique
+  password        String
+  language        Language
+  roles           Role[]
+  teacher         Teacher?
+  studnet         Student?
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
+}
+
+model MediaFolder {
+  id         Int           @id @default(autoincrement())
+  name       String
+  parentId   Int?
+  parentName String?
+  parent     MediaFolder?  @relation("children", fields: [parentId], references: [id])
+  children   MediaFolder[] @relation("children")
+
+  medias Media[]
+}
+
+model Media {
+  id         Int         @id @default(autoincrement())
+  name       String
+  url        String
+  ext        String
+  type       MediaType
+  size       Int
+  folderId   Int
+  folderName String
+  folder     MediaFolder @relation(fields: [folderId], references: [id])
+}
+
+enum MediaType {
+  IMAGE
+  VIDEO
+  PDF
+}
+
+enum Role {
+  TEACHER
+  STUDENT
+}
+
+enum Language {
+  ar
+  en_EN
 }

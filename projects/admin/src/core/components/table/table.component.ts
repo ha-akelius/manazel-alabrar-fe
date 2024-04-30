@@ -93,8 +93,14 @@ export class TableComponent<T extends BasicRecord> implements AfterViewInit, Aft
     this.sort.emit(sortParameters);
   }
 
-  getCompInputs(inputs: Record<string, unknown> | undefined, record: unknown): Record<string, unknown> | undefined {
-    return { ...(inputs ?? {}), record: record, onChange: this.triggerChagnes };
+  getCompInputs(
+    inputs: Record<string, unknown> | undefined,
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    record: any,
+    key: keyof T | undefined,
+  ): Record<string, unknown> | undefined {
+    const data = key ? record[key] : undefined;
+    return { ...(inputs ?? {}), record: record, onChange: this.triggerChagnes, key: key, data };
   }
 
   private triggerFetchData(): void {

@@ -9,13 +9,16 @@
 }
 
 .example-is-mobile .example-toolbar {
+  display: flex;
+
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */
   z-index: 2;
 }
 
-h1.example-app-name {
+h1 {
   margin-left: 8px;
+  display: inline-block;
 }
 
 .example-sidenav-container {
