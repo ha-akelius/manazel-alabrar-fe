@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+  <file source-language="en-US" datatype="plaintext" original="ng2.template">
+    <body>
+      <trans-unit id="8505625387835214066" datatype="html">
+        <source>number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student-path-instance.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/teacher.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3325180562659478330" datatype="html">
+        <source>name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/teacher.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/user.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2762019826978432378" datatype="html">
+        <source>course</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7289671149030041846" datatype="html">
+        <source>path instance</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student-path-instance.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6777974573583289938" datatype="html">
+        <source>description</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2765343350350554281" datatype="html">
+        <source>from date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6341101264858755680" datatype="html">
+        <source>to date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8942955470569122520" datatype="html">
+        <source>book</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6025678081634264956" datatype="html">
+        <source>lessons</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6821275510987669264" datatype="html">
+        <source>page from</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7663764938930365377" datatype="html">
+        <source>page to</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="152959694984161805" datatype="html">
+        <source>teacher</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course-instance.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="161784639778555743" datatype="html">
+        <source>path</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student-path-instance.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7062823674983872135" datatype="html">
+        <source>quiz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/course.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance-student.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8640257554156088424" datatype="html">
+        <source>save</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="503445309622982213" datatype="html">
+        <source>cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="485306713406694559" datatype="html">
+        <source>date from</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5752374314815792564" datatype="html">
+        <source>date to</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="959801242026779663" datatype="html">
+        <source>number of student</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6596014055130934025" datatype="html">
+        <source>number of registered student</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4286614373293021325" datatype="html">
+        <source>still open</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path-instance.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1388866738205333617" datatype="html">
+        <source>path number</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/path.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1411019626896778767" datatype="html">
+        <source>mark</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance-student.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student-path-instance.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="208206824918667794" datatype="html">
+        <source>full mark</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance-student.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student-path-instance.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="723521508657253222" datatype="html">
+        <source>studnet</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance-student.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3938396793871184620" datatype="html">
+        <source>date</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance-student.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8911059720204770105" datatype="html">
+        <source>Path</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance-student.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="502770553296873348" datatype="html">
+        <source>answers</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance-student.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2650269401046048840" datatype="html">
+        <source>questions</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8066562879192184833" datatype="html">
+        <source>student</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student-path-instance.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2488835981411675381" datatype="html">
+        <source>paths</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/student.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7315714079098881460" datatype="html">
+        <source>email</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/user.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4809196861118879526" datatype="html">
+        <source>password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/user.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2347724151568473592" datatype="html">
+        <source>language</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/user.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5584623107240304279" datatype="html">
+        <source>roles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/user.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

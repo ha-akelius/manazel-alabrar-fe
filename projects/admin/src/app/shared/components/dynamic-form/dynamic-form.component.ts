@@ -7,6 +7,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { APIService } from '../../../../core/services/api.service';
+import { translations } from '../../../translations';
 import { InputType, JSONSchema, PropertyInformation, SchemaInfo } from '../../model/json-schema';
 import { getFirstType, schemaInfo } from '../../model/schame';
 import { RelationComponent } from './relation/relation.component';
@@ -37,6 +38,7 @@ export class DynamicFormComponent implements OnInit {
   inputType = InputType;
   pageTitle: string = 'Add ' + this.entityName;
   getFirstType = getFirstType;
+  translations = translations.general;
   createFormGroup() {
     const formGroup = new FormGroup({});
     for (const propInfo of this.schemaInfo.propertiesInfo) {
@@ -81,8 +83,8 @@ export class DynamicFormComponent implements OnInit {
     this.formResult.emit(null);
   }
 
-  fillRelationName($event: string, property: PropertyInformation) {
-    this.dynamicForm.get(property.propertyName + 'Name')?.setValue($event);
+  getRelation(property: PropertyInformation) {
+    return this.dynamicForm.get(property.propertyName + 'Name')!;
   }
 
   private collectValidators(propertyName: string, property: JSONSchema): ValidatorFn[] {

@@ -19,6 +19,7 @@ export function componentDef<T>(component: new () => T, inputs: { [P in keyof T 
 
 export interface TableColumn<T extends BasicRecord> {
   name: string;
+  displayName: string;
   dataKey?: keyof T;
   isSortable?: boolean;
   position?: 'right' | 'left';

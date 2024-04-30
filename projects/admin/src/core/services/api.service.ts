@@ -5,10 +5,11 @@ import {
   Course,
   CourseInstance,
   StudentPathInstance,
-  Student,
   QuizInstance,
   QuizInstanceStudent,
+  Student,
   Teacher,
+  User,
   Prisma,
 } from '@prisma/client';
 import { RestApiService } from '../../shared/services/rest-api.service';
@@ -44,13 +45,6 @@ export class APIService {
     Prisma.StudentPathInstanceUpdateInput
   >('student-path-instance');
 
-  student = new RestApiService<
-    Student,
-    Prisma.StudentFindManyArgs,
-    Prisma.StudentCreateInput,
-    Prisma.StudentUpdateInput
-  >('student');
-
   quizInstance = new RestApiService<
     QuizInstance,
     Prisma.QuizInstanceFindManyArgs,
@@ -65,10 +59,19 @@ export class APIService {
     Prisma.QuizInstanceStudentUpdateInput
   >('quiz-instance-student');
 
+  student = new RestApiService<
+    Student,
+    Prisma.StudentFindManyArgs,
+    Prisma.StudentCreateInput,
+    Prisma.StudentUpdateInput
+  >('student');
+
   teacher = new RestApiService<
     Teacher,
     Prisma.TeacherFindManyArgs,
     Prisma.TeacherCreateInput,
     Prisma.TeacherUpdateInput
   >('teacher');
+
+  user = new RestApiService<User, Prisma.UserFindManyArgs, Prisma.UserCreateInput, Prisma.UserUpdateInput>('user');
 }

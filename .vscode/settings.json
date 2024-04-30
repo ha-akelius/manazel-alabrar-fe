@@ -6,5 +6,10 @@
   "editor.codeActionsOnSave": {
     "source.organizeImports": "explicit"
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "xliffSync.baseFile": "projects/admin/src/locale/messages.xlf",
+  "files.associations": {
+    ".xtm": "xml",
+    ".ngI18nconfig": "json"
+  }
 }

@@ -15,6 +15,7 @@ function toSmallLetter(str: string): string {
 
 export default async function onGenerate(options: GeneratorOptions) {
   const models = options.dmmf.datamodel.models;
+  generateTrnaslations(models);
   generateAPIService(models);
   generateDummyInterfaces(models);
 }
@@ -60,4 +61,27 @@ function generateDummyInterfaces(models: DMMF.Model[]) {
 
 function createFile(file: string, content: string): void {
   fs.writeFileSync(file, content);
+}
+function generateTrnaslations(models: DMMF.Model[]) {
+  const file = 'projects/admin/src/app/translations/';
+  const filePath = file + 'index.ts';
+  models.forEach((e) => {
+    const small = toSmallLetter(e.name);
+    const fileName = toKebabCase(e.name);
+    if (!fs.existsSync(file + fileName + '.ts')) {
+      const content = `
+      import { ${e.name} } from '@prisma/client';
+      import { PropType } from '../shared/model/json-schema';
+
+      export const ${small}: Record<keyof PropType<${e.name}>, string> = {
+      };
+          `;
+      createFile(file + fileName + '.ts', content);
+
+      const fileContent = fs.readFileSync(filePath, 'utf8');
+      const regex = /};$/gm;
+      const newContent = `import { ${small} } from './${fileName}';\n` + fileContent.replace(regex, `  ${small},\n};`);
+      fs.writeFileSync(filePath, newContent, 'utf8');
+    }
+  });
 }
