@@ -28,7 +28,7 @@
           <ng-container
             *ngComponentOutlet="
               tableColumn.componentDef.component;
-              inputs: getCompInputs(tableColumn.componentDef.inputs, element)
+              inputs: getCompInputs(tableColumn.componentDef.inputs, element, tableColumn.dataKey)
             "
           ></ng-container>
         } @else {

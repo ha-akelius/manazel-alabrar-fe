@@ -1,3 +1,8 @@
+import { mediaType } from './media-type';
+import { media } from './media';
+import { mediaFolder } from './media-folder';
+import { language } from './language';
+import { role } from './role';
 import { user } from './user';
 import { course } from './course';
 import { courseInstance } from './course-instance';
@@ -22,4 +27,9 @@ export const translations = {
   quizInstanceStudent,
   teacher,
   user,
+  role,
+  language,
+  mediaFolder,
+  media,
+  mediaType,
 };

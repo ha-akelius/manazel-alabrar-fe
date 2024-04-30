@@ -402,6 +402,118 @@
           <context context-type="linenumber">9</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="1748502067050579239" datatype="html">
+        <source>course instance</source>
+        <target state="translated">مقرر دورة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course-instance.gui-info.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2783082245154682757" datatype="html">
+        <source>course instances</source>
+        <target state="translated">مقررات الدورة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course-instance.gui-info.ts</context>
+          <context context-type="linenumber">103</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3998144387031582961" datatype="html">
+        <source>courses</source>
+        <target state="translated">مقررات</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6976023564041835781" datatype="html">
+        <source>number of students</source>
+        <target state="translated">عدد الطلاب</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/path-instance.gui-info.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="85419636216406829" datatype="html">
+        <source>number of registered students</source>
+        <target state="translated">عدد الطلاب المسجلين</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/path-instance.gui-info.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7938193477004606174" datatype="html">
+        <source>path instances</source>
+        <target state="translated">مسار دورة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/path-instance.gui-info.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7895033151316369519" datatype="html">
+        <source>quiz instance</source>
+        <target state="translated">امتحان</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
+          <context context-type="linenumber">74</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2154403555693260902" datatype="html">
+        <source>quiz instances</source>
+        <target state="translated">امتحانات</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
+          <context context-type="linenumber">75</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4419385491509231600" datatype="html">
+        <source>studnet path instance</source>
+        <target state="translated">سجل طالب في دورة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/student-path-instance.gui-info.ts</context>
+          <context context-type="linenumber">67</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5669624743963385216" datatype="html">
+        <source>studnet path instances</source>
+        <target state="translated">طلاب الدورة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/student-path-instance.gui-info.ts</context>
+          <context context-type="linenumber">68</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4701539610770522021" datatype="html">
+        <source>students</source>
+        <target state="translated">طلاب</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/student.gui-info.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6118186729037595382" datatype="html">
+        <source>teachers</source>
+        <target state="translated">اساتذة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/teacher.gui-info.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="123010868147850959" datatype="html">
+        <source>user</source>
+        <target state="translated">مستخدم</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
+          <context context-type="linenumber">51</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1670306451865226564" datatype="html">
+        <source>users</source>
+        <target state="translated">مستخدمين</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
+          <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
