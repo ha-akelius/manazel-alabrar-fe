@@ -21,7 +21,7 @@ function toSmallLetter(str: string): string {
 
 export function schemaInfo<T>(entityName: string): SchemaInfo<T> {
   const key = getJSONKey(entityName)!;
-  return schemas[(toSmallLetter(key) + 'Schema') as keyof typeof schemas] as SchemaInfo<T>;
+  return schemas[(toSmallLetter(key) + 'Schema') as keyof typeof schemas] as unknown as SchemaInfo<T>;
   // const entityTranslations = translations[toSmallLetter(key) as keyof typeof translations];
   // const schema = propInfos![(key + 'PropInfo') as keyof typeof propInfos] as WithPropType<T, PropInformation<any, any>>;
   // const propertiesInfo: PropertyInformation[] = getPropertiesInfo(key, schema);

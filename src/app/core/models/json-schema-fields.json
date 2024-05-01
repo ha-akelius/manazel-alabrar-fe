@@ -11,10 +11,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "name",
-        "correct"
-      ],
+      "required": ["name", "correct"],
       "type": "object"
     },
     "Lesson": {
@@ -52,16 +49,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "name",
-        "description",
-        "pageNumber",
-        "toPageNumber",
-        "audio",
-        "date",
-        "questins",
-        "students"
-      ],
+      "required": ["name", "description", "pageNumber", "toPageNumber", "audio", "date", "questins", "students"],
       "type": "object"
     },
     "Question": {
@@ -83,19 +71,11 @@
           "$ref": "#/definitions/QuestionType"
         }
       },
-      "required": [
-        "questionType",
-        "name",
-        "answers",
-        "mark"
-      ],
+      "required": ["questionType", "name", "answers", "mark"],
       "type": "object"
     },
     "QuestionType": {
-      "enum": [
-        "SingleChoice",
-        "MultiChoice"
-      ],
+      "enum": ["SingleChoice", "MultiChoice"],
       "type": "string"
     },
     "Student": {
@@ -121,12 +101,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "student",
-        "studentName",
-        "done",
-        "answeredOptions"
-      ],
+      "required": ["student", "studentName", "done", "answeredOptions"],
       "type": "object"
     },
     "media": {
@@ -136,9 +111,7 @@
           "type": "string"
         }
       },
-      "required": [
-        "url"
-      ],
+      "required": ["url"],
       "type": "object"
     }
   }

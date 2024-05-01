@@ -42,6 +42,7 @@ export enum InputType {
   relation,
   boolean,
   list,
+  json,
   unknown,
 }
 
