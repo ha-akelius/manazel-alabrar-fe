@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
@@ -28,7 +27,6 @@ const originalOrder = (): number => {
     MatSlideToggleModule,
     MatButtonModule,
     CommonModule,
-    MatCardModule,
     RelationComponent,
   ],
   templateUrl: './dynamic-form.component.html',
@@ -109,17 +107,6 @@ export class DynamicFormComponent implements OnInit {
     if (property.propInformation.basic.name.includes('email')) {
       validators.push(Validators.email);
     }
-
-    // if (propertyName === 'name') {
-    //   validators.push(Validators.minLength(3));
-    //   validators.push(Validators.maxLength(20));
-    // }
-
-    // const nameRegex = /^[a-zA-Z0-9]{3,20}$/;
-
-    // if (propertyName === 'name') {
-    //   validators.push(Validators.pattern(nameRegex));
-    // }
 
     return validators;
   }

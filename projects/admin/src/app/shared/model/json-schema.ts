@@ -5,10 +5,13 @@ import { TableColumnComponent } from '../../../core/components/table/table';
 import { APIService } from '../../../core/services/api.service';
 import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
 
-export type SchemaInfo<T = any> = {
+export type JSONSchemaInfo<T = any> = {
   schema: WithPropType<T, GuiPropInformation>;
   label: string;
   labelPlural: string;
+};
+
+export type SchemaInfo<T = any> = JSONSchemaInfo<T> & {
   api: keyof APIService;
 };
 
@@ -38,6 +41,7 @@ export enum InputType {
   dateTime,
   relation,
   boolean,
+  list,
   unknown,
 }
 

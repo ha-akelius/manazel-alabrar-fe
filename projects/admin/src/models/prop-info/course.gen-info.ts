@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Lesson } from '../../json-models/lessons';
 import { PropPrismaInformation } from '../utils/type-utils';
 const name: PropPrismaInformation<string, 'string'> = {
   type: 'string',
@@ -13,4 +14,9 @@ const pathName: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'pathName',
 };
-export const CourseGenInfo = { name, pathId, pathName };
+
+const lessons: PropPrismaInformation<Lesson, 'Lesson'> = {
+  type: 'Lesson',
+  name: 'lessons',
+};
+export const CourseGenInfo = { name, pathId, pathName, lessons };

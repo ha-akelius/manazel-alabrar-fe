@@ -1,89 +1,83 @@
-<div class="card-container">
-  <mat-card class="mat-card-ed">
-    <mat-card-header>
-      <h2>{{ pageTitle }}</h2>
-    </mat-card-header>
-    <form [formGroup]="dynamicForm">
-      @for (propInfo of schemaInfo.schema | keyvalue: originalOrder; track $index) {
-        @if (!propInfo.value.guiInfo.hide?.form) {
-          @if (propInfo.value.propInformation.basic.ref) {}
-          @switch (propInfo.value.guiInfo.inputType) {
-            @case (inputType.dateTime) {
-              <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
-                <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
-                <input
-                  matInput
-                  [matDatepicker]="myDatepicker"
-                  placeholder="Choose a date"
-                  [formControlName]="propInfo.value.propInformation.basic.name"
-                  (click)="myDatepicker.open()"
-                />
-                <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-                <mat-datepicker #myDatepicker></mat-datepicker>
-              </mat-form-field>
-            }
-            @case (inputType.input) {
-              @if (propInfo.value.propInformation.basic.type === "number") {
-                <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
-                  <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
-                  <input
-                    matInput
-                    type="number"
-                    [required]="!propInfo.value.propInformation.basic.optional"
-                    [formControlName]="propInfo.value.propInformation.basic.name"
-                  />
-                  <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('email')">
-                    Please enter valid email form
-                  </mat-error>
-                  <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('pattern')">
-                    The name should be between 3-20 letter
-                  </mat-error>
-                </mat-form-field>
-              } @else {
-                <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
-                  <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
-                  <input
-                    matInput
-                    [attr.type]="propInfo.value.propInformation.basic.type ?? ''"
-                    [required]="!propInfo.value.propInformation.basic.optional"
-                    [formControlName]="propInfo.value.propInformation.basic.name"
-                  />
-                  <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('email')">
-                    Please enter valid email form
-                  </mat-error>
-                  <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('pattern')">
-                    The name should be between 3-20 letter
-                  </mat-error>
-                </mat-form-field>
-              }
-            }
-            @case (inputType.relation) {
-              <app-relation
-                [entityName]="propInfo.value.propInformation.basic.ref!"
+<h2>{{ pageTitle }}</h2>
+<form [formGroup]="dynamicForm" class="row">
+  @for (propInfo of schemaInfo.schema | keyvalue: originalOrder; track $index) {
+    @if (!propInfo.value.guiInfo.hide?.form) {
+      @if (propInfo.value.propInformation.basic.ref) {}
+      @switch (propInfo.value.guiInfo.inputType) {
+        @case (inputType.dateTime) {
+          <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
+            <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
+            <input
+              matInput
+              [matDatepicker]="myDatepicker"
+              placeholder="Choose a date"
+              [formControlName]="propInfo.value.propInformation.basic.name"
+              (click)="myDatepicker.open()"
+            />
+            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
+            <mat-datepicker #myDatepicker></mat-datepicker>
+          </mat-form-field>
+        }
+        @case (inputType.input) {
+          @if (propInfo.value.propInformation.basic.type === "number") {
+            <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
+              <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
+              <input
+                matInput
+                type="number"
+                [required]="!propInfo.value.propInformation.basic.optional"
                 [formControlName]="propInfo.value.propInformation.basic.name"
-                [name]="getRelation(propInfo.value).value"
-                (nameChange)="getRelation(propInfo.value).setValue($event)"
-                class="padded-field"
               />
-            }
-            @case (inputType.boolean) {
-              <mat-slide-toggle
-                class="col-xs-12 col-sm-6 col-lg-4 padded-field"
+              <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('email')">
+                Please enter valid email form
+              </mat-error>
+              <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('pattern')">
+                The name should be between 3-20 letter
+              </mat-error>
+            </mat-form-field>
+          } @else {
+            <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
+              <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
+              <input
+                matInput
+                [attr.type]="propInfo.value.propInformation.basic.type ?? ''"
+                [required]="!propInfo.value.propInformation.basic.optional"
                 [formControlName]="propInfo.value.propInformation.basic.name"
-              >
-                {{ propInfo.value.propInformation.basic.name }}
-              </mat-slide-toggle>
-            }
-            @default {
-              unknown
-            }
+              />
+              <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('email')">
+                Please enter valid email form
+              </mat-error>
+              <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('pattern')">
+                The name should be between 3-20 letter
+              </mat-error>
+            </mat-form-field>
           }
         }
+        @case (inputType.relation) {
+          <app-relation
+            [entityName]="propInfo.value.propInformation.basic.ref!"
+            [formControlName]="propInfo.value.propInformation.basic.name"
+            [name]="getRelation(propInfo.value).value"
+            (nameChange)="getRelation(propInfo.value).setValue($event)"
+            class="padded-field"
+          />
+        }
+        @case (inputType.boolean) {
+          <mat-slide-toggle
+            class="col-xs-12 col-sm-6 col-lg-4 padded-field"
+            [formControlName]="propInfo.value.propInformation.basic.name"
+          >
+            {{ propInfo.value.propInformation.basic.name }}
+          </mat-slide-toggle>
+        }
+        @default {
+          unknown
+        }
       }
-      <div>
-        <button mat-raised-button color="primary" (click)="save()">{{ translations.save }}</button>
-        <button mat-raised-button color="warn" (click)="cancel()">{{ translations.cancel }}</button>
-      </div>
-    </form>
-  </mat-card>
+    }
+  }
+</form>
+<div>
+  <button mat-raised-button color="primary" (click)="save()">{{ translations.save }}</button>
+  <button mat-raised-button color="warn" (click)="cancel()">{{ translations.cancel }}</button>
 </div>
