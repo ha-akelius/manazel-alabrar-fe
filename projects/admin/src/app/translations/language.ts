@@ -1,6 +1,6 @@
 import { Language } from '@prisma/client';
 
 export const language: Record<Language, string> = {
-  ar: '',
-  en_EN: '',
+  ar: 'عربي',
+  en_EN: 'english',
 };

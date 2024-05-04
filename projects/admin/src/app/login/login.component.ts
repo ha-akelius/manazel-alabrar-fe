@@ -8,7 +8,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AppStoreService } from '../app.store.service';
 import { AuthService, LoginStatus } from '../auth-service.service';
 
 @Component({
@@ -37,7 +36,6 @@ export class LoginComponent {
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private appStore: AppStoreService,
     private router: Router,
   ) {}
 
@@ -56,13 +54,5 @@ export class LoginComponent {
         duration: 5000,
       });
     }
-  }
-
-  changeToEnglish() {
-    this.appStore.changeLanguage('en');
-  }
-
-  changeToArabic() {
-    this.appStore.changeLanguage('ar');
   }
 }

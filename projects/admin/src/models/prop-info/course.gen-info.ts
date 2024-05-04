@@ -18,5 +18,6 @@ const pathName: PropPrismaInformation<string, 'string'> = {
 const lessons: PropPrismaInformation<Lesson, 'Lesson'> = {
   type: 'Lesson',
   name: 'lessons',
+  array: true,
 };
 export const CourseGenInfo = { name, pathId, pathName, lessons };

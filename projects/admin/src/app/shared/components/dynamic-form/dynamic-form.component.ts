@@ -1,16 +1,17 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { JsonPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { APIService } from '../../../../core/services/api.service';
 import { translations } from '../../../translations';
-import { apiService, schemaInfo } from '../../model/schame';
+import { apiService, assertSchemaInfo } from '../../model/schame';
 import { DynamicFieldsComponent } from '../dynamic-fields/dynamic-fields.component';
 
 @Component({
   standalone: true,
   selector: 'app-dynamic-form',
-  imports: [MatButtonModule, ReactiveFormsModule, DynamicFieldsComponent],
+  imports: [JsonPipe, MatButtonModule, ReactiveFormsModule, DynamicFieldsComponent],
   templateUrl: './dynamic-form.component.html',
   styleUrls: ['./dynamic-form.component.scss'],
 })
@@ -39,7 +40,7 @@ export class DynamicFormComponent implements OnInit {
       return;
     }
 
-    const api = apiService(schemaInfo(this.entityName).api, this.apiService);
+    const api = apiService(assertSchemaInfo(this.entityName).api, this.apiService);
 
     const obs = this.value
       ? // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -41,6 +41,7 @@ const date: PropPrismaInformation<Date, 'Date'> = {
 const questins: PropPrismaInformation<Question, 'Question'> = {
   type: 'Question',
   name: 'questins',
+  array: true,
 };
 
 const students: PropPrismaInformation<StudentLesson, 'StudentLesson'> = {

@@ -3,7 +3,7 @@ import { Component, Input, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { APIService } from '../../../../core/services/api.service';
 import { SchemaInfo } from '../../model/json-schema';
-import { apiService, schemaInfo } from '../../model/schame';
+import { apiService, assertSchemaInfo } from '../../model/schame';
 import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
 
 @Component({
@@ -24,7 +24,7 @@ export class FormPageComponent implements OnInit {
   schemaInfo!: SchemaInfo;
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName);
+    this.schemaInfo = assertSchemaInfo(this.entityName);
     if (this.id) {
       apiService(this.schemaInfo.api, this.apiService)
         .findOne(this.id)

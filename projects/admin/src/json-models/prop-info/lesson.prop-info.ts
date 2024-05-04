@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PropInformation, WithPropType } from '../../models/utils/type-utils';
-import { Lesson, Media, Question } from '../lessons';
+import { Lesson, Question, StudentLesson } from '../lessons';
 import { LessonGenInfo } from './lesson.gen-info';
 
 const name: PropInformation<string, 'string'> = {
@@ -19,8 +19,12 @@ const toPageNumber: PropInformation<number, 'number'> = {
   basic: LessonGenInfo.toPageNumber,
 };
 
-const audio: PropInformation<Media, 'Media'> = {
-  basic: LessonGenInfo.audio,
+const audioId: PropInformation<number, 'number'> = {
+  basic: LessonGenInfo.audioId,
+};
+
+const audioName: PropInformation<string, 'string'> = {
+  basic: LessonGenInfo.audioName,
 };
 
 const date: PropInformation<Date, 'Date'> = {
@@ -40,7 +44,8 @@ export const LessonPropInfo: WithPropType<Lesson, PropInformation<any, any>> = {
   description: description,
   pageNumber: pageNumber,
   toPageNumber: toPageNumber,
-  audio: audio,
+  audioId: audioId,
+  audioName: audioName,
   date: date,
   questins: questins,
   students: students,

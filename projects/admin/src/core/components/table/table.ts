@@ -1,5 +1,9 @@
-import { Directive, Input, Type } from '@angular/core';
-import { Subject } from 'rxjs';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Directive, Input, Optional, Self, Type } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
+import { Subject, debounceTime } from 'rxjs';
+import { GuiPropInformation } from '../../../app/shared/model/json-schema';
 
 export interface BasicRecord {
   id: number;
@@ -13,6 +17,52 @@ export class TableColumnComponent<X, T extends BasicRecord = BasicRecord> {
   @Input() key?: string;
   @Input() entityName!: string;
   @Input() onChange: Subject<void>;
+}
+
+@Directive()
+export class FormComponent<T = any, X = T> implements ControlValueAccessor {
+  @Input({ required: true }) propInfo: GuiPropInformation;
+  formControl = new FormControl<X | undefined>(undefined);
+  onChange: (x: T | undefined | null) => void;
+
+  constructor(@Optional() @Self() protected ngControl: NgControl) {
+    if (this.ngControl) {
+      this.ngControl.valueAccessor = this;
+    }
+    this.formControl.valueChanges
+      .pipe(takeUntilDestroyed(), debounceTime(300))
+      .subscribe((value) => this.valueChange(value));
+  }
+
+  get parentFormGroup(): FormGroup {
+    return this.ngControl.control!.parent! as FormGroup;
+  }
+
+  writeValue(obj: T): void {
+    this.formControl.setValue(this.mapToX(obj));
+  }
+
+  registerOnChange(fn: FormComponent['onChange']): void {
+    this.onChange = fn;
+  }
+
+  registerOnTouched(): void {}
+
+  setDisabledState?(isDisabled: boolean): void {
+    if (isDisabled) {
+      this.formControl.disable();
+    } else {
+      this.formControl.enable();
+    }
+  }
+
+  protected valueChange(value: X | undefined | null): void {
+    this.onChange(value as unknown as T);
+  }
+
+  protected mapToX(value: T): X {
+    return value as unknown as X;
+  }
 }
 
 export function componentDef<T>(component: new () => T, inputs: { [P in keyof T as Exclude<P, 'record'>]: T[P] }) {

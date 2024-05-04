@@ -12,12 +12,14 @@ import {
 } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatExpansionModule } from '@angular/material/expansion';
 import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../model/json-schema';
-import { schemaInfo } from '../../model/schame';
-import { RelationComponent } from '../dynamic-form/relation/relation.component';
-
+import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
+import { DateFormComponent } from './components/date-form.component';
+import { RelationComponent } from './components/relation/relation.component';
 // Preserve original property order
 const originalOrder = (): number => {
   return 0;
@@ -26,15 +28,6 @@ const originalOrder = (): number => {
 @Component({
   selector: 'app-dynamic-fields',
   standalone: true,
-  imports: [
-    MatInputModule,
-    ReactiveFormsModule,
-    MatDatepickerModule,
-    MatSlideToggleModule,
-    MatButtonModule,
-    CommonModule,
-    RelationComponent,
-  ],
   templateUrl: './dynamic-fields.component.html',
   styleUrl: './dynamic-fields.component.scss',
   providers: [
@@ -43,6 +36,18 @@ const originalOrder = (): number => {
       useExisting: forwardRef(() => DynamicFieldsComponent),
       multi: true,
     },
+  ],
+  imports: [
+    MatInputModule,
+    ReactiveFormsModule,
+    MatDatepickerModule,
+    MatSlideToggleModule,
+    MatButtonModule,
+    CommonModule,
+    RelationComponent,
+    MatExpansionModule,
+    MatSelectModule,
+    DateFormComponent,
   ],
 })
 export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
@@ -68,7 +73,7 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   registerOnTouched(): void {}
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName);
+    this.schemaInfo = schemaInfo(this.entityName) || jsonSchemaInfo(this.entityName);
     this.createFormGroup();
   }
 
@@ -79,10 +84,6 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
       formGroup.addControl(propInfo.propInformation.basic.name, control);
     }
     this.dynamicForm = formGroup;
-  }
-
-  getRelation(property: GuiPropInformation) {
-    return this.dynamicForm.get(property.propInformation.basic.name.replace('Id', '') + 'Name')!;
   }
 
   private collectValidators(property: GuiPropInformation): ValidatorFn[] {

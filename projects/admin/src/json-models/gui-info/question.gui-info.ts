@@ -1,35 +1,37 @@
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../app/shared/model/json-schema';
+import { translations } from '../../app/translations';
 import { WithPropType } from '../../models/utils/type-utils';
 import { Question } from '../lessons';
-import { propInfos } from '../prop-info';
+import { jsonPropInfos } from '../prop-info';
 
 export const questionGuiInfo: WithPropType<Question, GuiPropInformation> = {
   name: {
-    propInformation: propInfos.QuestionPropInfo.name,
+    propInformation: jsonPropInfos.QuestionPropInfo.name,
     guiInfo: {
       label: $localize`name`,
       inputType: InputType.input,
     },
   },
+  mark: {
+    propInformation: jsonPropInfos.QuestionPropInfo.mark,
+    guiInfo: {
+      label: $localize`mark`,
+      inputType: InputType.input,
+    },
+  },
   questionType: {
-    propInformation: propInfos.QuestionPropInfo.questionType,
+    propInformation: jsonPropInfos.QuestionPropInfo.questionType,
     guiInfo: {
       label: $localize`type`,
-      inputType: InputType.boolean,
+      inputType: InputType.enum,
+      options: translations.questionType,
     },
   },
   answers: {
-    propInformation: propInfos.QuestionPropInfo.answers,
+    propInformation: jsonPropInfos.QuestionPropInfo.answers,
     guiInfo: {
       label: $localize`answers`,
-      inputType: InputType.list,
-    },
-  },
-  mark: {
-    propInformation: propInfos.QuestionPropInfo.mark,
-    guiInfo: {
-      label: $localize`mark`,
-      inputType: InputType.list,
+      inputType: InputType.json,
     },
   },
 };

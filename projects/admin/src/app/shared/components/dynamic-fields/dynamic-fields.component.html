@@ -1,20 +1,19 @@
+{{ dynamicForm.value | json }}
 <form [formGroup]="dynamicForm" class="row">
   @for (propInfo of schemaInfo.schema | keyvalue: originalOrder; track $index) {
     @if (!propInfo.value.guiInfo.hide?.form) {
-      @if (propInfo.value.propInformation.basic.ref) {}
       @switch (propInfo.value.guiInfo.inputType) {
         @case (inputType.dateTime) {
-          <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
+          <app-date-form
+            class="col-xs-12 col-sm-6 col-lg-4 padded-field"
+            [propInfo]="propInfo.value"
+            [formControlName]="propInfo.value.propInformation.basic.name"
+          />
+        }
+        @case (inputType.textarea) {
+          <mat-form-field class="col-xs-12">
             <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
-            <input
-              matInput
-              [matDatepicker]="myDatepicker"
-              placeholder="Choose a date"
-              [formControlName]="propInfo.value.propInformation.basic.name"
-              (click)="myDatepicker.open()"
-            />
-            <mat-datepicker-toggle matSuffix [for]="myDatepicker"></mat-datepicker-toggle>
-            <mat-datepicker #myDatepicker></mat-datepicker>
+            <textarea matInput [formControlName]="propInfo.value.propInformation.basic.name"></textarea>
           </mat-form-field>
         }
         @case (inputType.input) {
@@ -54,11 +53,9 @@
         }
         @case (inputType.relation) {
           <app-relation
-            [entityName]="propInfo.value.propInformation.basic.ref!"
+            class="col-xs-12 col-sm-6 col-lg-4 padded-field"
+            [propInfo]="propInfo.value"
             [formControlName]="propInfo.value.propInformation.basic.name"
-            [name]="getRelation(propInfo.value).value"
-            (nameChange)="getRelation(propInfo.value).setValue($event)"
-            class="padded-field"
           />
         }
         @case (inputType.boolean) {
@@ -69,8 +66,39 @@
             {{ propInfo.value.propInformation.basic.name }}
           </mat-slide-toggle>
         }
+        @case (inputType.enum) {
+          <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
+            <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
+            <mat-select [formControlName]="propInfo.value.propInformation.basic.name">
+              @for (option of propInfo.value.guiInfo.options | keyvalue; track option) {
+                <mat-option [value]="option.key">{{ option.value }}</mat-option>
+              }
+            </mat-select>
+          </mat-form-field>
+        }
+        @case (inputType.json) {
+          <mat-accordion class="col-xs-12">
+            <mat-expansion-panel>
+              <mat-expansion-panel-header>
+                <mat-panel-title>
+                  {{ propInfo.value.guiInfo.label }}
+                </mat-panel-title>
+              </mat-expansion-panel-header>
+              <app-dynamic-fields
+                [entityName]="propInfo.value.propInformation.basic.type"
+                [formControlName]="propInfo.value.propInformation.basic.name"
+              />
+            </mat-expansion-panel>
+          </mat-accordion>
+        }
         @default {
-          <div class="col-xs-12">unknown</div>
+          <div class="col-xs-12">
+            <pre>
+              {{ propInfo.value | json }}
+            </pre>
+
+            unknown
+          </div>
         }
       }
     }

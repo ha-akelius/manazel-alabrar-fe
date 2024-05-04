@@ -12,7 +12,7 @@ import { APIService } from '../../../../core/services/api.service';
 import { Result } from '../../../../shared/models/result';
 import { translations } from '../../../translations';
 import { SchemaInfo } from '../../model/json-schema';
-import { apiService, numberTypes, schemaInfo } from '../../model/schame';
+import { apiService, assertSchemaInfo, numberTypes } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
 import { RelationLinkComponent } from './relation-link/relation-link.component';
@@ -55,7 +55,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
   }
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName);
+    this.schemaInfo = assertSchemaInfo(this.entityName);
 
     this.fetchData();
 

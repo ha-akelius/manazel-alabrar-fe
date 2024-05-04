@@ -1,4 +1,5 @@
 <h2>{{ pageTitle }}</h2>
+<pre>{{ formValue.value | json }}</pre>
 <app-dynamic-fields [formControl]="formValue" [entityName]="entityName" />
 <div>
   <button mat-raised-button color="primary" (click)="save()">{{ translations.save }}</button>
