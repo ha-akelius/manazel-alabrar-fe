@@ -6,9 +6,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { RouterOutlet } from '@angular/router';
 import { AppStoreService } from './app.store.service';
+import { MediaComponent } from './components/media/media.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
-
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -22,6 +22,7 @@ import { SidenavComponent } from './layout/sidenav/sidenav.component';
     MatIconModule,
     SidenavComponent,
     HeaderComponent,
+    MediaComponent,
   ],
 })
 export class AppComponent implements OnDestroy {

@@ -1,0 +1,24 @@
+<h2>Media Folders</h2>
+
+<div *ngFor="let folder of path; let i = index" (click)="navigateToParent(i)">
+  <mat-icon>keyboard_arrow_right</mat-icon>
+  <span>{{ folder.name }}</span>
+</div>
+
+<div class="child-folder-row">
+  <mat-card *ngFor="let folder of filteredMediaFolders" (click)="onFolderClick(folder)">
+    <mat-card-content>
+      <mat-icon>folder</mat-icon>
+      <span>{{ folder.name }}</span>
+    </mat-card-content>
+  </mat-card>
+</div>
+<h2>Media Files</h2>
+<div class="child-folder-row" *ngIf="filteredMedias.length > 0">
+  <mat-card *ngFor="let media of filteredMedias">
+    <mat-card-content>
+      <mat-icon>description</mat-icon>
+      <span>{{ media.name }}</span>
+    </mat-card-content>
+  </mat-card>
+</div>
