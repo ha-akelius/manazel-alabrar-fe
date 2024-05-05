@@ -1,5 +1,5 @@
 <h2>Media Folders</h2>
-
+<input type="file" (change)="uploadFile($event)" />
 <div *ngFor="let folder of path; let i = index" (click)="navigateToParent(i)">
   <mat-icon>keyboard_arrow_right</mat-icon>
   <span>{{ folder.name }}</span>
