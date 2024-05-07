@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { JsonPipe } from '@angular/common';
 import { Component, OnInit, inject } from '@angular/core';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AbstractControl, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatAutocompleteModule } from '@angular/material/autocomplete';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +15,11 @@ type resultType = Result<realtionType>;
 
 function toLowerCaseFirstLetter(str: string): string {
   return str[0].toLowerCase() + str.slice(1);
+}
+
+function isRelationType(obj: any): obj is realtionType {
+  // Type guard using in operator for stricter type checking
+  return 'id' in obj && typeof obj.id === 'number' && 'name' in obj && typeof obj.name === 'string';
 }
 
 @Component({
@@ -35,6 +41,15 @@ export class RelationComponent extends FormComponent<number, realtionType | stri
   ngOnInit(): void {
     const key = toLowerCaseFirstLetter(this.propInfo.propInformation.basic.ref!) as keyof APIService;
     this.service = this.apiService[key] as never;
+    setTimeout(() => {
+      if (isRelationType(this.formControl.value)) {
+        this.selectedValue = {
+          id: this.formControl.value.id,
+          name: this.getNameControl()?.value ?? this.selectedValue.name,
+        };
+        this.formControl.setValue(this.selectedValue);
+      }
+    }, 10);
   }
 
   filterByName(): void {
@@ -49,7 +64,8 @@ export class RelationComponent extends FormComponent<number, realtionType | stri
   }
 
   protected override mapToX(value: number): string | realtionType {
-    this.selectedValue = { id: value, name: this.selectedValue.name };
+    this.selectedValue = { id: value, name: this.getNameControl()?.value ?? this.selectedValue.name };
+
     return this.selectedValue;
   }
 
@@ -59,8 +75,12 @@ export class RelationComponent extends FormComponent<number, realtionType | stri
     } else {
       this.selectedValue = this.formControl.value;
       this.onChange(this.selectedValue.id);
-      const nameKey = this.propInfo.propInformation.basic.name.replace('Id', 'Name');
-      this.parentFormGroup.get(nameKey)?.setValue(this.selectedValue.name);
+      this.getNameControl()?.setValue(this.selectedValue.name);
     }
+  }
+
+  private getNameControl(): AbstractControl<any, any> | null | undefined {
+    const nameKey = this.propInfo.propInformation.basic.name.replace('Id', 'Name');
+    return this.parentFormGroup?.get(nameKey);
   }
 }

@@ -34,12 +34,12 @@ export class FormComponent<T = any, X = T> implements ControlValueAccessor {
       .subscribe((value) => this.valueChange(value));
   }
 
-  get parentFormGroup(): FormGroup {
-    return this.ngControl.control!.parent! as FormGroup;
+  get parentFormGroup(): FormGroup | undefined {
+    return this.ngControl.control?.parent as FormGroup;
   }
 
   writeValue(obj: T): void {
-    this.formControl.setValue(this.mapToX(obj));
+    this.formControl.setValue(this.mapToX(obj), { emitEvent: false });
   }
 
   registerOnChange(fn: FormComponent['onChange']): void {
@@ -50,9 +50,13 @@ export class FormComponent<T = any, X = T> implements ControlValueAccessor {
 
   setDisabledState?(isDisabled: boolean): void {
     if (isDisabled) {
-      this.formControl.disable();
+      if (this.formControl.enabled) {
+        this.formControl.disable();
+      }
     } else {
-      this.formControl.enable();
+      if (this.formControl.disabled) {
+        this.formControl.enable();
+      }
     }
   }
 

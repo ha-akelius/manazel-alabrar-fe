@@ -11,6 +11,14 @@ export const lessonGuiInfo: WithPropType<Lesson, GuiPropInformation> = {
       inputType: InputType.input,
     },
   },
+  date: {
+    propInformation: jsonPropInfos.LessonPropInfo.date,
+    guiInfo: {
+      label: $localize`date`,
+      inputType: InputType.dateTime,
+    },
+  },
+
   description: {
     propInformation: jsonPropInfos.LessonPropInfo.description,
     guiInfo: {
@@ -37,13 +45,6 @@ export const lessonGuiInfo: WithPropType<Lesson, GuiPropInformation> = {
     guiInfo: {
       label: $localize`audio`,
       inputType: InputType.input,
-    },
-  },
-  date: {
-    propInformation: jsonPropInfos.LessonPropInfo.date,
-    guiInfo: {
-      label: $localize`date`,
-      inputType: InputType.dateTime,
     },
   },
   questins: {
