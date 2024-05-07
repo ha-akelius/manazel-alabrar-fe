@@ -33,7 +33,7 @@ export const courseGuiInfo: WithPropType<Course, GuiPropInformation> = {
     propInformation: CoursePropInfo.lessons,
     guiInfo: {
       label: $localize`lessons`,
-      inputType: InputType.json,
+      inputType: InputType.jsonArray,
       hide: {
         form: false,
       },

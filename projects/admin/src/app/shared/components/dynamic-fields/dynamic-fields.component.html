@@ -1,4 +1,4 @@
-{{ dynamicForm.value | json }}
+<!-- <pre>{{ dynamicForm.value | json }}</pre> -->
 <form [formGroup]="dynamicForm" class="row">
   @for (propInfo of schemaInfo.schema | keyvalue: originalOrder; track $index) {
     @if (!propInfo.value.guiInfo.hide?.form) {
@@ -76,7 +76,29 @@
             </mat-select>
           </mat-form-field>
         }
+        @case (inputType.jsonArray) {
+          <div class="col-xs-12">
+            <div>{{ propInfo.value.guiInfo.label }}</div>
+            <mat-accordion class="col-xs-12" [formArrayName]="propInfo.value.propInformation.basic.name">
+              @for (formControl of formArrayControls(propInfo.value); track formControl; let i = $index) {
+                <mat-expansion-panel>
+                  <mat-expansion-panel-header>
+                    <mat-panel-title>
+                      {{ formControl.getRawValue()?.name ?? propInfo.value.guiInfo.label }}
+                    </mat-panel-title>
+                  </mat-expansion-panel-header>
+                  <app-dynamic-fields
+                    [entityName]="propInfo.value.propInformation.basic.type"
+                    formControlName="{{ i }}"
+                  />
+                </mat-expansion-panel>
+              }
+            </mat-accordion>
+            <button mat-icon-button (click)="addControl(propInfo.value)"><mat-icon>add</mat-icon></button>
+          </div>
+        }
         @case (inputType.json) {
+          <div>{{ propInfo.value.guiInfo.label }}</div>
           <mat-accordion class="col-xs-12">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
@@ -93,9 +115,9 @@
         }
         @default {
           <div class="col-xs-12">
-            <pre>
+            <!-- <pre>
               {{ propInfo.value | json }}
-            </pre>
+            </pre> -->
 
             unknown
           </div>

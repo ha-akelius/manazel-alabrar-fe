@@ -45,6 +45,7 @@ export enum InputType {
   enum,
   list,
   json,
+  jsonArray,
   unknown,
 }
 

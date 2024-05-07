@@ -8,10 +8,9 @@ describe('DynamicFieldsComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [DynamicFieldsComponent]
-    })
-    .compileComponents();
-    
+      imports: [DynamicFieldsComponent],
+    }).compileComponents();
+
     fixture = TestBed.createComponent(DynamicFieldsComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

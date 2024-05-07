@@ -20,14 +20,16 @@ export class DynamicFormComponent implements OnInit {
   @Input() entityName: string = '';
   @Input() set value(value: unknown) {
     this.formValue.setValue(value);
+    this._value = value;
   }
-  @Output() formResult = new EventEmitter<typeof this.value | null>();
+  _value: unknown;
+  @Output() formResult = new EventEmitter<typeof this._value | null>();
   formValue = new FormControl<unknown>(null, Validators.required);
   pageTitle: string = 'Add ' + this.entityName;
   translations = translations.general;
 
   ngOnInit(): void {
-    if (this.value) {
+    if (this._value) {
       this.pageTitle = 'Edit' + this.entityName;
     } else {
       this.pageTitle = 'Add' + this.entityName;
@@ -42,9 +44,9 @@ export class DynamicFormComponent implements OnInit {
 
     const api = apiService(assertSchemaInfo(this.entityName).api, this.apiService);
 
-    const obs = this.value
+    const obs = this._value
       ? // eslint-disable-next-line @typescript-eslint/no-explicit-any
-        api.update((this.value as unknown as any).id, this.formValue.value as never)
+        api.update((this._value as unknown as any).id, this.formValue.value as never)
       : api.create(this.formValue.value as never);
     obs.subscribe((t) => {
       this.formResult.emit(t);
