@@ -1,14 +1,14 @@
 <h2>Media Folders</h2>
+<div *ngIf="activeFolder">
+  <input type="file" class="file-input" (change)="uploadFile($event)" #fileUpload />
 
-<input type="file" class="file-input" (change)="uploadFile($event)" (change)="onFileSelected($event)" #fileUpload />
-
-<div class="file-upload">
-  {{ fileName || "No file uploaded yet." }}
-  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-    <mat-icon>attach_file</mat-icon>
-  </button>
+  <div class="file-upload">
+    {{ fileName || "No file uploaded yet." }}
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+  </div>
 </div>
-
 <div *ngFor="let folder of path; let i = index" (click)="navigateToParent(i)">
   <mat-icon>keyboard_arrow_right</mat-icon>
   <span>{{ folder.name }}</span>

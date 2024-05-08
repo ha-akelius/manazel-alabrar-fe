@@ -20,7 +20,7 @@ import { MediaDialogComponent } from '../media-details/media-details.component';
 export class MediaComponent implements OnInit {
   currentfolder: MediaFolder | null = null;
   path: MediaFolder[] = [];
-
+  activeFolder: MediaFolder | null = null;
   filteredMediaFolders: MediaFolder[] = [];
   filteredMedias: Media[] = [];
 
@@ -68,9 +68,11 @@ export class MediaComponent implements OnInit {
 
   onFolderClick(folder: MediaFolder): void {
     this.filterMediaByParent(folder);
+    this.activeFolder = folder;
   }
 
   navigateToParent(index: number): void {
+    this.activeFolder = null;
     if (index >= 0 && index < this.path.length) {
       if (index > 0) {
         const parent = this.path[index - 1];
@@ -139,16 +141,4 @@ export class MediaComponent implements OnInit {
     });
   }
   fileName = '';
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  onFileSelected(event: any) {
-    const file: File = event.target.files[0];
-
-    if (file) {
-      this.fileName = file.name;
-      const formData = new FormData();
-
-      formData.append('thumbnail', file);
-    }
-  }
 }
