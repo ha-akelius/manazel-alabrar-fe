@@ -1,0 +1,6 @@
+<input type="file" style="display: none" #fileInput (change)="handleFileInput($event)" />
+<mat-dialog-content> What event would you need to do? </mat-dialog-content>
+<mat-dialog-actions>
+  <button mat-raised-button color="primary" (click)="confirmReplace()">Replace</button>
+  <button mat-raised-button color="warn" (click)="confirmDelete()">Delete</button>
+</mat-dialog-actions>

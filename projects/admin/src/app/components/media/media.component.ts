@@ -1,16 +1,19 @@
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { Media, MediaFolder, MediaType, Prisma } from '@prisma/client';
 import { APIService } from '../../../core/services/api.service';
-
+import { MediaDialogComponent } from '../media-details/media-details.component';
 @Component({
   selector: 'app-media',
   standalone: true,
-  imports: [MatListModule, MatIconModule, CommonModule, MatCardModule],
+  imports: [MatListModule, MatIconModule, CommonModule, MatCardModule, MatCheckboxModule, MatButtonModule],
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.scss'],
 })
@@ -22,7 +25,11 @@ export class MediaComponent implements OnInit {
   filteredMedias: Media[] = [];
 
   apiService = inject(APIService);
-  constructor(private http: HttpClient) {}
+
+  constructor(
+    private http: HttpClient,
+    public dialog: MatDialog,
+  ) {}
 
   ngOnInit(): void {
     this.getMediaFolders(null);
@@ -101,7 +108,7 @@ export class MediaComponent implements OnInit {
     const formData = new FormData();
     formData.append('files', file);
 
-    this.http.post(`http://localhost:3000/api/media/upload/${media.id}`, formData).subscribe(
+    this.http.post(`/api/media/upload/${media.id}`, formData).subscribe(
       () => {
         console.log('File uploaded successfully');
       },
@@ -122,5 +129,26 @@ export class MediaComponent implements OnInit {
       url: '',
       ext: '',
     } as unknown as Prisma.MediaCreateInput;
+  }
+
+  openDialog(media: Media): void {
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const dialogRef = this.dialog.open(MediaDialogComponent, {
+      width: '250px',
+      data: media,
+    });
+  }
+  fileName = '';
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  onFileSelected(event: any) {
+    const file: File = event.target.files[0];
+
+    if (file) {
+      this.fileName = file.name;
+      const formData = new FormData();
+
+      formData.append('thumbnail', file);
+    }
   }
 }

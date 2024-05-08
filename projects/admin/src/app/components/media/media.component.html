@@ -1,5 +1,14 @@
 <h2>Media Folders</h2>
-<input type="file" (change)="uploadFile($event)" />
+
+<input type="file" class="file-input" (change)="uploadFile($event)" (change)="onFileSelected($event)" #fileUpload />
+
+<div class="file-upload">
+  {{ fileName || "No file uploaded yet." }}
+  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+    <mat-icon>attach_file</mat-icon>
+  </button>
+</div>
+
 <div *ngFor="let folder of path; let i = index" (click)="navigateToParent(i)">
   <mat-icon>keyboard_arrow_right</mat-icon>
   <span>{{ folder.name }}</span>
@@ -8,8 +17,7 @@
 <div class="child-folder-row">
   <mat-card *ngFor="let folder of filteredMediaFolders" (click)="onFolderClick(folder)">
     <mat-card-content>
-      <mat-icon>folder</mat-icon>
-      <span>{{ folder.name }}</span>
+      <mat-checkbox> <mat-icon>folder</mat-icon>{{ folder.name }}</mat-checkbox>
     </mat-card-content>
   </mat-card>
 </div>
@@ -17,8 +25,10 @@
 <div class="child-folder-row" *ngIf="filteredMedias.length > 0">
   <mat-card *ngFor="let media of filteredMedias">
     <mat-card-content>
-      <mat-icon>description</mat-icon>
-      <span>{{ media.name }}</span>
+      <mat-checkbox (change)="openDialog(media)">
+        <mat-icon>description</mat-icon>
+        {{ media.name }}</mat-checkbox
+      >
     </mat-card-content>
   </mat-card>
 </div>
