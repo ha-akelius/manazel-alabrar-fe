@@ -1,5 +1,6 @@
+/* eslint-disable @angular-eslint/use-lifecycle-interface */
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -26,13 +27,14 @@ import { AuthService, LoginStatus } from '../auth-service.service';
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
 })
-export class LoginComponent {
+export class LoginComponent implements OnInit {
   loginForm = this.builder.nonNullable.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
   loginStatus: LoginStatus;
-
+  rememberMe: boolean = false;
+  password: string = '';
   constructor(
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
@@ -41,6 +43,13 @@ export class LoginComponent {
     private router: Router,
   ) {}
 
+  ngOnInit() {
+    const rememberedPassword = localStorage.getItem('rememberedPassword');
+    if (rememberedPassword) {
+      this.rememberMe = true;
+      this.password = rememberedPassword;
+    }
+  }
   login() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.getRawValue();
@@ -64,5 +73,13 @@ export class LoginComponent {
 
   changeToArabic() {
     this.appStore.changeLanguage('ar');
+  }
+
+  rememberPassword() {
+    if (this.rememberMe) {
+      localStorage.setItem('rememberedPassword', this.password);
+    } else {
+      localStorage.removeItem('rememberedPassword');
+    }
   }
 }

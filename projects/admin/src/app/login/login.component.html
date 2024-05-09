@@ -28,7 +28,7 @@
 
       <mat-error *ngIf="loginStatus">wrong user name or password</mat-error>
       <div>
-        <mat-checkbox>Remember me</mat-checkbox>
+        <mat-checkbox (change)="rememberPassword()">Remember me</mat-checkbox>
       </div>
 
       <div>
