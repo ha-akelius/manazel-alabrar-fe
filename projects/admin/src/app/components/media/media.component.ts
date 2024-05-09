@@ -20,10 +20,10 @@ import { MediaDialogComponent } from '../media-details/media-details.component';
 export class MediaComponent implements OnInit {
   currentfolder: MediaFolder | null = null;
   path: MediaFolder[] = [];
-  activeFolder: MediaFolder | null = null;
+  activatedFolder: MediaFolder | null = null;
   filteredMediaFolders: MediaFolder[] = [];
   filteredMedias: Media[] = [];
-
+  fileName = '';
   apiService = inject(APIService);
 
   constructor(
@@ -68,11 +68,11 @@ export class MediaComponent implements OnInit {
 
   onFolderClick(folder: MediaFolder): void {
     this.filterMediaByParent(folder);
-    this.activeFolder = folder;
+    this.activatedFolder = folder;
   }
 
   navigateToParent(index: number): void {
-    this.activeFolder = null;
+    this.activatedFolder = null;
     if (index >= 0 && index < this.path.length) {
       if (index > 0) {
         const parent = this.path[index - 1];
@@ -140,5 +140,4 @@ export class MediaComponent implements OnInit {
       data: media,
     });
   }
-  fileName = '';
 }
