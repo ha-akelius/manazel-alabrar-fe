@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -11,6 +11,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AppStoreService } from '../app.store.service';
 import { AuthService, LoginStatus } from '../auth-service.service';
+
+const rememberToken = 'rememberToken';
 
 @Component({
   selector: 'app-login',
@@ -32,9 +34,8 @@ export class LoginComponent implements OnInit {
     username: ['', Validators.required],
     password: ['', Validators.required],
   });
+  rememberMe = new FormControl(true);
   loginStatus: LoginStatus;
-  rememberMe: boolean = false;
-  password: string = '';
   constructor(
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
@@ -44,16 +45,19 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const rememberedPassword = localStorage.getItem('rememberedPassword');
-    if (rememberedPassword) {
-      this.rememberMe = true;
-      this.password = rememberedPassword;
+    const rememberedInformation = localStorage.getItem(rememberToken);
+    if (rememberedInformation) {
+      this.rememberMe.setValue(true);
+      this.loginForm.setValue(JSON.parse(rememberedInformation));
     }
   }
   login() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.getRawValue();
       this.authService.logIn(username, password).then((loginStatus) => {
+        if (this.rememberMe.value) {
+          localStorage.setItem(rememberToken, JSON.stringify(this.loginForm.getRawValue()));
+        }
         if (loginStatus === 'Success') {
           this.router.navigate(['/dashboard']);
         } else {
@@ -75,11 +79,9 @@ export class LoginComponent implements OnInit {
     this.appStore.changeLanguage('ar');
   }
 
-  rememberPassword() {
-    if (this.rememberMe) {
-      localStorage.setItem('rememberedPassword', this.password);
-    } else {
-      localStorage.removeItem('rememberedPassword');
+  remember(save: boolean) {
+    if (!save) {
+      localStorage.removeItem(rememberToken);
     }
   }
 }
