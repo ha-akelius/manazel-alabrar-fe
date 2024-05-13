@@ -1,12 +1,13 @@
 .child-folder-row {
   display: flex;
   gap: 10px;
-  padding-right: 20px;
+  padding-right: var(--sizes-medium);
 
   div {
     width: 200px;
   }
 }
+
 .margin-card {
   margin: 30px;
   width: 10%;
@@ -14,4 +15,13 @@
 
 .file-input {
   display: none;
+}
+
+.card {
+  padding: var(--sizes-medium);
+}
+
+.bread-crumb {
+  display: flex;
+  align-items: center;
 }

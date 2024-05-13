@@ -1,5 +1,4 @@
 import { CommonModule } from '@angular/common';
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
@@ -8,7 +7,9 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
 import { Media, MediaFolder, MediaType, Prisma } from '@prisma/client';
+import { switchMap } from 'rxjs';
 import { APIService } from '../../../core/services/api.service';
+import { UploadService } from '../../service/upload.service';
 import { MediaDialogComponent } from '../media-details/media-details.component';
 @Component({
   selector: 'app-media',
@@ -25,11 +26,8 @@ export class MediaComponent implements OnInit {
   filteredMedias: Media[] = [];
   fileName = '';
   apiService = inject(APIService);
-
-  constructor(
-    private http: HttpClient,
-    public dialog: MatDialog,
-  ) {}
+  dialog = inject(MatDialog);
+  uploadService = inject(UploadService);
 
   ngOnInit(): void {
     this.getMediaFolders(null);
@@ -63,12 +61,12 @@ export class MediaComponent implements OnInit {
     this.getMediaFiles(parent.id);
     this.getMediaFolders(parent.id);
     this.currentfolder = parent;
-    this.path.push(parent);
   }
 
   onFolderClick(folder: MediaFolder): void {
     this.filterMediaByParent(folder);
     this.activatedFolder = folder;
+    this.path.push(folder);
   }
 
   navigateToParent(index: number): void {
@@ -86,38 +84,21 @@ export class MediaComponent implements OnInit {
     }
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  uploadFile(event: any) {
-    if (this.currentfolder?.id) {
-      const files: File[] = event.target.files;
+  uploadFile(target: EventTarget | null) {
+    if (target && target instanceof HTMLInputElement && this.currentfolder?.id) {
+      const files = target.files;
 
-      if (files.length === 0) {
-        return;
-      }
-
-      for (let i = 0; i < files.length; i++) {
-        this.apiService.media.create(this.createMedia()).subscribe(
-          (media) => this.uploadFile2(media, files[i]),
-          (error) => console.error('Error creating media:', error),
-        );
+      if (files?.length) {
+        for (let i = 0; i < files.length; i++) {
+          this.apiService.media
+            .create(this.createMedia())
+            .pipe(switchMap((media) => this.uploadService.uploadFile(media.id, files[i])))
+            .subscribe(() => {
+              this.filterMediaByParent(this.activatedFolder!);
+            });
+        }
       }
     }
-  }
-
-  private uploadFile2(media: Media, file: File): void {
-    console.log('Media created successfully:', media);
-
-    const formData = new FormData();
-    formData.append('files', file);
-
-    this.http.post(`/api/media/upload/${media.id}`, formData).subscribe(
-      () => {
-        console.log('File uploaded successfully');
-      },
-      (error) => {
-        console.error('Error uploading file:', error);
-      },
-    );
   }
 
   private createMedia(): Prisma.MediaCreateInput {
@@ -134,8 +115,7 @@ export class MediaComponent implements OnInit {
   }
 
   openDialog(media: Media): void {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
-    const dialogRef = this.dialog.open(MediaDialogComponent, {
+    this.dialog.open(MediaDialogComponent, {
       width: '250px',
       data: media,
     });
