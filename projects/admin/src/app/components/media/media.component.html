@@ -1,4 +1,13 @@
 <h2>Media Folders</h2>
+<button mat-raised-button color="primary" (click)="addFolder()">
+  Add Folder
+  <mat-icon>add_folder</mat-icon>
+</button>
+<ng-container *ngIf="activatedFolder">
+  <button mat-flat-button color="warn" (click)="deleteFolder(activatedFolder)" *ngIf="isFolderEmpty(activatedFolder)">
+    Delete Folder
+  </button>
+</ng-container>
 <div *ngIf="activatedFolder">
   <input type="file" class="file-input" (change)="uploadFile($event.target)" #fileUpload />
 
@@ -22,20 +31,26 @@
 <div class="child-folder-row">
   <mat-card *ngFor="let folder of filteredMediaFolders">
     <mat-card-content>
-      <mat-checkbox />
       <button mat-flat-button (click)="onFolderClick(folder)"><mat-icon>folder</mat-icon>{{ folder.name }}</button>
     </mat-card-content>
   </mat-card>
 </div>
-
 <h2>Media Files</h2>
-<div class="child-folder-row" *ngIf="filteredMedias.length > 0">
+<div *ngIf="filteredMedias.length > 0">
+  <mat-checkbox [checked]="deleteAllChecked" (change)="toggleDeleteAll($event)"></mat-checkbox>
+  <button mat-raised-button color="warn" (click)="deleteAll()">Delete Selected</button>
+</div>
+<div class="child-folder-row">
   <mat-card *ngFor="let media of filteredMedias">
     <mat-card-content>
-      <mat-checkbox (change)="openDialog(media)">
-        <mat-icon>description</mat-icon>
-        {{ media.name }}</mat-checkbox
-      >
+      <mat-checkbox [checked]="isSelected(media.id)" (change)="toggleSelection(media.id)"></mat-checkbox>
+      <button mat-flat-button><mat-icon>description</mat-icon> {{ media.name }}</button>
     </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="confirmReplace(media)">Replace</button>
+      <button mat-raised-button color="primary" ( click)="confirmSelect(media)">Select</button>
+      <button mat-raised-button color="warn" (click)="confirmDelete(media)">Delete</button>
+    </mat-card-actions>
   </mat-card>
 </div>
+<input type="file" class="file-input" #fileReplaceInput (change)="replaceFile()" />

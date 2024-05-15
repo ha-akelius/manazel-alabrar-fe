@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild, inject } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
-import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox';
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
@@ -14,7 +15,16 @@ import { MediaDialogComponent } from '../media-details/media-details.component';
 @Component({
   selector: 'app-media',
   standalone: true,
-  imports: [MatListModule, MatIconModule, CommonModule, MatCardModule, MatCheckboxModule, MatButtonModule],
+  imports: [
+    MatListModule,
+    MatIconModule,
+    CommonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    ReactiveFormsModule,
+    FormsModule,
+  ],
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.scss'],
 })
@@ -24,11 +34,17 @@ export class MediaComponent implements OnInit {
   activatedFolder: MediaFolder | null = null;
   filteredMediaFolders: MediaFolder[] = [];
   filteredMedias: Media[] = [];
+  selectedMediaIds: number[] = [];
+  deleteAllChecked: boolean = false;
   fileName = '';
   apiService = inject(APIService);
-  dialog = inject(MatDialog);
   uploadService = inject(UploadService);
-
+  constructor(private dialog: MatDialog) {}
+  @ViewChild('fileReplaceInput') fileReplaceInput: ElementRef<HTMLInputElement>;
+  @Input() selectable = false;
+  @Output() selected = new EventEmitter<Media>();
+  currentMedia: Media;
+  selectAll = false;
   ngOnInit(): void {
     this.getMediaFolders(null);
   }
@@ -104,8 +120,8 @@ export class MediaComponent implements OnInit {
   private createMedia(): Prisma.MediaCreateInput {
     return {
       name: 'test',
-      folderId: this.currentfolder!.id,
-      folderName: this.currentfolder!.name,
+      folderId: this.currentfolder?.id,
+      folderName: this.currentfolder?.name,
       mimetype: '',
       type: MediaType.IMAGE,
       size: 123,
@@ -113,11 +129,94 @@ export class MediaComponent implements OnInit {
       ext: '',
     } as unknown as Prisma.MediaCreateInput;
   }
-
-  openDialog(media: Media): void {
-    this.dialog.open(MediaDialogComponent, {
-      width: '250px',
-      data: media,
+  confirmDelete(media: Media): void {
+    this.apiService.media.delete(media.id).subscribe(() => {
+      this.filteredMedias = this.filteredMedias.filter((item) => item.id !== media.id);
     });
+  }
+
+  confirmReplace(media: Media): void {
+    this.fileReplaceInput.nativeElement.files = null;
+    this.fileReplaceInput.nativeElement.click();
+    this.currentMedia = media;
+  }
+
+  replaceFile(): void {
+    const file = this.fileReplaceInput.nativeElement.files?.[0];
+    this.uploadService.uploadFile(this.currentMedia.id, file!).subscribe(() => {
+      this.filterMediaByParent(this.activatedFolder!);
+    });
+  }
+
+  addFolder(): void {
+    const dialogRef = this.dialog.open(MediaDialogComponent, {
+      width: '300px',
+      data: { folderName: '' },
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        const newFolder = {
+          name: result,
+          parentId: this.activatedFolder?.id,
+          parentName: this.activatedFolder?.name,
+          createdDate: new Date(),
+          updatedDate: new Date(),
+          createdUserName: '',
+          createdUserId: 0,
+          updatedUserName: '',
+          updatedUserId: 0,
+        };
+
+        this.apiService.mediaFolder.create(newFolder).subscribe(() => {
+          this.getMediaFolders(this.activatedFolder?.id || null);
+        });
+      }
+    });
+  }
+
+  isSelected(mediaId: number): boolean {
+    return this.selectedMediaIds.includes(mediaId);
+  }
+
+  toggleSelection(mediaId: number): void {
+    if (this.isSelected(mediaId)) {
+      this.selectedMediaIds = this.selectedMediaIds.filter((id) => id !== mediaId);
+    } else {
+      this.selectedMediaIds.push(mediaId);
+    }
+    this.deleteAllChecked = this.filteredMedias.every((media) => this.isSelected(media.id));
+  }
+
+  toggleDeleteAll(event: MatCheckboxChange): void {
+    this.deleteAllChecked = event.checked;
+    if (this.deleteAllChecked) {
+      this.selectedMediaIds = this.filteredMedias.map((media) => media.id);
+    } else {
+      this.selectedMediaIds = [];
+    }
+  }
+
+  deleteAll(): void {
+    for (const mediaId of this.selectedMediaIds) {
+      this.apiService.media.delete(mediaId).subscribe(() => {
+        this.filteredMedias = this.filteredMedias.filter((item) => item.id !== mediaId);
+      });
+    }
+    this.selectedMediaIds = [];
+  }
+
+  isFolderEmpty(folder: MediaFolder): boolean {
+    return this.filteredMedias.every((media) => media.folderId !== folder.id);
+  }
+
+  deleteFolder(folder: MediaFolder): void {
+    this.apiService.mediaFolder.delete(folder.id).subscribe(() => {
+      this.getMediaFolders(this.activatedFolder?.id || null);
+    });
+  }
+
+  confirmSelect(media: Media): void {
+    this.selected.emit(media);
   }
 }

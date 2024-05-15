@@ -1,6 +1,10 @@
-<input type="file" style="display: none" #fileInput (change)="handleFileInput()" />
-<mat-dialog-content> What event would you need to do? </mat-dialog-content>
-<mat-dialog-actions>
-  <button mat-raised-button color="primary" (click)="confirmReplace()">Replace</button>
-  <button mat-raised-button color="warn" (click)="confirmDelete()">Delete</button>
-</mat-dialog-actions>
+<h2 mat-dialog-title>Add Folder</h2>
+<div mat-dialog-content>
+  <mat-form-field>
+    <input matInput [(ngModel)]="data.folderName" placeholder="Folder Name" />
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onCancelClick()">Cancel</button>
+  <button mat-button [mat-dialog-close]="data.folderName">Add</button>
+</div>
