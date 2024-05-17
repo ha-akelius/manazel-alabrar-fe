@@ -1,0 +1,12 @@
+.file-input {
+  display: none;
+}
+
+.bread-crumb {
+  display: flex;
+  align-items: center;
+}
+
+button + button {
+  margin-inline-start: var(--sizes-small);
+}

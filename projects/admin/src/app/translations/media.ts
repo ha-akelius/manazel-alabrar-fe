@@ -10,4 +10,5 @@ export const media: Record<keyof PropType<Media>, string> = {
   type: '',
   folderId: '',
   folderName: '',
+  mimetype: '',
 };
