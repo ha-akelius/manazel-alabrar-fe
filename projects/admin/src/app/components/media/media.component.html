@@ -3,16 +3,15 @@
   Add Folder
   <mat-icon>add_folder</mat-icon>
 </button>
-<ng-container *ngIf="activatedFolder">
-  <button mat-flat-button color="warn" (click)="deleteFolder(activatedFolder)" *ngIf="isFolderEmpty(activatedFolder)">
+<ng-container *ngIf="currentFolder">
+  <button mat-flat-button color="warn" (click)="deleteFolder(currentFolder)" *ngIf="isFolderEmpty(currentFolder)">
     Delete Folder
   </button>
 </ng-container>
-<div *ngIf="activatedFolder">
+<div *ngIf="currentFolder">
   <input type="file" class="file-input" (change)="uploadFile($event.target)" #fileUpload />
 
   <div class="file-upload">
-    {{ fileName || "No file uploaded yet." }}
     <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
       <mat-icon>attach_file</mat-icon>
     </button>
@@ -28,29 +27,32 @@
   </ng-container>
 </div>
 
-<div class="child-folder-row">
-  <mat-card *ngFor="let folder of filteredMediaFolders">
+<div class="row">
+  <mat-card class="col-xs-6 col-sm-4 col-lg-2" *ngFor="let folder of subFolders">
     <mat-card-content>
       <button mat-flat-button (click)="onFolderClick(folder)"><mat-icon>folder</mat-icon>{{ folder.name }}</button>
     </mat-card-content>
   </mat-card>
 </div>
+
 <h2>Media Files</h2>
-<div *ngIf="filteredMedias.length > 0">
+<div *ngIf="medias.length > 0">
   <mat-checkbox [checked]="deleteAllChecked" (change)="toggleDeleteAll($event)"></mat-checkbox>
   <button mat-raised-button color="warn" (click)="deleteAll()">Delete Selected</button>
 </div>
-<div class="child-folder-row">
-  <mat-card *ngFor="let media of filteredMedias">
+
+<div class="row">
+  <mat-card *ngFor="let media of medias" class="col-xs-12 col-sm-6 col-lg-3">
     <mat-card-content>
       <mat-checkbox [checked]="isSelected(media.id)" (change)="toggleSelection(media.id)"></mat-checkbox>
       <button mat-flat-button><mat-icon>description</mat-icon> {{ media.name }}</button>
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" (click)="confirmReplace(media)">Replace</button>
-      <button mat-raised-button color="primary" ( click)="confirmSelect(media)">Select</button>
+      <button mat-raised-button color="primary" (click)="confirmSelect(media)">Select</button>
       <button mat-raised-button color="warn" (click)="confirmDelete(media)">Delete</button>
     </mat-card-actions>
   </mat-card>
 </div>
+
 <input type="file" class="file-input" #fileReplaceInput (change)="replaceFile()" />
