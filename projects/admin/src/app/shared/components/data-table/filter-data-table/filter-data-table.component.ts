@@ -71,7 +71,7 @@ export class FilterDataTableComponent implements OnDestroy {
   toggleFilterList(): void {
     this.isFilterListOpen = !this.isFilterListOpen;
   }
-  toggleAndAddFilter() {
+  toggleAndAddFilter(): void {
     this.isFilterListOpen = true;
   }
 
@@ -79,7 +79,7 @@ export class FilterDataTableComponent implements OnDestroy {
     this.subscribe.unsubscribe();
   }
 
-  triggerSearch() {
+  triggerSearch(): void {
     this.search.emit(this.filters.value as Filter[]);
   }
 
