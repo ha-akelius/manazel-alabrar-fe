@@ -71,6 +71,9 @@ export class FilterDataTableComponent implements OnDestroy {
   toggleFilterList(): void {
     this.isFilterListOpen = !this.isFilterListOpen;
   }
+  toggleAndAddFilter() {
+    this.isFilterListOpen = true;
+  }
 
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
