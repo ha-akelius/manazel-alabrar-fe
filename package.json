@@ -6,7 +6,6 @@
     "start": "ng serve",
     "admin-ar": "ng s admin --configuration=ar",
     "i18n-admin": "ng extract-i18n --project admin",
-    "postbuild-admin": "mv dist/admin dist/manazel-alabrar-fe/browser/admin",
     "prebuild-admin": "npm run prisma:generate",
     "build-admin": "ng build  --project admin --localize",
     "build-site": "ng build --configuration production",
