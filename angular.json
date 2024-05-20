@@ -112,7 +112,7 @@
         "locales": {
           "ar": {
             "translation": "projects/admin/src/locale/messages(ar-${region}).xlf",
-            "baseHref": "ar"
+            "baseHref": "/ar/"
           }
         }
       },
@@ -124,7 +124,11 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "localize": ["ar"],
-            "outputPath": "dist/admin",
+            "baseHref": "/",
+            "outputPath": {
+              "base": "dist/admin",
+              "browser": ""
+            },
             "index": "projects/admin/src/index.html",
             "browser": "projects/admin/src/main.ts",
             "polyfills": ["zone.js"],
@@ -179,7 +183,8 @@
             }
           },
           "options": {
-            "proxyConfig": "src/proxy.conf.js"
+            "proxyConfig": "src/proxy.conf.js",
+            "port": 4220
           },
 
           "defaultConfiguration": "development"
