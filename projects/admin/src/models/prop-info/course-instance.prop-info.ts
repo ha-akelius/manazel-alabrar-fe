@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CourseInstance } from '@prisma/client';
+import { Lesson } from '../../json-models/lessons';
 import { PropInformation, WithPropType } from '../utils/type-utils';
 import { CourseInstanceGenInfo } from './course-instance.gen-info';
 const name: PropInformation<string, 'string'> = {
@@ -41,6 +42,9 @@ const teacherId: PropInformation<number, 'number'> = {
 const teacherName: PropInformation<string, 'string'> = {
   basic: CourseInstanceGenInfo.teacherName,
 };
+const lessons: PropInformation<Lesson, 'Lesson'> = {
+  basic: CourseInstanceGenInfo.lessons,
+};
 export const CourseInstancePropInfo: WithPropType<CourseInstance, PropInformation<any, any>> = {
   name: name,
   courseId: courseId,
@@ -55,4 +59,5 @@ export const CourseInstancePropInfo: WithPropType<CourseInstance, PropInformatio
   pageTo: pageTo,
   teacherId: teacherId,
   teacherName: teacherName,
+  lessons: lessons,
 };

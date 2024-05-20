@@ -1,14 +1,12 @@
-import { Student } from '@prisma/client';
+export type Lessons = Lesson[];
 
-export interface media {
-  url: string;
-}
-export interface Lesson {
+export class Lesson {
   name: string;
   description: string;
   pageNumber: number;
   toPageNumber: number;
-  audio: media;
+  audioId: number;
+  audioName: string;
   date: Date;
   questins: Question[];
   students: StudentLesson[];
@@ -18,20 +16,21 @@ export enum QuestionType {
   SingleChoice = 'SingleChoice',
   MultiChoice = 'MultiChoice',
 }
-export interface Question {
+
+export class Question {
   questionType: QuestionType;
   name: string;
   answers: Answer[];
   mark: number;
 }
 
-export interface Answer {
+export class Answer {
   name: string;
   correct: boolean;
 }
 
-export interface StudentLesson {
-  student: Student;
+export class StudentLesson {
+  studentId: number;
   studentName: string;
   done: boolean;
   mark?: number;

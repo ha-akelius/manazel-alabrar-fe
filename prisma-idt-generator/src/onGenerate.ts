@@ -15,7 +15,7 @@ function toSmallLetter(str: string): string {
 
 export default async function onGenerate(options: GeneratorOptions) {
   const models = options.dmmf.datamodel.models;
-  generateTrnaslations(models);
+  // generateTrnaslations(models);
   generateTrnaslationsEnum(options.dmmf.datamodel.enums);
   generateAPIService(models);
   generateGuiInfos(models);
