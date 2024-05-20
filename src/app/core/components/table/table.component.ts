@@ -36,7 +36,7 @@ export class ColumnDefinitionDirective {
   styleUrls: ['./table.component.scss'],
 })
 export class TableComponent<T> implements OnInit, AfterViewInit, AfterContentChecked {
-  public tableDataSource = new MatTableDataSource([]);
+  public tableDataSource = new MatTableDataSource([] as unknown[]);
   public displayedColumns: string[] = [];
   @ViewChild(MatPaginator, { static: false }) matPaginator!: MatPaginator;
   @ViewChild(MatSort, { static: true }) matSort!: MatSort;
@@ -50,14 +50,14 @@ export class TableComponent<T> implements OnInit, AfterViewInit, AfterContentChe
   @Input() defaultPageSize = this.paginationSizes[1];
 
   @Output() sort: EventEmitter<Sort> = new EventEmitter();
-  @Output() rowAction: EventEmitter<never> = new EventEmitter<never>();
+  @Output() rowAction: EventEmitter<unknown> = new EventEmitter<unknown>();
 
   @ContentChildren(ColumnDefinitionDirective, { descendants: true })
   _contentRowDefs?: QueryList<ColumnDefinitionDirective>;
 
   templates: Map<string, TemplateRef<never>> = new Map();
   // this property needs to have a setter, to dynamically get changes from parent component
-  @Input() set tableData(data: never[]) {
+  @Input() set tableData(data: unknown[]) {
     this.setTableDataSource(data);
   }
 
@@ -81,7 +81,7 @@ export class TableComponent<T> implements OnInit, AfterViewInit, AfterContentChe
     this.tableDataSource.paginator = this.matPaginator;
   }
 
-  setTableDataSource(data: never[]) {
+  setTableDataSource(data: unknown[]) {
     this.tableDataSource = new MatTableDataSource(data);
     this.tableDataSource.paginator = this.matPaginator;
     this.tableDataSource.sort = this.matSort;

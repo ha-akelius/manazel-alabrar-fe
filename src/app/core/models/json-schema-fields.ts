@@ -1,4 +1,4 @@
-import { Student } from '../../../../projects/admin/src/models/hooks';
+import { Student } from '@prisma/client';
 
 export interface media {
   url: string;
