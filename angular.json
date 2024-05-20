@@ -183,7 +183,8 @@
             }
           },
           "options": {
-            "proxyConfig": "src/proxy.conf.js"
+            "proxyConfig": "src/proxy.conf.js",
+            "port": 4220
           },
 
           "defaultConfiguration": "development"
