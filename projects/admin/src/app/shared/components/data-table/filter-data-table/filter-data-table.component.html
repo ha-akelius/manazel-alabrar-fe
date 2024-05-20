@@ -26,8 +26,8 @@
       <mat-form-field>
         <mat-label>field</mat-label>
         <mat-select [formControl]="filter.controls.field" required>
-          <mat-option *ngFor="let property; in: schema.properties" [value]="property.key">
-            {{ property.key }}
+          <mat-option *ngFor="let property of schema | keyvalue" [value]="property.key">
+            {{ property.value.guiInfo.label }}
           </mat-option>
         </mat-select>
       </mat-form-field>
