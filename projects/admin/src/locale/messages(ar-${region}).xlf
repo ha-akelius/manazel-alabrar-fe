@@ -514,20 +514,6 @@
           <context context-type="linenumber">52</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3249513483374643425" datatype="html">
-        <source>Add</source>
-        <target state="translated">إضافة</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
-          <context context-type="linenumber">156</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="6041115344061899387" datatype="html">
-        <source>Rename</source>
-        <target state="translated">إعادة تسمية</target>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
-          <context context-type="linenumber">225</context>
       <trans-unit id="845184340669679902" datatype="html">
         <source>correct</source>
         <target state="translated">صح</target>
@@ -646,6 +632,22 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/translations/question-type.ts</context>
           <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3249513483374643425" datatype="html">
+        <source>Add</source>
+        <target state="translated">إضافة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6041115344061899387" datatype="html">
+        <source>Rename</source>
+        <target state="translated">إعادة تسمية</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">225</context>
         </context-group>
       </trans-unit>
     </body>
