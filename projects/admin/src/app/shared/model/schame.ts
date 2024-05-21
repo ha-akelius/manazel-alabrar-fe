@@ -1,13 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { APIService } from '../../../core/services/api.service';
+import { jsonSchemas } from '../../../json-models/gui-info';
+import { jsonPropInfos } from '../../../json-models/prop-info';
 import { schemas } from '../../../models/gui-info';
-import { propInfos } from '../../../models/prop-info';
+import { modelPropInfos } from '../../../models/prop-info';
 import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service';
-import { SchemaInfo } from './json-schema';
+import { JSONSchemaInfo, SchemaInfo } from './json-schema';
 
-function getJSONKey(entityName: string): string | undefined {
+function getJSONKey(entityName: string, obj: any): string | undefined {
   const propLower = entityName.toLowerCase();
-  for (const key in propInfos) {
+  for (const key in obj) {
     if (key.toLowerCase() === propLower + 'propinfo') {
       return key.replace('PropInfo', '');
     }
@@ -19,14 +21,22 @@ function toSmallLetter(str: string): string {
   return str.charAt(0).toLocaleLowerCase() + str.substring(1);
 }
 
-export function schemaInfo<T>(entityName: string): SchemaInfo<T> {
-  const key = getJSONKey(entityName)!;
-  return schemas[(toSmallLetter(key) + 'Schema') as keyof typeof schemas] as SchemaInfo<T>;
-  // const entityTranslations = translations[toSmallLetter(key) as keyof typeof translations];
-  // const schema = propInfos![(key + 'PropInfo') as keyof typeof propInfos] as WithPropType<T, PropInformation<any, any>>;
-  // const propertiesInfo: PropertyInformation[] = getPropertiesInfo(key, schema);
+export function jsonSchemaInfo<T>(entityName: string): JSONSchemaInfo<T> {
+  const key = getJSONKey(entityName, jsonPropInfos)!;
+  return jsonSchemas[(toSmallLetter(key) + 'Schema') as keyof typeof jsonSchemas] as unknown as JSONSchemaInfo<T>;
+}
 
-  // return { propertiesInfo, schema: schema, entityTranslations, api: restApiService as RestApiServiceUnkown<T> };
+export function assertSchemaInfo<T>(entityName: string): SchemaInfo<T> {
+  return schemaInfo<T>(entityName)!;
+}
+
+export function schemaInfo<T>(entityName: string): SchemaInfo<T> | null {
+  const key = getJSONKey(entityName, modelPropInfos);
+  if (key) {
+    return schemas[(toSmallLetter(key) + 'Schema') as keyof typeof schemas] as unknown as SchemaInfo<T>;
+  } else {
+    return null;
+  }
 }
 
 export function apiService(key: keyof APIService, apiService: APIService): RestApiServiceUnkown {

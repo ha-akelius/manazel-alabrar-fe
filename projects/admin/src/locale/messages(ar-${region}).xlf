@@ -528,6 +528,124 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
           <context context-type="linenumber">225</context>
+      <trans-unit id="845184340669679902" datatype="html">
+        <source>correct</source>
+        <target state="translated">صح</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/answer.gui-info.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4976410444087285135" datatype="html">
+        <source>answer</source>
+        <target state="translated">جواب</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/answer.gui-info.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4759630855377693575" datatype="html">
+        <source>pageNumber</source>
+        <target state="translated">رقم الصفحة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/lesson.gui-info.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3915211453460723519" datatype="html">
+        <source>audio</source>
+        <target state="translated">ملف الصوت</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/lesson.gui-info.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1427183831879496231" datatype="html">
+        <source>lesson</source>
+        <target state="translated">درس</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/lesson.gui-info.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6537904131139019667" datatype="html">
+        <source>type</source>
+        <target state="translated">نوع</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1222738782186578685" datatype="html">
+        <source>question</source>
+        <target state="translated">سؤال</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6608890834230007808" datatype="html">
+        <source>done</source>
+        <target state="translated">تم</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/student-lesson.gui-info.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1004821880232434019" datatype="html">
+        <source>arabic</source>
+        <target state="translated">عربي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/language.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6105581491285311381" datatype="html">
+        <source>english</source>
+        <target state="translated">انجليزي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/language.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3526205892584451052" datatype="html">
+        <source>image</source>
+        <target state="translated">صورة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/media-type.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1006562256968398209" datatype="html">
+        <source>video</source>
+        <target state="translated">فيديو</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/media-type.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5368873813801824506" datatype="html">
+        <source>pdf</source>
+        <target state="translated">pdf</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/media-type.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="589955098061635598" datatype="html">
+        <source>single choice</source>
+        <target state="translated">اختيار وحيد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/question-type.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7086886736384792710" datatype="html">
+        <source>multi choice</source>
+        <target state="translated">اختيارات متعددة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/question-type.ts</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
     </body>
