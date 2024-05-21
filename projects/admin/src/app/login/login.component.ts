@@ -12,6 +12,11 @@ import { Router } from '@angular/router';
 import { AppStoreService } from '../app.store.service';
 import { AuthService, LoginStatus } from '../auth-service.service';
 
+const storageKeys = {
+  userName: 'rememberedUsername',
+  password: 'rememberedPassword',
+};
+
 @Component({
   selector: 'app-login',
   standalone: true,
@@ -35,6 +40,8 @@ export class LoginComponent implements OnInit {
   loginStatus: LoginStatus;
   rememberMe: boolean = false;
   password: string = '';
+  rememberedUsername: string = '';
+  rememberedPassword: string = '';
   constructor(
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
@@ -44,17 +51,24 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const rememberedPassword = localStorage.getItem('rememberedPassword');
-    if (rememberedPassword) {
+    const rememberedUsername = localStorage.getItem(storageKeys.userName);
+    const rememberedPassword = localStorage.getItem(storageKeys.password);
+    if (rememberedUsername && rememberedPassword) {
       this.rememberMe = true;
-      this.password = rememberedPassword;
+      this.rememberedUsername = rememberedUsername;
+      this.rememberedPassword = rememberedPassword;
     }
   }
+
   login() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.getRawValue();
       this.authService.logIn(username, password).then((loginStatus) => {
         if (loginStatus === 'Success') {
+          if (this.rememberMe) {
+            localStorage.setItem(storageKeys.userName, username);
+            localStorage.setItem(storageKeys.password, password);
+          }
           this.router.navigate(['/dashboard']);
         } else {
           this.loginStatus = loginStatus;
@@ -67,19 +81,13 @@ export class LoginComponent implements OnInit {
     }
   }
 
-  changeToEnglish() {
-    this.appStore.changeLanguage('en');
-  }
-
-  changeToArabic() {
-    this.appStore.changeLanguage('ar');
-  }
-
   rememberPassword() {
     if (this.rememberMe) {
-      localStorage.setItem('rememberedPassword', this.password);
+      localStorage.setItem(storageKeys.userName, this.rememberedUsername);
+      localStorage.setItem(storageKeys.password, this.rememberedPassword);
     } else {
-      localStorage.removeItem('rememberedPassword');
+      localStorage.removeItem(storageKeys.userName);
+      localStorage.removeItem(storageKeys.password);
     }
   }
 }
