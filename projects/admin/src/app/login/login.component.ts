@@ -9,7 +9,6 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AppStoreService } from '../app.store.service';
 import { AuthService, LoginStatus } from '../auth-service.service';
 
 const storageKeys = {
@@ -46,7 +45,6 @@ export class LoginComponent implements OnInit {
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private appStore: AppStoreService,
     private router: Router,
   ) {}
 

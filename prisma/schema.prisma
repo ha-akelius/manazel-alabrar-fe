@@ -217,19 +217,32 @@ model MediaFolder {
   parent     MediaFolder?  @relation("children", fields: [parentId], references: [id])
   children   MediaFolder[] @relation("children")
 
-  medias Media[]
+  medias          Media[]
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
 }
 
 model Media {
-  id         Int         @id @default(autoincrement())
-  name       String
-  url        String
-  ext        String
-  type       MediaType
-  size       Int
-  folderId   Int
-  folderName String
-  folder     MediaFolder @relation(fields: [folderId], references: [id])
+  id              Int         @id @default(autoincrement())
+  name            String
+  url             String
+  ext             String
+  mimetype        String
+  type            MediaType
+  size            Int
+  folderId        Int
+  folderName      String
+  folder          MediaFolder @relation(fields: [folderId], references: [id])
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
 }
 
 enum MediaType {

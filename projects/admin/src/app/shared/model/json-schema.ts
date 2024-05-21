@@ -1,20 +1,23 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { ComponentType } from '@angular/cdk/portal';
 import { Type } from '@angular/core';
-import { TableColumnComponent } from '../../../core/components/table/table';
+import { FormComponent, TableColumnComponent } from '../../../core/components/table/table';
 import { APIService } from '../../../core/services/api.service';
 import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
 
-export type SchemaInfo<T = any> = {
+export type JSONSchemaInfo<T = any> = {
   schema: WithPropType<T, GuiPropInformation>;
   label: string;
   labelPlural: string;
+};
+
+export type SchemaInfo<T = any> = JSONSchemaInfo<T> & {
   api: keyof APIService;
 };
 
 export type GuiInformation = {
   label: string;
   inputType: InputType;
+  options?: object;
   hide?: {
     form?: boolean;
     list?: boolean;
@@ -28,16 +31,21 @@ export type GuiPropInformation = {
 };
 
 export interface ComponentHooks {
-  form?: ComponentType<never>;
+  form?: Type<FormComponent>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   list?: Type<TableColumnComponent<any>>;
 }
 
 export enum InputType {
   input,
+  textarea,
   dateTime,
   relation,
   boolean,
+  enum,
+  list,
+  json,
+  jsonArray,
   unknown,
 }
 
