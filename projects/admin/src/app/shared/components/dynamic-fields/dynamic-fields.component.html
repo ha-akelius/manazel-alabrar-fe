@@ -4,10 +4,8 @@
     @if (!propInfo.value.guiInfo.hide?.form) {
       @if (propInfo.value.guiInfo.hooks?.form) {
         <ng-container
-          *ngComponentOutlet="
-            propInfo.value.guiInfo.hooks!.form!;
-            inputs: { formControlName: propInfo.value.propInformation.basic.name }
-          "
+          [formControlName]="propInfo.value.propInformation.basic.name"
+          *ngComponentOutlet="propInfo.value.guiInfo.hooks!.form!; inputs: getCompInputs(propInfo.value)"
         ></ng-container>
       } @else {
         @switch (propInfo.value.guiInfo.inputType) {

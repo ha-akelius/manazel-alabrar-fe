@@ -1,6 +1,6 @@
-<mat-form-field [formControl]="formControl">
+<mat-form-field>
   <mat-label i18n>roles</mat-label>
-  <mat-select multiple>
+  <mat-select [formControl]="formControl" multiple>
     @for (option of options; track option) {
       <mat-option [value]="option">{{ option }}</mat-option>
     }

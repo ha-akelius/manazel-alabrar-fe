@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Type } from '@angular/core';
-import { FormComponent, TableColumnComponent } from '../../../core/components/table/table';
+import { FormComponent, FormFieldComponent, TableColumnComponent } from '../../../core/components/table/table';
 import { APIService } from '../../../core/services/api.service';
 import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
 
@@ -31,7 +31,7 @@ export type GuiPropInformation = {
 };
 
 export interface ComponentHooks {
-  form?: Type<FormComponent>;
+  form?: Type<FormComponent | FormFieldComponent>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   list?: Type<TableColumnComponent<any>>;
 }

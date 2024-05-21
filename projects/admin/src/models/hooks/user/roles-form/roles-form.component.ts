@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, HostBinding } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Role } from '@prisma/client';
-import { FormComponent } from '../../../../core/components/table/table';
+import { FormFieldComponent } from '../../../../core/components/table/table';
 
 @Component({
   selector: 'app-roles-form',
@@ -11,6 +11,7 @@ import { FormComponent } from '../../../../core/components/table/table';
   templateUrl: './roles-form.component.html',
   styleUrl: './roles-form.component.scss',
 })
-export class RolesFormComponent extends FormComponent<Role[]> {
+export class RolesFormComponent extends FormFieldComponent<Role[]> {
   options = [Role.STUDENT, Role.TEACHER];
+  @HostBinding('class') className = 'col-xs-12 col-sm-6 col-lg-4 padded-field';
 }
