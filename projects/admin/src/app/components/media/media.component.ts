@@ -153,7 +153,7 @@ export class MediaComponent implements OnInit {
   }
 
   addFolder(): void {
-    MediaDialogComponent.openDialog({ action: 'Add', name: '' }, this.dialog).subscribe((result) => {
+    MediaDialogComponent.openDialog({ action: $localize`Add`, name: '' }, this.dialog).subscribe((result) => {
       if (result) {
         const newFolder = {
           name: result,
@@ -222,13 +222,15 @@ export class MediaComponent implements OnInit {
   }
 
   renameFolder(folder: MediaFolder): void {
-    MediaDialogComponent.openDialog({ action: 'Rename', name: folder.name }, this.dialog).subscribe((newName) => {
-      if (newName) {
-        const updateData = { name: newName };
-        this.apiService.mediaFolder.update(folder.id, updateData).subscribe(() => {
-          window.location.reload();
-        });
-      }
-    });
+    MediaDialogComponent.openDialog({ action: $localize`Rename`, name: folder.name }, this.dialog).subscribe(
+      (newName) => {
+        if (newName) {
+          const updateData = { name: newName };
+          this.apiService.mediaFolder.update(folder.id, updateData).subscribe(() => {
+            window.location.reload();
+          });
+        }
+      },
+    );
   }
 }

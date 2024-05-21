@@ -25,7 +25,7 @@ export class MediaDialogComponent {
     this.dialogRef.close();
   }
 
-  static openDialog(data: { action: string; name: string }, dialog: MatDialog): Observable<string> {
+  static openDialog(data: MediaDialogComponent['data'], dialog: MatDialog): Observable<string> {
     return dialog
       .open(MediaDialogComponent, {
         data,
