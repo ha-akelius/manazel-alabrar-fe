@@ -1,7 +1,7 @@
 /* eslint-disable @angular-eslint/use-lifecycle-interface */
 import { CommonModule } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
@@ -11,7 +11,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService, LoginStatus } from '../auth-service.service';
 
-const rememberToken = 'rememberToken';
+const storageKeys = {
+  userName: 'rememberedUsername',
+  password: 'rememberedPassword',
+};
 
 @Component({
   selector: 'app-login',
@@ -32,9 +35,10 @@ export class LoginComponent implements OnInit {
   loginForm = this.builder.nonNullable.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
+    rememberMe: false,
   });
-  rememberMe = new FormControl(true);
   loginStatus: LoginStatus;
+
   constructor(
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
@@ -43,20 +47,29 @@ export class LoginComponent implements OnInit {
   ) {}
 
   ngOnInit() {
-    const rememberedInformation = localStorage.getItem(rememberToken);
-    if (rememberedInformation) {
-      this.rememberMe.setValue(true);
-      this.loginForm.setValue(JSON.parse(rememberedInformation));
+    const rememberedUsername = localStorage.getItem(storageKeys.userName);
+    const rememberedPassword = localStorage.getItem(storageKeys.password);
+    if (rememberedUsername && rememberedPassword) {
+      this.loginForm.setValue({
+        username: rememberedUsername,
+        password: rememberedPassword,
+        rememberMe: true,
+      });
     }
   }
+
   login() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.getRawValue();
       this.authService.logIn(username, password).then((loginStatus) => {
-        if (this.rememberMe.value) {
-          localStorage.setItem(rememberToken, JSON.stringify(this.loginForm.getRawValue()));
-        }
         if (loginStatus === 'Success') {
+          if (this.loginForm.value.rememberMe) {
+            localStorage.setItem(storageKeys.userName, username);
+            localStorage.setItem(storageKeys.password, password);
+          } else {
+            localStorage.removeItem(storageKeys.userName);
+            localStorage.removeItem(storageKeys.password);
+          }
           this.router.navigate(['/dashboard']);
         } else {
           this.loginStatus = loginStatus;
@@ -66,12 +79,6 @@ export class LoginComponent implements OnInit {
       this.snackBar.open('Invalid User Name or Password!', 'Close', {
         duration: 5000,
       });
-    }
-  }
-
-  remember(save: boolean) {
-    if (!save) {
-      localStorage.removeItem(rememberToken);
     }
   }
 }

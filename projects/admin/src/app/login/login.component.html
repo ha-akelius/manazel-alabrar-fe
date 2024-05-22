@@ -26,7 +26,7 @@
 
       <mat-error *ngIf="loginStatus">wrong user name or password</mat-error>
       <div>
-        <mat-checkbox (change)="remember($event.checked)" [formControl]="rememberMe">Remember me</mat-checkbox>
+        <mat-checkbox formControlName="rememberMe">Remember me</mat-checkbox>
       </div>
 
       <div>
