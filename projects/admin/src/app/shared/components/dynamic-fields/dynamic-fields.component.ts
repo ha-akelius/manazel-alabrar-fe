@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { RolesFormComponent } from '../../../../models/hooks/user/roles-form/roles-form.component';
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../model/json-schema';
 import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
 import { DateFormComponent } from './components/date-form.component';
@@ -51,6 +52,7 @@ const originalOrder = (): number => {
     MatExpansionModule,
     MatSelectModule,
     DateFormComponent,
+    RolesFormComponent,
   ],
 })
 export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
@@ -116,6 +118,13 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
       }
     }
     this.dynamicForm = formGroup;
+  }
+
+  getCompInputs(prop: GuiPropInformation): Record<string, unknown> | undefined {
+    return {
+      propInfo: prop,
+      formControl: this.dynamicForm.controls[prop.propInformation.basic.name],
+    };
   }
 
   private collectValidators(property: GuiPropInformation): ValidatorFn[] {

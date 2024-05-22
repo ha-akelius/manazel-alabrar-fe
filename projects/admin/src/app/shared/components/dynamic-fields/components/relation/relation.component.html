@@ -1,6 +1,6 @@
 <mat-form-field>
   <mat-label>{{ propInfo.guiInfo.label }}</mat-label>
-  <input type="text" [formControl]="formControl" matInput [matAutocomplete]="auto" />
+  <input type="text" [formControl]="inputForm" matInput [matAutocomplete]="auto" />
   <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete" [displayWith]="displayFn">
     @for (option of result.items; track option) {
       <mat-option [value]="option">{{ option.name }}</mat-option>

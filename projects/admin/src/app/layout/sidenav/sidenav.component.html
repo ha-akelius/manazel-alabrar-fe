@@ -3,29 +3,10 @@
     <img src="./assets/Frame.png" alt="Company Logo" />
   </div>
   <mat-divider></mat-divider>
-  <a mat-list-item [routerLink]="['/home']">
-    <mat-icon class="edit-icon">home</mat-icon>
-    <span class="edit-text"> Home</span></a
-  >
-  <a mat-list-item [routerLink]="['/dashboard']">
-    <mat-icon class="edit-icon">dashboard</mat-icon><span class="edit-text"> Dashboard </span>
-  </a>
-
-  <a mat-list-item [routerLink]="['list/course']">
-    <mat-icon class="edit-icon">edit</mat-icon>
-    <span class="edit-text"> Course</span>
-  </a>
-  <a mat-list-item [routerLink]="['list/courseinstance']">
-    <mat-icon class="edit-icon">edit</mat-icon><span class="edit-text"> CourseInstance</span>
-  </a>
-
-  <a mat-list-item [routerLink]="['list/path']">
-    <mat-icon class="edit-icon">edit</mat-icon>
-    <span class="edit-text"> Path</span>
-  </a>
-
-  <a mat-list-item [routerLink]="['list/pathinstance']">
-    <mat-icon class="edit-icon">edit</mat-icon>
-    <span class="edit-text"> PathInstance</span>
-  </a>
+  @for (menu of menuItems; track $index) {
+    <a mat-list-item [routerLink]="[menu.path]">
+      <mat-icon class="edit-icon">home</mat-icon>
+      <span class="edit-text">{{ menu.label }}</span>
+    </a>
+  }
 </mat-nav-list>
