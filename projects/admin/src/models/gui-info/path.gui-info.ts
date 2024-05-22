@@ -22,7 +22,7 @@ export const pathGuiInfo: WithPropType<Path, GuiPropInformation> = {
 
 export const pathSchema: SchemaInfo<Path> = {
   schema: pathGuiInfo,
-  label: '',
-  labelPlural: '',
+  label: $localize`path`,
+  labelPlural: $localize`paths`,
   api: 'path',
 };

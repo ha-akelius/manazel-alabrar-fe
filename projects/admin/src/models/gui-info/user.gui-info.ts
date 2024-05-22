@@ -25,6 +25,9 @@ export const userGuiInfo: WithPropType<User, GuiPropInformation> = {
     guiInfo: {
       label: $localize`password`,
       inputType: InputType.input,
+      hide: {
+        list: true,
+      },
     },
   },
   language: {

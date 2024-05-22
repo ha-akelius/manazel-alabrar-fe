@@ -96,6 +96,13 @@ export const courseInstanceGuiInfo: WithPropType<CourseInstance, GuiPropInformat
       inputType: InputType.relation,
     },
   },
+  lessons: {
+    propInformation: CourseInstancePropInfo.lessons,
+    guiInfo: {
+      label: $localize`lessons`,
+      inputType: InputType.json,
+    },
+  },
   teacherName: {
     propInformation: CourseInstancePropInfo.teacherName,
     guiInfo: {
