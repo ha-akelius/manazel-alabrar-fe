@@ -2,6 +2,7 @@ import { Component, HostBinding } from '@angular/core';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatSelectModule } from '@angular/material/select';
 import { Role } from '@prisma/client';
+import { translations } from '../../../../app/translations';
 import { FormFieldComponent } from '../../../../core/components/table/table';
 
 @Component({
@@ -14,4 +15,5 @@ import { FormFieldComponent } from '../../../../core/components/table/table';
 export class RolesFormComponent extends FormFieldComponent<Role[]> {
   options = [Role.STUDENT, Role.TEACHER];
   @HostBinding('class') className = 'col-xs-12 col-sm-6 col-lg-4 padded-field';
+  translations = translations.role;
 }
