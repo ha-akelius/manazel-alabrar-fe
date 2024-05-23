@@ -1,0 +1,32 @@
+@use "./sizes" as sizes;
+@use "./layout-bp" as layout;
+
+.cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+
+  > div {
+    width: 40%;
+    margin-bottom: sizes.$medium;
+    box-sizing: border-box;
+
+    img {
+      padding: sizes.$medium;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    @include layout.layout-bp(gt-xs) {
+      width: 30%;
+    }
+
+    @include layout.layout-bp(gt-sm) {
+      width: 22%;
+    }
+  }
+
+  .sub-title {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}

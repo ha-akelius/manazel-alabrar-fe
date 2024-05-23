@@ -5,7 +5,6 @@ import { Component } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { SharedModule } from './core/modules/shared.module';
-import { CheckVersionService } from './core/services/check-version.service';
 import { IconService } from './core/services/icon.service';
 
 // required for AOT compilation
@@ -24,11 +23,10 @@ export class AppComponent {
   title = 'manazel-alabrar-fe';
   direction: Direction = 'ltr';
 
-  constructor(iconService: IconService, translateService: TranslateService, checkVersionService: CheckVersionService) {
+  constructor(iconService: IconService, translateService: TranslateService) {
     iconService.init();
     translateService.onLangChange.subscribe((e) => {
       this.direction = e.lang === 'ar' ? 'rtl' : 'ltr';
     });
-    checkVersionService.checkVersion();
   }
 }

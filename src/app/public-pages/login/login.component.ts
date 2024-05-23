@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+import {
+  AuthenticationService,
+  LOGIN_INFO,
+} from '../../../../projects/lms/src/app/core/services/authentication.service';
 import { environment } from '../../../environments/environment';
 import { translationKeys } from '../../core/models/translations';
 import { SharedModule } from '../../core/modules/shared.module';
-import { AuthenticationService, LOGIN_INFO } from '../../core/services/authentication.service';
 import { StorageService } from '../../core/services/storage.service';
 import { NavbarComponent } from '../components/navbar/navbar.component';
 
@@ -24,7 +27,11 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
   formError = false;
-  constructor(private fb: FormBuilder, private ss: StorageService, private authService: AuthenticationService) {
+  constructor(
+    private fb: FormBuilder,
+    private ss: StorageService,
+    private authService: AuthenticationService,
+  ) {
     this.loadLoginInformation();
   }
 
@@ -49,7 +56,7 @@ export class LoginComponent {
         ],
         asyncValidators: [],
         updateOn: 'change',
-      }
+      },
     );
   }
 

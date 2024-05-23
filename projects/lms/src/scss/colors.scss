@@ -1,0 +1,6 @@
+@use "@angular/material" as mat;
+
+$primary-palette: mat.$green-palette;
+$accent-palette: mat.$light-green-palette;
+
+$primary: mat.get-color-from-palette($primary-palette, 500);
