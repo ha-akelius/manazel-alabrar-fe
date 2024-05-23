@@ -1,6 +1,6 @@
 import { inject, NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { AuthenticationService } from '../../../projects/lms/src/app/core/services/authentication.service';
+import { AuthenticationService } from '../core/services/authentication.service';
 import { getRouteParam } from '../core/utils/params';
 import { HomepageComponent } from './homepage/homepage.component';
 
