@@ -1,12 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { QuizInstancePropInfo } from '../../models/prop-info/quiz-instance.prop-info';
 import { PropInformation, WithPropType } from '../../models/utils/type-utils';
 import { Quiz } from '../quizzes';
-import { LessonGenInfo } from './lesson.gen-info';
 
-const name: PropInformation<string, 'string'> = {
-  basic: LessonGenInfo.name,
-};
-
-export const QuizPropInfo: WithPropType<Quiz, PropInformation<any, any>> = {
-  name: name,
-};
+export const QuizPropInfo: WithPropType<Quiz, PropInformation<any, any>> = QuizInstancePropInfo;

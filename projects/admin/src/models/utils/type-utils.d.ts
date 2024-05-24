@@ -11,7 +11,6 @@ export type PropType<T> = Omit<
   | 'updatedUserName'
   | 'updatedUserId'
   | 'answerOptions'
-  | 'questions'
   | 'student_info'
   | 'pathInformation'
 >;

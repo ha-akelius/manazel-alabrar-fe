@@ -8,7 +8,7 @@ export class Lesson {
   audioId: number;
   audioName: string;
   date: Date;
-  questins: Question[];
+  questions: Question[];
   students: StudentLesson[];
 }
 
