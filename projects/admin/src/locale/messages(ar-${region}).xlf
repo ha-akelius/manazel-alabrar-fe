@@ -356,10 +356,10 @@
       </trans-unit>
       <trans-unit id="4425959074279579115" datatype="html">
         <source>phone</source>
-        <target state="translated">هاتم</target>
+        <target state="translated">هاتف</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/translations/teacher.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7315714079098881460" datatype="html">
@@ -631,6 +631,14 @@
         <target state="translated">اختيارات متعددة</target>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/translations/question-type.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7744292213705278878" datatype="html">
+        <source>User Profile</source>
+        <target state="translated">الملف الشخصي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
