@@ -24,7 +24,7 @@ export class AuthService {
     return localStorage.getItem(storage.token);
   }
 
-  getUserId(): number | null {
+  getUserId(): number {
     return Number(localStorage.getItem(storage.userId));
   }
 

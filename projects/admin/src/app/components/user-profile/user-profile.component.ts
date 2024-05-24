@@ -8,6 +8,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Language, User } from '@prisma/client';
 import { APIService } from '../../../core/services/api.service';
+import { AuthService } from '../../auth-service.service';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -26,7 +27,7 @@ import { APIService } from '../../../core/services/api.service';
 export class UserProfileComponent {
   languagesList: string[] = ['Arabic', 'English'];
   apiService = inject(APIService);
-  userId = '2';
+  authService = inject(AuthService);
   user: User;
   form = new FormGroup({
     name: new FormControl('', { nonNullable: true }),
@@ -35,10 +36,10 @@ export class UserProfileComponent {
   });
 
   constructor() {
-    this.getUserById(this.userId);
+    this.getUserById(this.authService.getUserId());
   }
 
-  getUserById(userId: string): void {
+  getUserById(userId: number): void {
     this.apiService.user.findOne(userId).subscribe((user) => {
       this.user = user;
       this.fillFormWithUserData();
@@ -51,7 +52,7 @@ export class UserProfileComponent {
 
   save(): void {
     const updatedUser = this.form.value;
-    this.apiService.user.update(this.userId, updatedUser).subscribe(() => {
+    this.apiService.user.update(this.authService.getUserId(), updatedUser).subscribe(() => {
       this.fillFormWithUserData();
     });
   }
