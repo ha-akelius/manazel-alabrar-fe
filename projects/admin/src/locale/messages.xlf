@@ -104,6 +104,10 @@
           <context context-type="linenumber">11</context>
         </context-group>
         <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/quiz.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/course-instance.gui-info.ts</context>
           <context context-type="linenumber">10</context>
         </context-group>
@@ -297,6 +301,28 @@
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7062823674983872135" datatype="html">
+        <source>quiz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/quiz.gui-info.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6404187677846257002" datatype="html">
+        <source>quizzes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/quiz.gui-info.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="6608890834230007808" datatype="html">
         <source>done</source>
         <context-group purpose="location">
@@ -312,7 +338,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
@@ -397,7 +423,7 @@
         <source>courses</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6976023564041835781" datatype="html">
@@ -451,13 +477,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
           <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7062823674983872135" datatype="html">
-        <source>quiz</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
-          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7895033151316369519" datatype="html">

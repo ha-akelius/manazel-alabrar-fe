@@ -10,9 +10,7 @@ export type PropType<T> = Omit<
   | 'updatedDate'
   | 'updatedUserName'
   | 'updatedUserId'
-  | 'quiz'
   | 'answerOptions'
-  | 'questions'
   | 'student_info'
   | 'pathInformation'
 >;

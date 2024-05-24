@@ -39,6 +39,16 @@ export const courseGuiInfo: WithPropType<Course, GuiPropInformation> = {
       },
     },
   },
+  quiz: {
+    propInformation: CoursePropInfo.quiz,
+    guiInfo: {
+      label: $localize`quizzes`,
+      inputType: InputType.jsonArray,
+      hide: {
+        list: false,
+      },
+    },
+  },
 };
 
 export const courseSchema: SchemaInfo<Course> = {

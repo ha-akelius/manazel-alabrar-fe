@@ -38,9 +38,9 @@ const date: PropPrismaInformation<Date, 'Date'> = {
   name: 'date',
 };
 
-const questins: PropPrismaInformation<Question, 'Question'> = {
+const questions: PropPrismaInformation<Question, 'Question'> = {
   type: 'Question',
-  name: 'questins',
+  name: 'questions',
   array: true,
 };
 
@@ -58,6 +58,6 @@ export const LessonGenInfo = {
   audioId,
   audioName,
   date,
-  questins,
+  questions,
   students,
 };
