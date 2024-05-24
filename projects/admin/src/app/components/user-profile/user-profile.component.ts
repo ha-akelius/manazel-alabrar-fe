@@ -9,6 +9,7 @@ import { MatSelectModule } from '@angular/material/select';
 import { Language, User } from '@prisma/client';
 import { APIService } from '../../../core/services/api.service';
 import { AuthService } from '../../auth-service.service';
+import { translations } from '../../translations';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -25,7 +26,8 @@ import { AuthService } from '../../auth-service.service';
   styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent {
-  languagesList: string[] = ['Arabic', 'English'];
+  translations = translations.language;
+  languages = Object.values(Language);
   apiService = inject(APIService);
   authService = inject(AuthService);
   user: User;
@@ -47,13 +49,13 @@ export class UserProfileComponent {
   }
 
   fillFormWithUserData(): void {
-    this.form.setValue(this.user);
+    this.form.patchValue(this.user);
   }
 
   save(): void {
     const updatedUser = this.form.value;
-    this.apiService.user.update(this.authService.getUserId(), updatedUser).subscribe(() => {
-      this.fillFormWithUserData();
+    this.apiService.user.update(this.authService.getUserId(), updatedUser).subscribe((user) => {
+      this.form.patchValue(user);
     });
   }
 }

@@ -1,7 +1,7 @@
 <div class="card-container">
   <mat-card class="mat-card-ed">
     <mat-card-content>
-      <form formGroupName="form">
+      <form [formGroup]="form">
         <h2 i18n>User Profile</h2>
         <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
           <mat-label i18n>name</mat-label>
@@ -11,14 +11,11 @@
           <mat-label i18n>password</mat-label>
           <input formControlName="password" type="text" matInput placeholder="Edit Your Password" />
         </mat-form-field>
-        <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
-          <mat-label formControlName="phone" i18n>phone</mat-label>
-          <input name="phone" type="text" matInput placeholder="Edit Your Phone" />
-        </mat-form-field>
+
         <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
           <mat-label i18n>language</mat-label>
-          <mat-select formControlName="languages">
-            <mat-option *ngFor="let language of languagesList" [value]="language">{{ language }}</mat-option>
+          <mat-select formControlName="language">
+            <mat-option *ngFor="let language of languages" [value]="language">{{ translations[language] }}</mat-option>
           </mat-select>
         </mat-form-field>
       </form>
