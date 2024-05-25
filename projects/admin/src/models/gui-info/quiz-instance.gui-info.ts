@@ -62,7 +62,7 @@ export const quizInstanceGuiInfo: WithPropType<QuizInstance, GuiPropInformation>
 
 export const quizInstanceSchema: SchemaInfo<QuizInstance> = {
   schema: quizInstanceGuiInfo,
-  label: 'quiz instance',
-  labelPlural: 'quiz instances',
+  label: $localize`quiz`,
+  labelPlural: $localize`quizzes`,
   api: 'quizInstance',
 };
