@@ -1,14 +1,6 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import {
-  AbstractControl,
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  ValidationErrors,
-  ValidatorFn,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, ValidatorFn, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -38,24 +30,10 @@ export class UserProfileComponent {
   languages = Object.values(Language);
   apiService = inject(APIService);
   authService = inject(AuthService);
-  form: FormGroup;
+  form = this.getFormGroup();
 
-  constructor() {
+  constructor(private fb: FormBuilder) {
     this.getUserById(this.authService.getUserId());
-    this.form = new FormGroup(
-      {
-        name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
-        password: new FormControl('', {
-          nonNullable: true,
-          validators: [Validators.required, Validators.minLength(8)],
-        }),
-        confirmpassword: new FormControl(''),
-        language: new FormControl<Language>(Language.ar, { nonNullable: true }),
-      },
-      {
-        validators: this.matchpassword,
-      },
-    );
   }
 
   getUserById(userId: number): void {
@@ -71,20 +49,40 @@ export class UserProfileComponent {
   save(): void {
     if (this.form.valid) {
       const updatedUser = this.form.value;
+      delete updatedUser.confirmpassword;
       this.apiService.user.update(this.authService.getUserId(), updatedUser).subscribe((user) => {
         this.form.patchValue(user);
       });
     }
   }
 
-  matchpassword: ValidatorFn = (control: AbstractControl): ValidationErrors | null => {
-    const password = control.get('password');
-    const confirmpassword = control.get('confirmpassword');
-    if (password && confirmpassword && password?.value != confirmpassword?.value) {
-      return {
-        passwordmatcherror: true,
-      };
-    }
-    return null;
-  };
+  matchpassword(): ValidatorFn {
+    return (control1) => {
+      const control = control1.parent as ReturnType<UserProfileComponent['getFormGroup']>;
+      if (!control) return null;
+      const password = control.controls.password.value;
+      const confirmpassword = control.controls.confirmpassword.value;
+      if (password !== confirmpassword) {
+        return {
+          passwordmatcherror: true,
+        };
+      }
+      return null;
+    };
+  }
+
+  getFormGroup() {
+    return this.fb.group({
+      name: new FormControl('', { nonNullable: true, validators: [Validators.required] }),
+      password: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, Validators.minLength(6)],
+      }),
+      confirmpassword: new FormControl('', {
+        nonNullable: true,
+        validators: [Validators.required, this.matchpassword()],
+      }),
+      language: new FormControl<Language>(Language.ar, { nonNullable: true }),
+    });
+  }
 }
