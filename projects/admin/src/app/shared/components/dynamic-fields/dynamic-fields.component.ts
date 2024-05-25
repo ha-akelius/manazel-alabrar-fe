@@ -23,9 +23,6 @@ import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
 import { DateFormComponent } from './components/date-form.component';
 import { RelationComponent } from './components/relation/relation.component';
 // Preserve original property order
-const originalOrder = (): number => {
-  return 0;
-};
 
 @Component({
   selector: 'app-dynamic-fields',
@@ -57,10 +54,11 @@ const originalOrder = (): number => {
 })
 export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   @Input({ required: true }) entityName: string = '';
+  @Input() excludeFields: string[] = [];
   schemaInfo!: JSONSchemaInfo;
   inputType = InputType;
   dynamicForm: FormGroup = new FormGroup({});
-  originalOrder = originalOrder;
+  props: GuiPropInformation[];
 
   constructor() {
     // this.dynamicForm.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => this.onChange(value));
@@ -70,17 +68,17 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
-    this.dynamicForm.valueChanges.subscribe((value) => this.onChange(value));
+    this.dynamicForm.valueChanges.subscribe((value) => this.onChange(value ? structuredClone(value) : value));
     for (const propInfo of Object.values(this.schemaInfo.schema)) {
       if (propInfo.guiInfo.inputType === InputType.jsonArray) {
         const fieldName = propInfo.propInformation.basic.name;
         const formArray = this.dynamicForm.get(fieldName) as FormArray;
         for (let index = 0; index < value[fieldName].length; index++) {
-          formArray.controls.push(new FormControl());
+          formArray.push(new FormControl());
         }
       }
     }
-    this.dynamicForm.patchValue(value, { emitEvent: false });
+    this.dynamicForm.patchValue(value || {}, { emitEvent: false });
   }
 
   addControl(prop: GuiPropInformation): void {
@@ -103,6 +101,9 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     this.schemaInfo = schemaInfo(this.entityName) || jsonSchemaInfo(this.entityName);
+    this.props = Object.values(this.schemaInfo.schema).filter(
+      (prop) => !this.excludeFields.includes(prop.propInformation.basic.name),
+    );
     this.createFormGroup();
   }
 

@@ -4,8 +4,14 @@ import { FormComponent, FormFieldComponent, TableColumnComponent } from '../../.
 import { APIService } from '../../../core/services/api.service';
 import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
 
+export type Action<T> = {
+  label: string;
+  actionFactory: () => (x: T) => void;
+};
+
 export type JSONSchemaInfo<T = any> = {
   schema: WithPropType<T, GuiPropInformation>;
+  actions?: Action<T>[];
   label: string;
   labelPlural: string;
 };

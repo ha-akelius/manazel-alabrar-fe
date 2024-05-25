@@ -8,7 +8,7 @@ export class RestApiService<T, Select, CreateInput, UpdateInput> {
   apiUrl = `/api/${this.apiName}`;
   httpClient = inject(HttpClient);
 
-  constructor(private apiName: string) {}
+  constructor(public apiName: string) {}
 
   findAll(x?: Select, page?: number, size?: number): Observable<Result<T>> {
     const params: { filter?: string; page?: number; size?: number } = {};

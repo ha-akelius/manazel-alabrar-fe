@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { Question } from '../../json-models/lessons';
 import { PropPrismaInformation } from '../utils/type-utils';
 const name: PropPrismaInformation<string, 'string'> = {
   type: 'string',
@@ -25,6 +26,13 @@ const courseInstanceName: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'courseInstanceName',
 };
+
+const questions: PropPrismaInformation<Question, 'Question'> = {
+  type: 'Question',
+  name: 'questions',
+  array: true,
+};
+
 export const QuizInstanceGenInfo = {
   name,
   dateFrom,
@@ -32,4 +40,5 @@ export const QuizInstanceGenInfo = {
   mark,
   courseInstanceId,
   courseInstanceName,
+  questions,
 };

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+
 import { environment } from '../../../environments/environment';
 import { translationKeys } from '../../core/models/translations';
 import { SharedModule } from '../../core/modules/shared.module';
@@ -24,7 +25,11 @@ export class LoginComponent {
     password: ['', Validators.required],
   });
   formError = false;
-  constructor(private fb: FormBuilder, private ss: StorageService, private authService: AuthenticationService) {
+  constructor(
+    private fb: FormBuilder,
+    private ss: StorageService,
+    private authService: AuthenticationService,
+  ) {
     this.loadLoginInformation();
   }
 
@@ -49,7 +54,7 @@ export class LoginComponent {
         ],
         asyncValidators: [],
         updateOn: 'change',
-      }
+      },
     );
   }
 
