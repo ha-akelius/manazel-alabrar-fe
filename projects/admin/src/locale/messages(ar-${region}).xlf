@@ -654,6 +654,50 @@
           <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="9095134843628689709" datatype="html">
+        <source>edit</source>
+        <target state="translated">تعديل</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2123171795960509943" datatype="html">
+        <source>remove</source>
+        <target state="translated">حذف</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5151914324276081075" datatype="html">
+        <source>action</source>
+        <target state="translated">اوامر</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/data-table.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7977867442868351717" datatype="html">
+        <source>create path instance</source>
+        <target state="translated">إنشاء دورة جديدة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1272701137347592514" datatype="html">
+        <source>start from</source>
+        <target state="translated">تبدأ من</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>
