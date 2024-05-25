@@ -96,7 +96,6 @@
                     <app-dynamic-fields
                       [entityName]="propInfo.value.propInformation.basic.type"
                       [formControl]="formControl"
-                      (valueChanges)="formArrayValueChanges($event, i, propInfo.value.propInformation.basic.name)"
                     />
                   </mat-expansion-panel>
                 }

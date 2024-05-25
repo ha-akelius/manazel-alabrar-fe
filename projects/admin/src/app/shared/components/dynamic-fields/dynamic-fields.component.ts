@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Input, OnInit, Output, forwardRef } from '@angular/core';
+import { Component, Input, OnInit, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   FormArray,
@@ -57,7 +57,6 @@ const originalOrder = (): number => {
 })
 export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   @Input({ required: true }) entityName: string = '';
-  @Output() valueChanges = new EventEmitter();
   schemaInfo!: JSONSchemaInfo;
   inputType = InputType;
   dynamicForm: FormGroup = new FormGroup({});
@@ -77,18 +76,11 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
         const fieldName = propInfo.propInformation.basic.name;
         const formArray = this.dynamicForm.get(fieldName) as FormArray;
         for (let index = 0; index < value[fieldName].length; index++) {
-          formArray.controls.push(new FormControl());
+          formArray.push(new FormControl());
         }
       }
     }
     this.dynamicForm.patchValue(value || {}, { emitEvent: false });
-  }
-
-  formArrayValueChanges(value: unknown, index: number, formName: string): void {
-    const formArray = this.dynamicForm.get(formName) as FormArray;
-    const values = formArray.getRawValue();
-    values[index] = value;
-    formArray.setValue([...values]);
   }
 
   addControl(prop: GuiPropInformation): void {
@@ -104,10 +96,7 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnChange(fn: typeof this.onChange): void {
-    this.onChange = (x) => {
-      fn(x);
-      this.valueChanges.emit(x);
-    };
+    this.onChange = fn;
   }
 
   registerOnTouched(): void {}

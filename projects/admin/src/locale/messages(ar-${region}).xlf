@@ -634,6 +634,22 @@
           <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="3249513483374643425" datatype="html">
+        <source>Add</source>
+        <target state="translated">إضافة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6041115344061899387" datatype="html">
+        <source>Rename</source>
+        <target state="translated">إعادة تسمية</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">225</context>
+          </context-group>
+          </trans-unit>
       <trans-unit id="7744292213705278878" datatype="html">
         <source>User Profile</source>
         <target state="translated">الملف الشخصي</target>

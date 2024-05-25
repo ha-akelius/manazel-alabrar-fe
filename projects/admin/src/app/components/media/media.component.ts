@@ -7,6 +7,7 @@ import { MatCheckboxChange, MatCheckboxModule } from '@angular/material/checkbox
 import { MatDialog } from '@angular/material/dialog';
 import { MatIconModule } from '@angular/material/icon';
 import { MatListModule } from '@angular/material/list';
+import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Media, MediaFolder, MediaType, Prisma } from '@prisma/client';
 import { switchMap } from 'rxjs';
 import { APIService } from '../../../core/services/api.service';
@@ -32,6 +33,7 @@ export class MediaComponent implements OnInit {
   apiService = inject(APIService);
   uploadService = inject(UploadService);
   dialog = inject(MatDialog);
+  sanitizer = inject(DomSanitizer);
   @ViewChild('fileReplaceInput') fileReplaceInput: ElementRef<HTMLInputElement>;
   @Input() selectable = false;
   @Output() selected = new EventEmitter<Media>();
@@ -151,7 +153,7 @@ export class MediaComponent implements OnInit {
   }
 
   addFolder(): void {
-    MediaDialogComponent.openDialog('', this.dialog).subscribe((result) => {
+    MediaDialogComponent.openDialog({ action: $localize`Add`, name: '' }, this.dialog).subscribe((result) => {
       if (result) {
         const newFolder = {
           name: result,
@@ -213,5 +215,22 @@ export class MediaComponent implements OnInit {
 
   confirmSelect(media: Media): void {
     this.selected.emit(media);
+  }
+
+  sanitizeUrl(url: string): SafeResourceUrl {
+    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+  }
+
+  renameFolder(folder: MediaFolder): void {
+    MediaDialogComponent.openDialog({ action: $localize`Rename`, name: folder.name }, this.dialog).subscribe(
+      (newName) => {
+        if (newName) {
+          const updateData = { name: newName };
+          this.apiService.mediaFolder.update(folder.id, updateData).subscribe(() => {
+            window.location.reload();
+          });
+        }
+      },
+    );
   }
 }
