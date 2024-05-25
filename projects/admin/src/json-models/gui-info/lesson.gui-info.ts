@@ -47,8 +47,8 @@ export const lessonGuiInfo: WithPropType<Lesson, GuiPropInformation> = {
       inputType: InputType.input,
     },
   },
-  questins: {
-    propInformation: jsonPropInfos.LessonPropInfo.questins,
+  questions: {
+    propInformation: jsonPropInfos.LessonPropInfo.questions,
     guiInfo: {
       label: $localize`questions`,
       inputType: InputType.json,

@@ -22,6 +22,84 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
           <context context-type="linenumber">2</context>
+      <trans-unit id="1807066826776143827" datatype="html">
+        <source>Edit User Profile</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">5,6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3325180562659478330" datatype="html">
+        <source>name</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/answer.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/lesson.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course-instance.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/path-instance.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/path.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/student.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/teacher.gui-info.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2347724151568473592" datatype="html">
+        <source>language</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
+          <context context-type="linenumber">36</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7977761628594328784" datatype="html">
+        <source>confirm</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">20,21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">54,55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3249513483374643425" datatype="html">
@@ -36,6 +114,67 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
           <context context-type="linenumber">225</context>
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">21,22</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">55,56</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">3</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1082022058906746619" datatype="html">
+        <source>reset password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">29,30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4809196861118879526" datatype="html">
+        <source>password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5459413922400282310" datatype="html">
+        <source> Password should be at least 6 characters </source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="933475654185758725" datatype="html">
+        <source>Confirm Your Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">43,44</context>
+        </context-group>
+        <note priority="1" from="description">Confirm Your Password</note>
+      </trans-unit>
+      <trans-unit id="6451269955734195952" datatype="html">
+        <source>Passwords do not match</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">48</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8640257554156088424" datatype="html">
+        <source>save</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3526205892584451052" datatype="html">
@@ -109,53 +248,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/student.gui-info.ts</context>
           <context context-type="linenumber">18</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3325180562659478330" datatype="html">
-        <source>name</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/answer.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/lesson.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
-          <context context-type="linenumber">11</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/course-instance.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/path-instance.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/path.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/student.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/teacher.gui-info.ts</context>
-          <context context-type="linenumber">10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
-          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="845184340669679902" datatype="html">
@@ -248,6 +340,10 @@
           <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
           <context context-type="linenumber">42</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
+          <context context-type="linenumber">57</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="4701539610770522021" datatype="html">
         <source>students</source>
@@ -302,7 +398,14 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
-          <context context-type="linenumber">31</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6537904131139019667" datatype="html">
+        <source>type</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6537904131139019667" datatype="html">
@@ -317,6 +420,28 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
           <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7062823674983872135" datatype="html">
+        <source>quiz</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/quiz.gui-info.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6404187677846257002" datatype="html">
+        <source>quizzes</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/quiz.gui-info.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
+          <context context-type="linenumber">45</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6608890834230007808" datatype="html">
@@ -334,11 +459,11 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
-          <context context-type="linenumber">46</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
-          <context context-type="linenumber">38</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
       <trans-unit id="161784639778555743" datatype="html">
@@ -376,7 +501,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
-          <context context-type="linenumber">17</context>
+          <context context-type="linenumber">18</context>
         </context-group>
       </trans-unit>
       <trans-unit id="5752374314815792564" datatype="html">
@@ -391,7 +516,7 @@
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
-          <context context-type="linenumber">24</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8942955470569122520" datatype="html">
@@ -419,7 +544,7 @@
         <source>courses</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
-          <context context-type="linenumber">47</context>
+          <context context-type="linenumber">57</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6976023564041835781" datatype="html">
@@ -473,13 +598,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
           <context context-type="linenumber">10</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="7062823674983872135" datatype="html">
-        <source>quiz</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
-          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7895033151316369519" datatype="html">
@@ -544,19 +662,23 @@
           <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
           <context context-type="linenumber">43</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/hooks/user/roles-form/roles-form.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="123010868147850959" datatype="html">
         <source>user</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
-          <context context-type="linenumber">54</context>
+          <context context-type="linenumber">55</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1670306451865226564" datatype="html">
         <source>users</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
-          <context context-type="linenumber">55</context>
+          <context context-type="linenumber">56</context>
         </context-group>
       </trans-unit>
     </body>

@@ -57,6 +57,10 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
   ngOnInit(): void {
     this.schemaInfo = assertSchemaInfo(this.entityName);
 
+    this.result = {
+      items: [],
+      pages: 0,
+    };
     this.fetchData();
 
     this.tableColumns = [];

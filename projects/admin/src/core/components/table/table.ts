@@ -1,8 +1,17 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Directive, Input, Optional, Self, Type } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { ControlValueAccessor, FormControl, FormGroup, NgControl } from '@angular/forms';
-import { Subject, debounceTime } from 'rxjs';
+import { Directive, Input, Type, inject } from '@angular/core';
+import {
+  ControlValueAccessor,
+  FormControl,
+  FormControlDirective,
+  FormControlName,
+  FormGroup,
+  NG_VALUE_ACCESSOR,
+  NgControl,
+  NgModel,
+} from '@angular/forms';
+import { Subject } from 'rxjs';
 import { GuiPropInformation } from '../../../app/shared/model/json-schema';
 
 export interface BasicRecord {
@@ -19,53 +28,58 @@ export class TableColumnComponent<X, T extends BasicRecord = BasicRecord> {
   @Input() onChange: Subject<void>;
 }
 
-@Directive()
-export class FormComponent<T = any, X = T> implements ControlValueAccessor {
-  @Input({ required: true }) propInfo: GuiPropInformation;
-  formControl = new FormControl<X | undefined>(undefined);
-  onChange: (x: T | undefined | null) => void;
+@Directive({
+  standalone: true,
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      multi: true,
+      useExisting: NoopValueAccessorDirective,
+    },
+  ],
+})
+export class NoopValueAccessorDirective implements ControlValueAccessor {
+  writeValue(_obj: any): void {}
+  registerOnChange(_fn: any): void {}
+  registerOnTouched(_fn: any): void {}
+}
 
-  constructor(@Optional() @Self() protected ngControl: NgControl) {
-    if (this.ngControl) {
-      this.ngControl.valueAccessor = this;
-    }
-    this.formControl.valueChanges
-      .pipe(takeUntilDestroyed(), debounceTime(300))
-      .subscribe((value) => this.valueChange(value));
+export function injectNgControl() {
+  const ngControl = inject(NgControl, { self: true, optional: true });
+
+  if (!ngControl) throw new Error('...');
+
+  if (
+    ngControl instanceof FormControlDirective ||
+    ngControl instanceof FormControlName ||
+    ngControl instanceof NgModel
+  ) {
+    return ngControl;
   }
+
+  throw new Error('...');
+}
+
+@Directive()
+export class FormFieldComponent<T = any> {
+  @Input({ required: true }) propInfo: GuiPropInformation;
+  @Input({ required: true }) formControl: FormControl<T>;
+
+  get parentFormGroup(): FormGroup | undefined {
+    return this.formControl.parent as FormGroup;
+  }
+}
+@Directive()
+export class FormComponent<T = any> {
+  @Input({ required: true }) propInfo: GuiPropInformation;
+  ngControl = injectNgControl();
 
   get parentFormGroup(): FormGroup | undefined {
     return this.ngControl.control?.parent as FormGroup;
   }
 
-  writeValue(obj: T): void {
-    this.formControl.setValue(this.mapToX(obj), { emitEvent: false });
-  }
-
-  registerOnChange(fn: FormComponent['onChange']): void {
-    this.onChange = fn;
-  }
-
-  registerOnTouched(): void {}
-
-  setDisabledState?(isDisabled: boolean): void {
-    if (isDisabled) {
-      if (this.formControl.enabled) {
-        this.formControl.disable();
-      }
-    } else {
-      if (this.formControl.disabled) {
-        this.formControl.enable();
-      }
-    }
-  }
-
-  protected valueChange(value: X | undefined | null): void {
-    this.onChange(value as unknown as T);
-  }
-
-  protected mapToX(value: T): X {
-    return value as unknown as X;
+  get formControl(): FormControl<T> {
+    return this.ngControl.control;
   }
 }
 

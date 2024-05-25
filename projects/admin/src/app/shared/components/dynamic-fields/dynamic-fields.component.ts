@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   FormArray,
@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { RolesFormComponent } from '../../../../models/hooks/user/roles-form/roles-form.component';
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../model/json-schema';
 import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
 import { DateFormComponent } from './components/date-form.component';
@@ -51,10 +52,12 @@ const originalOrder = (): number => {
     MatExpansionModule,
     MatSelectModule,
     DateFormComponent,
+    RolesFormComponent,
   ],
 })
 export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   @Input({ required: true }) entityName: string = '';
+  @Output() valueChanges = new EventEmitter();
   schemaInfo!: JSONSchemaInfo;
   inputType = InputType;
   dynamicForm: FormGroup = new FormGroup({});
@@ -68,7 +71,7 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
-    this.dynamicForm.valueChanges.subscribe((value) => this.onChange(value));
+    this.dynamicForm.valueChanges.subscribe((value) => this.onChange(value ? structuredClone(value) : value));
     for (const propInfo of Object.values(this.schemaInfo.schema)) {
       if (propInfo.guiInfo.inputType === InputType.jsonArray) {
         const fieldName = propInfo.propInformation.basic.name;
@@ -78,7 +81,14 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
         }
       }
     }
-    this.dynamicForm.patchValue(value, { emitEvent: false });
+    this.dynamicForm.patchValue(value || {}, { emitEvent: false });
+  }
+
+  formArrayValueChanges(value: unknown, index: number, formName: string): void {
+    const formArray = this.dynamicForm.get(formName) as FormArray;
+    const values = formArray.getRawValue();
+    values[index] = value;
+    formArray.setValue([...values]);
   }
 
   addControl(prop: GuiPropInformation): void {
@@ -94,7 +104,10 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnChange(fn: typeof this.onChange): void {
-    this.onChange = fn;
+    this.onChange = (x) => {
+      fn(x);
+      this.valueChanges.emit(x);
+    };
   }
 
   registerOnTouched(): void {}
@@ -116,6 +129,13 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
       }
     }
     this.dynamicForm = formGroup;
+  }
+
+  getCompInputs(prop: GuiPropInformation): Record<string, unknown> | undefined {
+    return {
+      propInfo: prop,
+      formControl: this.dynamicForm.controls[prop.propInformation.basic.name],
+    };
   }
 
   private collectValidators(property: GuiPropInformation): ValidatorFn[] {

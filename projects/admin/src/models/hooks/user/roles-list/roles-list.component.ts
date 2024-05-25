@@ -7,7 +7,7 @@ import { TableColumnComponent } from '../../../../core/components/table/table';
   standalone: true,
   imports: [],
   template: `@for (role of data; track $index) {
-    {{ translations[role] }},dsfsdf
+    {{ translations[role] }},
   }`,
 })
 export class RolesListComponent extends TableColumnComponent<Role[]> {

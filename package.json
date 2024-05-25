@@ -8,6 +8,7 @@
     "i18n-admin": "ng extract-i18n --project admin",
     "prebuild-admin": "npm run prisma:generate",
     "build-admin": "ng build  --project admin --localize",
+    "build-lms": "ng build  --project lms --localize",
     "build-site": "ng build --configuration production",
     "prebuild-site": "npm run translate && npm run postprebuild",
     "postprebuild": "prettier ./src/app/core/models --write && prettier ./src/assets/i18n --write ",

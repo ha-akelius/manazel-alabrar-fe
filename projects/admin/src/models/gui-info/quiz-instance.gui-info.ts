@@ -1,5 +1,6 @@
 import { QuizInstance } from '@prisma/client';
 import { GuiPropInformation, InputType, SchemaInfo } from '../../app/shared/model/json-schema';
+import { jsonPropInfos } from '../../json-models/prop-info';
 import { QuizInstancePropInfo } from '../prop-info/quiz-instance.prop-info';
 import { WithPropType } from '../utils/type-utils';
 
@@ -48,6 +49,13 @@ export const quizInstanceGuiInfo: WithPropType<QuizInstance, GuiPropInformation>
         form: true,
         list: true,
       },
+    },
+  },
+  questions: {
+    propInformation: jsonPropInfos.LessonPropInfo.questions,
+    guiInfo: {
+      label: $localize`questions`,
+      inputType: InputType.json,
     },
   },
 };
