@@ -74,18 +74,11 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
         const fieldName = propInfo.propInformation.basic.name;
         const formArray = this.dynamicForm.get(fieldName) as FormArray;
         for (let index = 0; index < value[fieldName].length; index++) {
-          formArray.controls.push(new FormControl());
+          formArray.push(new FormControl());
         }
       }
     }
     this.dynamicForm.patchValue(value || {}, { emitEvent: false });
-  }
-
-  formArrayValueChanges(value: unknown, index: number, formName: string): void {
-    const formArray = this.dynamicForm.get(formName) as FormArray;
-    const values = formArray.getRawValue();
-    values[index] = value;
-    formArray.setValue([...values]);
   }
 
   addControl(prop: GuiPropInformation): void {

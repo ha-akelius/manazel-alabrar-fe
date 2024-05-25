@@ -4,20 +4,11 @@
   <mat-icon>add_folder</mat-icon>
 </button>
 <ng-container *ngIf="currentFolder">
+  <button mat-flat-button color="primary" (click)="renameFolder(currentFolder)">Rename Folder</button>
   <button mat-flat-button color="warn" (click)="deleteFolder(currentFolder)" *ngIf="isFolderEmpty(currentFolder)">
     Delete Folder
   </button>
 </ng-container>
-<div *ngIf="currentFolder">
-  <input type="file" class="file-input" (change)="uploadFile($event.target)" #fileUpload />
-
-  <div class="file-upload">
-    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-      <mat-icon>attach_file</mat-icon>
-    </button>
-  </div>
-</div>
-
 <div class="bread-crumb">
   <ng-container *ngFor="let folder of path; let i = index">
     <button mat-button href="#" (click)="navigateToParent(i)">
@@ -36,6 +27,15 @@
 </div>
 
 <h2>Media Files</h2>
+<div *ngIf="currentFolder">
+  <input type="file" class="file-input" (change)="uploadFile($event.target)" #fileUpload />
+
+  <div class="file-upload">
+    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+      <mat-icon>attach_file</mat-icon>
+    </button>
+  </div>
+</div>
 <div *ngIf="medias.length > 0">
   <mat-checkbox [checked]="deleteAllChecked" (change)="toggleDeleteAll($event)"></mat-checkbox>
   <button mat-raised-button color="warn" (click)="deleteAll()">Delete Selected</button>
@@ -45,6 +45,11 @@
   <mat-card *ngFor="let media of medias" class="col-xs-12 col-sm-6 col-lg-3">
     <mat-card-content>
       <mat-checkbox [checked]="isSelected(media.id)" (change)="toggleSelection(media.id)"></mat-checkbox>
+      <div>
+        <object [data]="sanitizeUrl(media.url.replace('client/', ''))" width="400" height="400">
+          <p>Media preview is not supported+{{ media.url.replace("client/", "") }}</p>
+        </object>
+      </div>
       <button mat-flat-button><mat-icon>description</mat-icon> {{ media.name }}</button>
     </mat-card-content>
     <mat-card-actions>
@@ -54,5 +59,4 @@
     </mat-card-actions>
   </mat-card>
 </div>
-
 <input type="file" class="file-input" #fileReplaceInput (change)="replaceFile()" />
