@@ -101,10 +101,7 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   }
 
   registerOnChange(fn: typeof this.onChange): void {
-    this.onChange = (x) => {
-      fn(x);
-      this.valueChanges.emit(x);
-    };
+    this.onChange = fn;
   }
 
   registerOnTouched(): void {}
