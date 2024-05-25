@@ -100,7 +100,7 @@ export const courseInstanceGuiInfo: WithPropType<CourseInstance, GuiPropInformat
     propInformation: CourseInstancePropInfo.lessons,
     guiInfo: {
       label: $localize`lessons`,
-      inputType: InputType.json,
+      inputType: InputType.jsonArray,
     },
   },
   teacherName: {
