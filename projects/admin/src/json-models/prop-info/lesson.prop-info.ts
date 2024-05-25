@@ -31,8 +31,8 @@ const date: PropInformation<Date, 'Date'> = {
   basic: LessonGenInfo.date,
 };
 
-const questins: PropInformation<Question, 'Question'> = {
-  basic: LessonGenInfo.questins,
+const questions: PropInformation<Question, 'Question'> = {
+  basic: LessonGenInfo.questions,
 };
 
 const students: PropInformation<StudentLesson, 'StudentLesson'> = {
@@ -47,6 +47,6 @@ export const LessonPropInfo: WithPropType<Lesson, PropInformation<any, any>> = {
   audioId: audioId,
   audioName: audioName,
   date: date,
-  questins: questins,
+  questions: questions,
   students: students,
 };
