@@ -10,7 +10,6 @@ export const userGuiInfo: WithPropType<User, GuiPropInformation> = {
     propInformation: UserPropInfo.name,
     guiInfo: {
       label: $localize`name`,
-
       inputType: InputType.input,
     },
   },
