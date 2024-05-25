@@ -7,27 +7,6 @@
           <mat-label i18n>name</mat-label>
           <input formControlName="name" type="text" matInput placeholder="Edit Your Name" required />
         </mat-form-field>
-        <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
-          <mat-label i18n>password</mat-label>
-          <input formControlName="password" type="text" matInput placeholder="Edit Your Password" />
-          <mat-error *ngIf="form.controls.password.hasError('minlength')" i18n>
-            Password should be at least 6 characters
-          </mat-error>
-        </mat-form-field>
-        <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
-          <mat-label i18n>password</mat-label>
-          <input
-            formControlName="confirmpassword"
-            type="text"
-            matInput
-            placeholder="Confirm Your Password"
-            i18n-placeholder="Confirm Your Password"
-            required
-          />
-          <mat-error *ngIf="form.controls.confirmpassword.hasError('passwordmatcherror')" i18n
-            >Passwords do not match</mat-error
-          >
-        </mat-form-field>
 
         <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
           <mat-label i18n>language</mat-label>
@@ -39,6 +18,41 @@
     </mat-card-content>
     <mat-card-actions>
       <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()" i18n>confirm</button>
+      <button mat-raised-button color="warn" i18n>cancel</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <mat-card class="mat-card-ed">
+    <mat-card-content>
+      <form [formGroup]="passordForm">
+        <h2 i18n>reset password</h2>
+        <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
+          <mat-label i18n>password</mat-label>
+          <input formControlName="password" type="password" matInput placeholder="Edit Your Password" />
+          <mat-error *ngIf="passordForm.controls.password.hasError('minlength')" i18n>
+            Password should be at least 6 characters
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
+          <mat-label i18n>password</mat-label>
+          <input
+            formControlName="confirmpassword"
+            type="password"
+            matInput
+            placeholder="Confirm Your Password"
+            i18n-placeholder="Confirm Your Password"
+            required
+          />
+          <mat-error *ngIf="passordForm.controls.confirmpassword.hasError('passwordmatcherror')" i18n
+            >Passwords do not match</mat-error
+          >
+        </mat-form-field>
+      </form>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" [disabled]="passordForm.invalid" (click)="resetPassword()" i18n>
+        confirm
+      </button>
       <button mat-raised-button color="warn" i18n>cancel</button>
     </mat-card-actions>
   </mat-card>

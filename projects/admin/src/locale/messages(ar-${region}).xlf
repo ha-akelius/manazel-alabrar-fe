@@ -689,8 +689,8 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
           <context context-type="linenumber">27</context>
-          </context-group>
-          </trans-unit>
+        </context-group>
+      </trans-unit>
       <trans-unit id="608673774565446711" datatype="html">
         <source>quizzes</source>
         <target state="translated">الأختبارات</target>
@@ -709,6 +709,14 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
           <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1082022058906746619" datatype="html">
+        <source>reset password</source>
+        <target state="translated">إعادة تعيين كلمة السر</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">29</context>
         </context-group>
       </trans-unit>
     </body>
