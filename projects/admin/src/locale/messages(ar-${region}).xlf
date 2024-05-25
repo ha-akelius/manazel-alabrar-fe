@@ -648,6 +648,8 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
           <context context-type="linenumber">225</context>
+          </context-group>
+          </trans-unit>
       <trans-unit id="7744292213705278878" datatype="html">
         <source>User Profile</source>
         <target state="translated">الملف الشخصي</target>
