@@ -4,7 +4,6 @@ import { Router } from '@angular/router';
 
 const storage = {
   username: 'username',
-  password: 'password',
   token: 'token',
   userId: 'userId',
 };
@@ -28,14 +27,17 @@ export class AuthService {
     return Number(localStorage.getItem(storage.userId));
   }
 
+  getUserName(): string {
+    return localStorage.getItem(storage.username)!;
+  }
+
   logIn(username: string, password: string): Promise<LoginStatus> {
-    localStorage.setItem(storage.username, username);
-    localStorage.setItem(storage.password, password);
     return new Promise<LoginStatus>((resolve) => {
       this.httpClient
         .post<{ access_token: string; userId: number }>('/api/auth/login', { username, password })
         .subscribe({
           next: ({ access_token, userId }) => {
+            localStorage.setItem(storage.username, username);
             localStorage.setItem(storage.token, access_token);
             localStorage.setItem(storage.userId, userId + '');
             this.loggedInSignal.set(true);

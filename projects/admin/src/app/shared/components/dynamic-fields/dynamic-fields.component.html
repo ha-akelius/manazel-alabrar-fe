@@ -1,57 +1,57 @@
 <!-- <pre>{{ dynamicForm.value | json }}</pre> -->
 <form [formGroup]="dynamicForm" class="row">
-  @for (propInfo of schemaInfo.schema | keyvalue: originalOrder; track $index) {
-    @if (!propInfo.value.guiInfo.hide?.form) {
-      @if (propInfo.value.guiInfo.hooks?.form) {
+  @for (propInfo of props; track $index) {
+    @if (!propInfo.guiInfo.hide?.form) {
+      @if (propInfo.guiInfo.hooks?.form) {
         <ng-container
-          [formControlName]="propInfo.value.propInformation.basic.name"
-          *ngComponentOutlet="propInfo.value.guiInfo.hooks!.form!; inputs: getCompInputs(propInfo.value)"
+          [formControlName]="propInfo.propInformation.basic.name"
+          *ngComponentOutlet="propInfo.guiInfo.hooks!.form!; inputs: getCompInputs(propInfo)"
         ></ng-container>
       } @else {
-        @switch (propInfo.value.guiInfo.inputType) {
+        @switch (propInfo.guiInfo.inputType) {
           @case (inputType.dateTime) {
             <app-date-form
               class="col-xs-12 col-sm-6 col-lg-4 padded-field"
-              [propInfo]="propInfo.value"
-              [formControlName]="propInfo.value.propInformation.basic.name"
+              [propInfo]="propInfo"
+              [formControlName]="propInfo.propInformation.basic.name"
             />
           }
           @case (inputType.textarea) {
             <mat-form-field class="col-xs-12">
-              <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
-              <textarea matInput [formControlName]="propInfo.value.propInformation.basic.name"></textarea>
+              <mat-label>{{ propInfo.guiInfo.label }}</mat-label>
+              <textarea matInput [formControlName]="propInfo.propInformation.basic.name"></textarea>
             </mat-form-field>
           }
           @case (inputType.input) {
-            @if (propInfo.value.propInformation.basic.type === "number") {
+            @if (propInfo.propInformation.basic.type === "number") {
               <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
-                <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
+                <mat-label>{{ propInfo.guiInfo.label }}</mat-label>
                 <input
                   matInput
                   type="number"
-                  [required]="!propInfo.value.propInformation.basic.optional"
-                  [formControlName]="propInfo.value.propInformation.basic.name"
+                  [required]="!propInfo.propInformation.basic.optional"
+                  [formControlName]="propInfo.propInformation.basic.name"
                 />
-                <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('email')">
+                <mat-error *ngIf="dynamicForm.get(propInfo.propInformation.basic.name)?.hasError('email')">
                   Please enter valid email form
                 </mat-error>
-                <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('pattern')">
+                <mat-error *ngIf="dynamicForm.get(propInfo.propInformation.basic.name)?.hasError('pattern')">
                   The name should be between 3-20 letter
                 </mat-error>
               </mat-form-field>
             } @else {
               <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
-                <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
+                <mat-label>{{ propInfo.guiInfo.label }}</mat-label>
                 <input
                   matInput
-                  [attr.type]="propInfo.value.propInformation.basic.type ?? ''"
-                  [required]="!propInfo.value.propInformation.basic.optional"
-                  [formControlName]="propInfo.value.propInformation.basic.name"
+                  [attr.type]="propInfo.propInformation.basic.type ?? ''"
+                  [required]="!propInfo.propInformation.basic.optional"
+                  [formControlName]="propInfo.propInformation.basic.name"
                 />
-                <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('email')">
+                <mat-error *ngIf="dynamicForm.get(propInfo.propInformation.basic.name)?.hasError('email')">
                   Please enter valid email form
                 </mat-error>
-                <mat-error *ngIf="dynamicForm.get(propInfo.value.propInformation.basic.name)?.hasError('pattern')">
+                <mat-error *ngIf="dynamicForm.get(propInfo.propInformation.basic.name)?.hasError('pattern')">
                   The name should be between 3-20 letter
                 </mat-error>
               </mat-form-field>
@@ -60,23 +60,23 @@
           @case (inputType.relation) {
             <app-relation
               class="col-xs-12 col-sm-6 col-lg-4 padded-field"
-              [propInfo]="propInfo.value"
-              [formControlName]="propInfo.value.propInformation.basic.name"
+              [propInfo]="propInfo"
+              [formControlName]="propInfo.propInformation.basic.name"
             />
           }
           @case (inputType.boolean) {
             <mat-slide-toggle
               class="col-xs-12 col-sm-6 col-lg-4 padded-field"
-              [formControlName]="propInfo.value.propInformation.basic.name"
+              [formControlName]="propInfo.propInformation.basic.name"
             >
-              {{ propInfo.value.propInformation.basic.name }}
+              {{ propInfo.propInformation.basic.name }}
             </mat-slide-toggle>
           }
           @case (inputType.enum) {
             <mat-form-field class="col-xs-12 col-sm-6 col-lg-4 padded-field">
-              <mat-label>{{ propInfo.value.guiInfo.label }}</mat-label>
-              <mat-select [formControlName]="propInfo.value.propInformation.basic.name">
-                @for (option of propInfo.value.guiInfo.options | keyvalue; track option) {
+              <mat-label>{{ propInfo.guiInfo.label }}</mat-label>
+              <mat-select [formControlName]="propInfo.propInformation.basic.name">
+                @for (option of propInfo.guiInfo.options | keyvalue; track option) {
                   <mat-option [value]="option.key">{{ option.value }}</mat-option>
                 }
               </mat-select>
@@ -84,37 +84,34 @@
           }
           @case (inputType.jsonArray) {
             <div class="col-xs-12">
-              <div>{{ propInfo.value.guiInfo.label }}</div>
-              <mat-accordion class="col-xs-12" [formArrayName]="propInfo.value.propInformation.basic.name">
-                @for (formControl of formArrayControls(propInfo.value); track formControl; let i = $index) {
+              <div>{{ propInfo.guiInfo.label }}</div>
+              <mat-accordion class="col-xs-12" [formArrayName]="propInfo.propInformation.basic.name">
+                @for (formControl of formArrayControls(propInfo); track formControl; let i = $index) {
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
-                        {{ formControl.getRawValue()?.name ?? propInfo.value.guiInfo.label }}
+                        {{ formControl.getRawValue()?.name ?? propInfo.guiInfo.label }}
                       </mat-panel-title>
                     </mat-expansion-panel-header>
-                    <app-dynamic-fields
-                      [entityName]="propInfo.value.propInformation.basic.type"
-                      [formControl]="formControl"
-                    />
+                    <app-dynamic-fields [entityName]="propInfo.propInformation.basic.type" formControlName="{{ i }}" />
                   </mat-expansion-panel>
                 }
               </mat-accordion>
-              <button mat-icon-button (click)="addControl(propInfo.value)"><mat-icon>add</mat-icon></button>
+              <button mat-icon-button (click)="addControl(propInfo)"><mat-icon>add</mat-icon></button>
             </div>
           }
           @case (inputType.json) {
-            <div>{{ propInfo.value.guiInfo.label }}</div>
+            <div>{{ propInfo.guiInfo.label }}</div>
             <mat-accordion class="col-xs-12">
               <mat-expansion-panel>
                 <mat-expansion-panel-header>
                   <mat-panel-title>
-                    {{ propInfo.value.guiInfo.label }}
+                    {{ propInfo.guiInfo.label }}
                   </mat-panel-title>
                 </mat-expansion-panel-header>
                 <app-dynamic-fields
-                  [entityName]="propInfo.value.propInformation.basic.type"
-                  [formControlName]="propInfo.value.propInformation.basic.name"
+                  [entityName]="propInfo.propInformation.basic.type"
+                  [formControlName]="propInfo.propInformation.basic.name"
                 />
               </mat-expansion-panel>
             </mat-accordion>
@@ -122,7 +119,7 @@
           @default {
             <div class="col-xs-12">
               <!-- <pre>
-                {{ propInfo.value | json }}
+                {{ propInfo | json }}
               </pre> -->
 
               unknown

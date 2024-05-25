@@ -8,7 +8,7 @@ import { RestApiServiceUnkown } from '../../../shared/services/rest-api.service'
 import { JSONSchemaInfo, SchemaInfo } from './json-schema';
 
 function getJSONKey(entityName: string, obj: any): string | undefined {
-  const propLower = entityName.toLowerCase();
+  const propLower = entityName.toLowerCase().replace('-', '');
   for (const key in obj) {
     if (key.toLowerCase() === propLower + 'propinfo') {
       return key.replace('PropInfo', '');

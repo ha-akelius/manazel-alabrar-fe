@@ -23,9 +23,6 @@ import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
 import { DateFormComponent } from './components/date-form.component';
 import { RelationComponent } from './components/relation/relation.component';
 // Preserve original property order
-const originalOrder = (): number => {
-  return 0;
-};
 
 @Component({
   selector: 'app-dynamic-fields',
@@ -57,10 +54,11 @@ const originalOrder = (): number => {
 })
 export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   @Input({ required: true }) entityName: string = '';
+  @Input() excludeFields: string[] = [];
   schemaInfo!: JSONSchemaInfo;
   inputType = InputType;
   dynamicForm: FormGroup = new FormGroup({});
-  originalOrder = originalOrder;
+  props: GuiPropInformation[];
 
   constructor() {
     // this.dynamicForm.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => this.onChange(value));
@@ -103,6 +101,9 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
 
   ngOnInit(): void {
     this.schemaInfo = schemaInfo(this.entityName) || jsonSchemaInfo(this.entityName);
+    this.props = Object.values(this.schemaInfo.schema).filter(
+      (prop) => !this.excludeFields.includes(prop.propInformation.basic.name),
+    );
     this.createFormGroup();
   }
 

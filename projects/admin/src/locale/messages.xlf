@@ -2,8 +2,27 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
+      <trans-unit id="7977867442868351717" datatype="html">
+        <source>create path instance</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/index.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="503445309622982213" datatype="html">
         <source>cancel</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">9,10</context>
+        </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/components/media-details/media-details.component.html</context>
           <context context-type="linenumber">8,9</context>
@@ -171,6 +190,20 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
           <context context-type="linenumber">54,55</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9095134843628689709" datatype="html">
+        <source>edit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.html</context>
+          <context context-type="linenumber">1,2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2123171795960509943" datatype="html">
+        <source>remove</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.html</context>
+          <context context-type="linenumber">2,3</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3526205892584451052" datatype="html">
