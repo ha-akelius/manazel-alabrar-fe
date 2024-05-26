@@ -31,7 +31,7 @@ export const questionGuiInfo: WithPropType<Question, GuiPropInformation> = {
     propInformation: jsonPropInfos.QuestionPropInfo.answers,
     guiInfo: {
       label: $localize`answers`,
-      inputType: InputType.json,
+      inputType: InputType.jsonArray,
     },
   },
 };

@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, Input, OnInit, forwardRef } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit, forwardRef } from '@angular/core';
 import {
   ControlValueAccessor,
   FormArray,
@@ -17,6 +17,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import { Subscription } from 'rxjs';
 import { RolesFormComponent } from '../../../../models/hooks/user/roles-form/roles-form.component';
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../model/json-schema';
 import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
@@ -52,7 +53,7 @@ import { RelationComponent } from './components/relation/relation.component';
     RolesFormComponent,
   ],
 })
-export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
+export class DynamicFieldsComponent implements OnInit, OnDestroy, ControlValueAccessor {
   @Input({ required: true }) entityName: string = '';
   @Input() excludeFields: string[] = [];
   schemaInfo!: JSONSchemaInfo;
@@ -60,21 +61,16 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
   dynamicForm: FormGroup = new FormGroup({});
   props: GuiPropInformation[];
 
-  constructor() {
-    // this.dynamicForm.valueChanges.pipe(takeUntilDestroyed()).subscribe((value) => this.onChange(value));
-  }
-
-  onChange: (x: unknown) => void;
-
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
-    this.dynamicForm.valueChanges.subscribe((value) => this.onChange(value ? structuredClone(value) : value));
     for (const propInfo of Object.values(this.schemaInfo.schema)) {
       if (propInfo.guiInfo.inputType === InputType.jsonArray) {
         const fieldName = propInfo.propInformation.basic.name;
         const formArray = this.dynamicForm.get(fieldName) as FormArray;
-        for (let index = 0; index < value[fieldName].length; index++) {
-          formArray.push(new FormControl());
+        if (value?.[fieldName]) {
+          for (let index = 0; index < value[fieldName].length; index++) {
+            formArray.push(new FormControl());
+          }
         }
       }
     }
@@ -93,8 +89,13 @@ export class DynamicFieldsComponent implements OnInit, ControlValueAccessor {
     return this.formArray(prop).controls as FormControl[];
   }
 
-  registerOnChange(fn: typeof this.onChange): void {
-    this.onChange = fn;
+  subscription = new Subscription();
+  registerOnChange(fn: (x: unknown) => void): void {
+    this.subscription = this.dynamicForm.valueChanges.subscribe((value) => fn(value));
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   registerOnTouched(): void {}

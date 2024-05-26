@@ -51,14 +51,14 @@ export const lessonGuiInfo: WithPropType<Lesson, GuiPropInformation> = {
     propInformation: jsonPropInfos.LessonPropInfo.questions,
     guiInfo: {
       label: $localize`questions`,
-      inputType: InputType.json,
+      inputType: InputType.jsonArray,
     },
   },
   students: {
     propInformation: jsonPropInfos.LessonPropInfo.students,
     guiInfo: {
       label: $localize`students`,
-      inputType: InputType.json,
+      inputType: InputType.jsonArray,
     },
   },
   audioName: {
