@@ -2,39 +2,41 @@
   <mat-card class="mat-card-ed">
     <mat-card-content>
       <form [formGroup]="form">
-        <h2 i18n>Edit User Profile</h2>
+        <h2>{{ translations.editUser }}</h2>
         <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
-          <mat-label i18n>name</mat-label>
+          <mat-label>{{ translations.name }}</mat-label>
           <input formControlName="name" type="text" matInput placeholder="Edit Your Name" required />
         </mat-form-field>
 
         <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
-          <mat-label i18n>language</mat-label>
+          <mat-label>{{ translations.language }}</mat-label>
           <mat-select formControlName="language">
-            <mat-option *ngFor="let language of languages" [value]="language">{{ translations[language] }}</mat-option>
+            <mat-option *ngFor="let language of languages" [value]="language">{{ translation[language] }}</mat-option>
           </mat-select>
         </mat-form-field>
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()" i18n>confirm</button>
-      <button mat-raised-button color="warn" i18n>cancel</button>
+      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">
+        {{ translations.save }}
+      </button>
+      <button mat-raised-button color="warn">{{ translations.cancel }}</button>
     </mat-card-actions>
   </mat-card>
 
   <mat-card class="mat-card-ed">
     <mat-card-content>
       <form [formGroup]="passordForm">
-        <h2 i18n>reset password</h2>
+        <h2>{{ translations.resetPassword }}</h2>
         <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
-          <mat-label i18n>password</mat-label>
+          <mat-label>{{ translations.password }}</mat-label>
           <input formControlName="password" type="password" matInput placeholder="Edit Your Password" />
-          <mat-error *ngIf="passordForm.controls.password.hasError('minlength')" i18n>
-            Password should be at least 6 characters
+          <mat-error *ngIf="passordForm.controls.password.hasError('minlength')">
+            {{ translations.passwordMinlength }}
           </mat-error>
         </mat-form-field>
         <mat-form-field class="col-xs-12 col-sm-6 col-lg-4">
-          <mat-label i18n>password</mat-label>
+          <mat-label>{{ translations.password }}</mat-label>
           <input
             formControlName="confirmpassword"
             type="password"
@@ -43,17 +45,17 @@
             i18n-placeholder="Confirm Your Password"
             required
           />
-          <mat-error *ngIf="passordForm.controls.confirmpassword.hasError('passwordmatcherror')" i18n
-            >Passwords do not match</mat-error
-          >
+          <mat-error *ngIf="passordForm.controls.confirmpassword.hasError('passwordmatcherror')">{{
+            translations.passwordMatch
+          }}</mat-error>
         </mat-form-field>
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" [disabled]="passordForm.invalid" (click)="resetPassword()" i18n>
-        confirm
+      <button mat-raised-button color="primary" [disabled]="passordForm.invalid" (click)="resetPassword()">
+        {{ translations.save }}
       </button>
-      <button mat-raised-button color="warn" i18n>cancel</button>
+      <button mat-raised-button color="warn">{{ translations.cancel }}</button>
     </mat-card-actions>
   </mat-card>
 </div>

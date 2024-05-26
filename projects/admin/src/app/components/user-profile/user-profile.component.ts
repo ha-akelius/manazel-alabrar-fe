@@ -26,7 +26,8 @@ import { translations } from '../../translations';
   styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent {
-  translations = translations.language;
+  translations = translations.general;
+  translation = translations.language;
   languages = Object.values(Language);
   apiService = inject(APIService);
   authService = inject(AuthService);

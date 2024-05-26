@@ -1,8 +1,8 @@
 <div class="container">
-  <h2>{{ entityName }}</h2>
+  <h2>{{ schemaInfo.labelPlural }}</h2>
   <div class="button-group">
     <button mat-raised-button color="primary" [routerLink]="['../../', 'create', entityName]">
-      + Add New {{ entityName }}
+      {{ translations.add }} {{ schemaInfo.label }} {{ translations.new }}
     </button>
     <button [matMenuTriggerFor]="menu" aria-label="Settings menu">
       <mat-icon>settings</mat-icon>
@@ -16,6 +16,6 @@
 <mat-menu #menu="matMenu">
   <button mat-menu-item>
     <mat-icon>download</mat-icon>
-    download
+    {{ translations.download }}
   </button>
 </mat-menu>

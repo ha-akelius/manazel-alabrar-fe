@@ -9,6 +9,7 @@ import { AppStoreService } from './app.store.service';
 import { MediaComponent } from './components/media/media.component';
 import { HeaderComponent } from './layout/header/header.component';
 import { SidenavComponent } from './layout/sidenav/sidenav.component';
+import { translations } from './translations';
 @Component({
   selector: 'app-root',
   standalone: true,
@@ -29,7 +30,7 @@ export class AppComponent implements OnDestroy {
   title = 'admin';
 
   mobileQuery: MediaQueryList;
-
+  translations = translations.general;
   fillerNav = Array.from({ length: 50 }, (_, i) => `Nav Item ${i + 1}`);
   isRtl = this.appStore.isRtl;
 

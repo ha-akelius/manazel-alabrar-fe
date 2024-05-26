@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { AuthService, LoginStatus } from '../auth-service.service';
+import { translations } from '../translations';
 
 const storageKeys = {
   userName: 'rememberedUsername',
@@ -37,7 +38,7 @@ export class LoginComponent {
     rememberMe: [false],
   });
   loginStatus: LoginStatus;
-
+  translations = translations.general;
   constructor(
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
