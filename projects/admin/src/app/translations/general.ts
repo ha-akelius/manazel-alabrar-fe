@@ -39,4 +39,5 @@ export const general = {
   value: $localize`value`,
   operator: $localize`operator`,
   field: $localize`field`,
+  done: $localize`done successfully`,
 };

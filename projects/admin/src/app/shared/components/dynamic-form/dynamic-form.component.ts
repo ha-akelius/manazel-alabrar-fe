@@ -3,7 +3,9 @@ import { JsonPipe } from '@angular/common';
 import { Component, EventEmitter, Input, OnInit, Output, inject } from '@angular/core';
 import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { APIService } from '../../../../core/services/api.service';
+import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
 import { translations } from '../../../translations';
 import { apiService, assertSchemaInfo } from '../../model/schame';
 import { DynamicFieldsComponent } from '../dynamic-fields/dynamic-fields.component';
@@ -17,6 +19,8 @@ import { DynamicFieldsComponent } from '../dynamic-fields/dynamic-fields.compone
 })
 export class DynamicFormComponent implements OnInit {
   apiService = inject(APIService);
+  snackBar = inject(MatSnackBar);
+  durationInSeconds = 3;
   @Input() entityName: string = '';
   @Input() set value(value: unknown) {
     this.formValue.setValue(value);
@@ -55,5 +59,10 @@ export class DynamicFormComponent implements OnInit {
 
   cancel() {
     this.formResult.emit(null);
+  }
+  openSnackBar(): void {
+    this.snackBar.openFromComponent(SnackBarComponent, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
 }

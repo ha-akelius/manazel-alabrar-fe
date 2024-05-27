@@ -6,10 +6,12 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Language, User } from '@prisma/client';
 import { APIService } from '../../../core/services/api.service';
 import { AuthService } from '../../auth-service.service';
 import { translations } from '../../translations';
+import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -26,14 +28,15 @@ import { translations } from '../../translations';
   styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent {
-  translations = translations.general;
-  translation = translations.language;
+  translations = translations;
   languages = Object.values(Language);
   apiService = inject(APIService);
   authService = inject(AuthService);
+  snackBar = inject(MatSnackBar);
   form = this.getFormGroup();
   passordForm = this.getPasswordFormGroup();
   user: User;
+  durationInSeconds = 3;
 
   constructor(private fb: FormBuilder) {
     this.getUserById(this.authService.getUserId());
@@ -57,8 +60,15 @@ export class UserProfileComponent {
     const updatedUser = this.form.value;
     this.saveUser(updatedUser);
   }
+  cancel(): void {
+    this.form.patchValue(this.user);
+  }
+  cancelform(): void {
+    this.passordForm.reset();
+    this.passordForm.patchValue(this.user);
+  }
 
-  resetPassword() {
+  resetPassword(): void {
     const password = this.passordForm.getRawValue().password;
     this.saveUser({ password });
   }
@@ -102,6 +112,12 @@ export class UserProfileComponent {
         nonNullable: true,
         validators: [Validators.required, this.matchpassword()],
       }),
+    });
+  }
+
+  openSnackBar(): void {
+    this.snackBar.openFromComponent(SnackBarComponent, {
+      duration: this.durationInSeconds * 1000,
     });
   }
 }

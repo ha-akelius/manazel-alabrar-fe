@@ -1,8 +1,10 @@
 import { Component, EnvironmentInjector, OnInit, inject, runInInjectionContext } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { BasicRecord, TableColumnComponent } from '../../../../../core/components/table/table';
 import { APIService } from '../../../../../core/services/api.service';
+import { SnackBarComponent } from '../../../../components/snack-bar/snack-bar.component';
 import { translations } from '../../../../translations';
 import { Action, SchemaInfo } from '../../../model/json-schema';
 import { apiService, assertSchemaInfo } from '../../../model/schame';
@@ -17,7 +19,9 @@ import { apiService, assertSchemaInfo } from '../../../model/schame';
 export class ActionsDataTableComponent<T extends BasicRecord> extends TableColumnComponent<void, T> implements OnInit {
   apiService = inject(APIService);
   private environmentInjector = inject(EnvironmentInjector);
+  snackBar = inject(MatSnackBar);
   schemaInfo!: SchemaInfo;
+  durationInSeconds = 3;
   actions: Action<T>[];
   translations = translations.general;
   ngOnInit(): void {
@@ -32,5 +36,10 @@ export class ActionsDataTableComponent<T extends BasicRecord> extends TableColum
 
   doAction<T extends BasicRecord>(action: Action<T>, record: T) {
     runInInjectionContext(this.environmentInjector, () => action.actionFactory()(record));
+  }
+  openSnackBar(): void {
+    this.snackBar.openFromComponent(SnackBarComponent, {
+      duration: this.durationInSeconds * 1000,
+    });
   }
 }

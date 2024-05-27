@@ -361,6 +361,13 @@
           <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7659797798781378826" datatype="html">
+        <source>done successfully</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
       <trans-unit id="3526205892584451052" datatype="html">
         <source>image</source>
         <context-group purpose="location">
