@@ -10,6 +10,7 @@ import { APIService } from '../../../core/services/api.service';
 import { AuthService } from '../../auth-service.service';
 import { DynamicFieldsComponent } from '../../shared/components/dynamic-fields/dynamic-fields.component';
 import { GuiPropInformation } from '../../shared/model/json-schema';
+import { translations } from '../../translations';
 import { pathInstanceGuiInfo } from './../../../models/gui-info/path-instance.gui-info';
 
 const fieldName = (x: GuiPropInformation) => x.propInformation.basic.name;
@@ -36,7 +37,7 @@ export class CreatePathInstanceDialogComponent {
   pathInstanceName = this.pathInstanceApi.apiName.replace('-', '');
   userApi = inject(APIService).user;
   authService = inject(AuthService);
-
+  translations = translations.general;
   formValue = new FormControl<Prisma.PathInstanceCreateInput>({} as Prisma.PathInstanceCreateInput, {
     nonNullable: true,
     validators: [Validators.required],

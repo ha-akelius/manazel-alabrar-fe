@@ -1,12 +1,12 @@
-<h2>Media Folders</h2>
+<h2>{{ translations.mediaFolders }}</h2>
 <button mat-raised-button color="primary" (click)="addFolder()">
-  Add Folder
+  {{ translations.addFolder }}
   <mat-icon>add_folder</mat-icon>
 </button>
 <ng-container *ngIf="currentFolder">
-  <button mat-flat-button color="primary" (click)="renameFolder(currentFolder)">Rename Folder</button>
+  <button mat-flat-button color="primary" (click)="renameFolder(currentFolder)">{{ translations.renameFolder }}</button>
   <button mat-flat-button color="warn" (click)="deleteFolder(currentFolder)" *ngIf="isFolderEmpty(currentFolder)">
-    Delete Folder
+    {{ translations.deleteFolder }}
   </button>
 </ng-container>
 <div class="bread-crumb">
@@ -26,7 +26,7 @@
   </mat-card>
 </div>
 
-<h2>Media Files</h2>
+<h2>{{ translations.mediaFiles }}</h2>
 <div *ngIf="currentFolder">
   <input type="file" class="file-input" (change)="uploadFile($event.target)" #fileUpload />
 
@@ -38,7 +38,7 @@
 </div>
 <div *ngIf="medias.length > 0">
   <mat-checkbox [checked]="deleteAllChecked" (change)="toggleDeleteAll($event)"></mat-checkbox>
-  <button mat-raised-button color="warn" (click)="deleteAll()">Delete Selected</button>
+  <button mat-raised-button color="warn" (click)="deleteAll()">{{ translations.deleteSelected }}</button>
 </div>
 
 <div class="row">
@@ -47,15 +47,15 @@
       <mat-checkbox [checked]="isSelected(media.id)" (change)="toggleSelection(media.id)"></mat-checkbox>
       <div>
         <object [data]="sanitizeUrl(media.url.replace('client/', ''))" width="400" height="400">
-          <p>Media preview is not supported+{{ media.url.replace("client/", "") }}</p>
+          <p>{{ translations.mediaSupported }}+{{ media.url.replace("client/", "") }}</p>
         </object>
       </div>
       <button mat-flat-button><mat-icon>description</mat-icon> {{ media.name }}</button>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="confirmReplace(media)">Replace</button>
-      <button mat-raised-button color="primary" (click)="confirmSelect(media)">Select</button>
-      <button mat-raised-button color="warn" (click)="confirmDelete(media)">Delete</button>
+      <button mat-raised-button color="primary" (click)="confirmReplace(media)">{{ translations.replace }}</button>
+      <button mat-raised-button color="primary" (click)="confirmSelect(media)">{{ translations.select }}</button>
+      <button mat-raised-button color="warn" (click)="confirmDelete(media)">{{ translations.replace }}</button>
     </mat-card-actions>
   </mat-card>
 </div>

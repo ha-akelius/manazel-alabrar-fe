@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialog, MatDialogActions, MatDialogModule, MatDialo
 import { MatInputModule } from '@angular/material/input';
 import { Media } from '@prisma/client';
 import { Observable } from 'rxjs';
+import { translations } from '../../translations';
 
 @Component({
   selector: 'app-media-dialog',
@@ -15,7 +16,7 @@ import { Observable } from 'rxjs';
 })
 export class MediaDialogComponent {
   mediaToDelete: Media;
-
+  translations = translations.general;
   constructor(
     public dialogRef: MatDialogRef<MediaDialogComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { action: string; name: string },

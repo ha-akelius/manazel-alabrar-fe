@@ -12,6 +12,7 @@ import { Media, MediaFolder, MediaType, Prisma } from '@prisma/client';
 import { switchMap } from 'rxjs';
 import { APIService } from '../../../core/services/api.service';
 import { UploadService } from '../../service/upload.service';
+import { translations } from '../../translations';
 import { MediaDialogComponent } from '../media-details/media-details.component';
 @Component({
   selector: 'app-media',
@@ -34,6 +35,7 @@ export class MediaComponent implements OnInit {
   uploadService = inject(UploadService);
   dialog = inject(MatDialog);
   sanitizer = inject(DomSanitizer);
+  translations = translations.general;
   @ViewChild('fileReplaceInput') fileReplaceInput: ElementRef<HTMLInputElement>;
   @Input() selectable = false;
   @Output() selected = new EventEmitter<Media>();
@@ -153,7 +155,7 @@ export class MediaComponent implements OnInit {
   }
 
   addFolder(): void {
-    MediaDialogComponent.openDialog({ action: $localize`Add`, name: '' }, this.dialog).subscribe((result) => {
+    MediaDialogComponent.openDialog({ action: $localize`add`, name: '' }, this.dialog).subscribe((result) => {
       if (result) {
         const newFolder = {
           name: result,
@@ -222,7 +224,7 @@ export class MediaComponent implements OnInit {
   }
 
   renameFolder(folder: MediaFolder): void {
-    MediaDialogComponent.openDialog({ action: $localize`Rename`, name: folder.name }, this.dialog).subscribe(
+    MediaDialogComponent.openDialog({ action: $localize`rename`, name: folder.name }, this.dialog).subscribe(
       (newName) => {
         if (newName) {
           const updateData = { name: newName };

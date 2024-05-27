@@ -2,81 +2,280 @@
 <xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
   <file source-language="en-US" datatype="plaintext" original="ng2.template">
     <body>
-      <trans-unit id="7977867442868351717" datatype="html">
-        <source>create path instance</source>
+      <trans-unit id="1059784693423848532" datatype="html">
+        <source>add</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">158</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="119523350819979557" datatype="html">
+        <source>rename</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">227</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="933475654185758725" datatype="html">
+        <source>Confirm Your Password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">44,45</context>
+        </context-group>
+        <note priority="1" from="description">Confirm Your Password</note>
+      </trans-unit>
+      <trans-unit id="8640257554156088424" datatype="html">
+        <source>save</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
           <context context-type="linenumber">2</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
-          <context context-type="linenumber">17</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/index.ts</context>
-          <context context-type="linenumber">20</context>
         </context-group>
       </trans-unit>
       <trans-unit id="503445309622982213" datatype="html">
         <source>cancel</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
-          <context context-type="linenumber">9,10</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/media-details/media-details.component.html</context>
-          <context context-type="linenumber">8,9</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">21,22</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">56,57</context>
-        </context-group>
-        <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
           <context context-type="linenumber">3</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="8640257554156088424" datatype="html">
-        <source>save</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/media-details/media-details.component.html</context>
-          <context context-type="linenumber">9,10</context>
-        </context-group>
+      <trans-unit id="6631147598757213823" datatype="html">
+        <source>download</source>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
-          <context context-type="linenumber">2</context>
+          <context context-type="linenumber">4</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="3249513483374643425" datatype="html">
-        <source>Add</source>
+      <trans-unit id="6421100116763949889" datatype="html">
+        <source>user profile</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
-          <context context-type="linenumber">156</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">5</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="6041115344061899387" datatype="html">
-        <source>Rename</source>
+      <trans-unit id="1810017607161915196" datatype="html">
+        <source>logout</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
-          <context context-type="linenumber">225</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">7</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6542676228301148432" datatype="html">
+        <source>login</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7387635272539030076" datatype="html">
+        <source>new</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7300848098821660663" datatype="html">
+        <source>replace</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7982607155521959690" datatype="html">
+        <source>select</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2456043080471762298" datatype="html">
+        <source>delete</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6639521126730934817" datatype="html">
+        <source> Media preview is not supported</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8990828336503516412" datatype="html">
+        <source>delete selected</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4574517965985993617" datatype="html">
+        <source>Media Files</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5569593341816938795" datatype="html">
+        <source>delete folder</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4764753354726619321" datatype="html">
+        <source>rename folder</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1133618620143483249" datatype="html">
+        <source>add folder</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6709832313734940670" datatype="html">
+        <source>Media Folders</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8943156472912178739" datatype="html">
+        <source>password is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4809196861118879526" datatype="html">
+        <source>password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">21</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3569211035626562623" datatype="html">
+        <source>username is required</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">22</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="193324215946023286" datatype="html">
+        <source>username</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="174465106029438224" datatype="html">
+        <source>remember me</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8480945899933635238" datatype="html">
+        <source>wrong username or password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7158592746571420879" datatype="html">
+        <source>search</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1573601677905671364" datatype="html">
+        <source>filters</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7977867442868351717" datatype="html">
+        <source>create path instance</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/index.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6887688494282671779" datatype="html">
+        <source>Password should be at least 6 characters</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1082022058906746619" datatype="html">
+        <source>reset password</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">30</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6451269955734195952" datatype="html">
+        <source>Passwords do not match</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">31</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2123171795960509943" datatype="html">
+        <source>remove</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">32</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9095134843628689709" datatype="html">
+        <source>edit</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5584623107240304279" datatype="html">
+        <source>roles</source>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
+          <context context-type="linenumber">43</context>
         </context-group>
       </trans-unit>
       <trans-unit id="1807066826776143827" datatype="html">
         <source>Edit User Profile</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">5,6</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">35</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3325180562659478330" datatype="html">
         <source>name</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">7</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">36</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/json-models/gui-info/answer.gui-info.ts</context>
@@ -126,84 +325,40 @@
       <trans-unit id="2347724151568473592" datatype="html">
         <source>language</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">12</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">37</context>
         </context-group>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
           <context context-type="linenumber">36</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="7977761628594328784" datatype="html">
-        <source>confirm</source>
+      <trans-unit id="4533486874197001760" datatype="html">
+        <source>Manazel Al Abrar</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">20,21</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">38</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="1082022058906746619" datatype="html">
-        <source>reset password</source>
+      <trans-unit id="3375720161310377589" datatype="html">
+        <source>value</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">28,29</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="4809196861118879526" datatype="html">
-        <source>password</source>
+      <trans-unit id="1824912444360090771" datatype="html">
+        <source>operator</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">30</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">37</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
-          <context context-type="linenumber">26</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">40</context>
         </context-group>
       </trans-unit>
-      <trans-unit id="5459413922400282310" datatype="html">
-        <source> Password should be at least 6 characters </source>
+      <trans-unit id="8167904999979308163" datatype="html">
+        <source>field</source>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">33</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="933475654185758725" datatype="html">
-        <source>Confirm Your Password</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">42,43</context>
-        </context-group>
-        <note priority="1" from="description">Confirm Your Password</note>
-      </trans-unit>
-      <trans-unit id="6451269955734195952" datatype="html">
-        <source>Passwords do not match</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">47</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="3364132489339234725" datatype="html">
-        <source> confirm </source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
-          <context context-type="linenumber">54,55</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="9095134843628689709" datatype="html">
-        <source>edit</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.html</context>
-          <context context-type="linenumber">1,2</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="2123171795960509943" datatype="html">
-        <source>remove</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.html</context>
-          <context context-type="linenumber">2,3</context>
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">41</context>
         </context-group>
       </trans-unit>
       <trans-unit id="3526205892584451052" datatype="html">
@@ -454,6 +609,10 @@
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
           <context context-type="linenumber">31</context>
         </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
       </trans-unit>
       <trans-unit id="6404187677846257002" datatype="html">
         <source>quizzes</source>
@@ -464,6 +623,10 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
           <context context-type="linenumber">45</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance.gui-info.ts</context>
+          <context context-type="linenumber">66</context>
         </context-group>
       </trans-unit>
       <trans-unit id="6608890834230007808" datatype="html">
@@ -662,17 +825,6 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
           <context context-type="linenumber">19</context>
-        </context-group>
-      </trans-unit>
-      <trans-unit id="5584623107240304279" datatype="html">
-        <source>roles</source>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
-          <context context-type="linenumber">43</context>
-        </context-group>
-        <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/models/hooks/user/roles-form/roles-form.component.html</context>
-          <context context-type="linenumber">2</context>
         </context-group>
       </trans-unit>
       <trans-unit id="123010868147850959" datatype="html">

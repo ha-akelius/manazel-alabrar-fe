@@ -3,6 +3,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { BasicRecord, TableColumnComponent } from '../../../../../core/components/table/table';
 import { APIService } from '../../../../../core/services/api.service';
+import { translations } from '../../../../translations';
 import { Action, SchemaInfo } from '../../../model/json-schema';
 import { apiService, assertSchemaInfo } from '../../../model/schame';
 
@@ -18,7 +19,7 @@ export class ActionsDataTableComponent<T extends BasicRecord> extends TableColum
   private environmentInjector = inject(EnvironmentInjector);
   schemaInfo!: SchemaInfo;
   actions: Action<T>[];
-
+  translations = translations.general;
   ngOnInit(): void {
     this.schemaInfo = assertSchemaInfo(this.entityName);
     this.actions = this.schemaInfo.actions?.map((a) => ({ ...a })) || [];
