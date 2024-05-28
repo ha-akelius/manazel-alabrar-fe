@@ -11,7 +11,6 @@ import { Language, User } from '@prisma/client';
 import { APIService } from '../../../core/services/api.service';
 import { AuthService } from '../../auth-service.service';
 import { translations } from '../../translations';
-import { SnackBarComponent } from '../snack-bar/snack-bar.component';
 @Component({
   selector: 'app-user-profile',
   standalone: true,
@@ -59,18 +58,22 @@ export class UserProfileComponent {
   save(): void {
     const updatedUser = this.form.value;
     this.saveUser(updatedUser);
+    this.openSnackbar($localize`done successfully`);
   }
   cancel(): void {
     this.form.patchValue(this.user);
+    this.openSnackbar($localize`cancel done`);
   }
-  cancelform(): void {
+  resetPasswordForm(): void {
     this.passordForm.reset();
     this.passordForm.patchValue(this.user);
+    this.openSnackbar($localize`done successfully`);
   }
 
   resetPassword(): void {
     const password = this.passordForm.getRawValue().password;
     this.saveUser({ password });
+    this.openSnackbar($localize`cancel done`);
   }
 
   private saveUser(updatedUser: Partial<User>) {
@@ -115,9 +118,9 @@ export class UserProfileComponent {
     });
   }
 
-  openSnackBar(): void {
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      duration: this.durationInSeconds * 1000,
+  private openSnackbar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000,
     });
   }
 }

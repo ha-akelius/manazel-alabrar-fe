@@ -5,7 +5,6 @@ import { FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { APIService } from '../../../../core/services/api.service';
-import { SnackBarComponent } from '../../../components/snack-bar/snack-bar.component';
 import { translations } from '../../../translations';
 import { apiService, assertSchemaInfo } from '../../model/schame';
 import { DynamicFieldsComponent } from '../dynamic-fields/dynamic-fields.component';
@@ -43,6 +42,7 @@ export class DynamicFormComponent implements OnInit {
   save() {
     if (!this.formValue.valid) {
       this.formValue.markAllAsTouched();
+      this.openSnackbar($localize`done successfully`);
       return;
     }
 
@@ -59,10 +59,12 @@ export class DynamicFormComponent implements OnInit {
 
   cancel() {
     this.formResult.emit(null);
+    this.openSnackbar($localize`cancel done`);
   }
-  openSnackBar(): void {
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      duration: this.durationInSeconds * 1000,
+
+  private openSnackbar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000,
     });
   }
 }

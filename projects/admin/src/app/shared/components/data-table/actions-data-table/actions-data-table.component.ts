@@ -4,7 +4,6 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { BasicRecord, TableColumnComponent } from '../../../../../core/components/table/table';
 import { APIService } from '../../../../../core/services/api.service';
-import { SnackBarComponent } from '../../../../components/snack-bar/snack-bar.component';
 import { translations } from '../../../../translations';
 import { Action, SchemaInfo } from '../../../model/json-schema';
 import { apiService, assertSchemaInfo } from '../../../model/schame';
@@ -32,14 +31,16 @@ export class ActionsDataTableComponent<T extends BasicRecord> extends TableColum
   removeRecord(): void {
     const api = apiService(this.schemaInfo.api, this.apiService);
     api.delete(this.record.id).subscribe(() => this.onChange.next());
+    this.openSnackbar($localize`remove done`);
   }
 
   doAction<T extends BasicRecord>(action: Action<T>, record: T) {
     runInInjectionContext(this.environmentInjector, () => action.actionFactory()(record));
   }
-  openSnackBar(): void {
-    this.snackBar.openFromComponent(SnackBarComponent, {
-      duration: this.durationInSeconds * 1000,
+
+  private openSnackbar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000,
     });
   }
 }

@@ -19,10 +19,10 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save(); openSnackBar()">
+      <button mat-raised-button color="primary" [disabled]="form.invalid" (click)="save()">
         {{ translations.general.save }}
       </button>
-      <button mat-raised-button color="warn" (click)="cancel(); openSnackBar()">
+      <button mat-raised-button color="warn" (click)="cancel()">
         {{ translations.general.cancel }}
       </button>
     </mat-card-actions>
@@ -56,15 +56,10 @@
       </form>
     </mat-card-content>
     <mat-card-actions>
-      <button
-        mat-raised-button
-        color="primary"
-        [disabled]="passordForm.invalid"
-        (click)="resetPassword(); openSnackBar()"
-      >
+      <button mat-raised-button color="primary" [disabled]="passordForm.invalid" (click)="resetPassword()">
         {{ translations.general.save }}
       </button>
-      <button mat-raised-button color="warn" (click)="cancelform(); openSnackBar()">
+      <button mat-raised-button color="warn" (click)="resetPasswordForm()">
         {{ translations.general.cancel }}
       </button>
     </mat-card-actions>
