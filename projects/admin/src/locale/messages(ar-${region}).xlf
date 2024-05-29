@@ -1047,6 +1047,34 @@
           <context context-type="linenumber">39</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="7659797798781378826" datatype="html">
+        <source>done successfully</source>
+        <target state="translated">تمت العملية بنجاح</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3139601276735895130" datatype="html">
+        <source>cancel done</source>
+        <target state="translated">تم الإلغاء بنجاح</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6311969034798995243" datatype="html">
+        <source>remove done</source>
+        <target state="translated">تمت الإزالة بنجاح</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.ts</context>
+          <context context-type="linenumber">34</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

@@ -6,6 +6,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { Language, User } from '@prisma/client';
 import { APIService } from '../../../core/services/api.service';
 import { AuthService } from '../../auth-service.service';
@@ -26,14 +27,15 @@ import { translations } from '../../translations';
   styleUrl: './user-profile.component.scss',
 })
 export class UserProfileComponent {
-  translations = translations.general;
-  translation = translations.language;
+  translations = translations;
   languages = Object.values(Language);
   apiService = inject(APIService);
   authService = inject(AuthService);
+  snackBar = inject(MatSnackBar);
   form = this.getFormGroup();
   passordForm = this.getPasswordFormGroup();
   user: User;
+  durationInSeconds = 3;
 
   constructor(private fb: FormBuilder) {
     this.getUserById(this.authService.getUserId());
@@ -56,11 +58,22 @@ export class UserProfileComponent {
   save(): void {
     const updatedUser = this.form.value;
     this.saveUser(updatedUser);
+    this.openSnackbar($localize`done successfully`);
+  }
+  cancel(): void {
+    this.form.patchValue(this.user);
+    this.openSnackbar($localize`cancel done`);
+  }
+  resetPasswordForm(): void {
+    this.passordForm.reset();
+    this.passordForm.patchValue(this.user);
+    this.openSnackbar($localize`done successfully`);
   }
 
-  resetPassword() {
+  resetPassword(): void {
     const password = this.passordForm.getRawValue().password;
     this.saveUser({ password });
+    this.openSnackbar($localize`cancel done`);
   }
 
   private saveUser(updatedUser: Partial<User>) {
@@ -102,6 +115,12 @@ export class UserProfileComponent {
         nonNullable: true,
         validators: [Validators.required, this.matchpassword()],
       }),
+    });
+  }
+
+  private openSnackbar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000,
     });
   }
 }
