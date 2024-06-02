@@ -8,6 +8,7 @@
     "i18n-admin": "ng extract-i18n --project admin",
     "prebuild-admin": "npm run prisma:generate",
     "build-admin": "ng build  --project admin --localize",
+    "prebuild-lms": "npm run prisma:generate",
     "build-lms": "ng build  --project lms --localize",
     "build-site": "ng build --configuration production",
     "prebuild-site": "npm run translate && npm run postprebuild",
