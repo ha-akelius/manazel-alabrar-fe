@@ -1,6 +1,7 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 
 const storage = {
   username: 'username',
@@ -17,6 +18,7 @@ export class AuthService {
   constructor(
     private router: Router,
     private httpClient: HttpClient,
+    private translateService: TranslateService,
   ) {}
 
   getToken(): string | null {
@@ -43,7 +45,7 @@ export class AuthService {
 
   logOut(): void {
     this.loggedInSignal.set(false);
-    this.router.navigate(['/login']);
+    this.router.navigate([this.translateService.currentLang ?? 'ar', 'login']);
   }
 
   isLoggedIn(): boolean {
@@ -52,7 +54,7 @@ export class AuthService {
 
   canActivate(): boolean {
     if (!this.isLoggedIn()) {
-      this.router.navigate(['/login']);
+      this.router.navigate([this.translateService.currentLang ?? 'ar', 'login']);
       return false;
     }
     return true;

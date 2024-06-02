@@ -7,8 +7,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService, LoginStatus } from '../../../core/services/auth-service.service';
+import { userPageRouting } from '../../user-pages-routing';
 
 const storageKeys = {
   userName: 'rememberedUsername',
@@ -43,6 +44,7 @@ export class LoginComponent {
     private snackBar: MatSnackBar,
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
   ) {
     const rememberedUsername = localStorage.getItem(storageKeys.userName);
     const rememberedPassword = localStorage.getItem(storageKeys.password);
@@ -61,7 +63,7 @@ export class LoginComponent {
       this.authService.logIn(username, password).then((loginStatus) => {
         if (loginStatus === 'Success') {
           this.checkRememberMe(username, password);
-          this.router.navigate(['/dashboard']);
+          this.router.navigate(['../' + userPageRouting.home.path], { relativeTo: this.route });
         } else {
           this.loginStatus = loginStatus;
         }

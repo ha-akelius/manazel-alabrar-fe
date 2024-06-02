@@ -19,20 +19,8 @@ const publicRoutes: Routes = [{ path: 'login', component: LoginComponent }];
 const protectedRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'ar',
-    pathMatch: 'full',
-  },
-  {
-    path: ':language',
     canActivate: [AuthService],
     component: UserLayoutComponent,
-    resolve: {
-      translate: (route: ActivatedRouteSnapshot) => {
-        const language = route.params['language'];
-        const translateService = inject(TranslateService);
-        return translateService.use(language!);
-      },
-    },
     children: [
       { path: userPageRouting.home.path, component: UserHomepageComponent },
       { path: getRouteUrl(userPageRouting.course), component: CoursesComponent },
@@ -46,4 +34,21 @@ const protectedRoutes: Routes = [
   },
 ];
 
-export const routes: Routes = [...publicRoutes, ...protectedRoutes];
+export const routes: Routes = [
+  {
+    path: '',
+    redirectTo: 'ar',
+    pathMatch: 'full',
+  },
+  {
+    path: ':language',
+    resolve: {
+      translate: (route: ActivatedRouteSnapshot) => {
+        const language = route.params['language'];
+        const translateService = inject(TranslateService);
+        return translateService.use(language!);
+      },
+    },
+    children: [...publicRoutes, ...protectedRoutes],
+  },
+];
