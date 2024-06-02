@@ -1,62 +1,34 @@
-<h2>{{ translations.mediaFolders }}</h2>
-<button mat-raised-button color="primary" (click)="addFolder()">
-  {{ translations.addFolder }}
-  <mat-icon>add_folder</mat-icon>
-</button>
-<ng-container *ngIf="currentFolder">
-  <button mat-flat-button color="primary" (click)="renameFolder(currentFolder)">{{ translations.renameFolder }}</button>
-  <button mat-flat-button color="warn" (click)="deleteFolder(currentFolder)" *ngIf="isFolderEmpty(currentFolder)">
-    {{ translations.deleteFolder }}
+<h2>Media Folders</h2>
+
+<input type="file" class="file-input" (change)="uploadFile($event)" (change)="onFileSelected($event)" #fileUpload />
+
+<div class="file-upload">
+  {{ fileName || "No file uploaded yet." }}
+  <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
+    <mat-icon>attach_file</mat-icon>
   </button>
-</ng-container>
-<div class="bread-crumb">
-  <ng-container *ngFor="let folder of path; let i = index">
-    <button mat-button href="#" (click)="navigateToParent(i)">
-      <span>{{ folder.name }}</span>
-    </button>
-    <mat-icon>keyboard_arrow_left</mat-icon>
-  </ng-container>
 </div>
 
-<div class="row">
-  <mat-card class="col-xs-6 col-sm-4 col-lg-2" *ngFor="let folder of subFolders">
+<div *ngFor="let folder of path; let i = index" (click)="navigateToParent(i)">
+  <mat-icon>keyboard_arrow_right</mat-icon>
+  <span>{{ folder.name }}</span>
+</div>
+
+<div class="child-folder-row">
+  <mat-card *ngFor="let folder of filteredMediaFolders" (click)="onFolderClick(folder)">
     <mat-card-content>
-      <button mat-flat-button (click)="onFolderClick(folder)"><mat-icon>folder</mat-icon>{{ folder.name }}</button>
+      <mat-checkbox> <mat-icon>folder</mat-icon>{{ folder.name }}</mat-checkbox>
     </mat-card-content>
   </mat-card>
 </div>
-
-<h2>{{ translations.mediaFiles }}</h2>
-<div *ngIf="currentFolder">
-  <input type="file" class="file-input" (change)="uploadFile($event.target)" #fileUpload />
-
-  <div class="file-upload">
-    <button mat-mini-fab color="primary" class="upload-btn" (click)="fileUpload.click()">
-      <mat-icon>attach_file</mat-icon>
-    </button>
-  </div>
-</div>
-<div *ngIf="medias.length > 0">
-  <mat-checkbox [checked]="deleteAllChecked" (change)="toggleDeleteAll($event)"></mat-checkbox>
-  <button mat-raised-button color="warn" (click)="deleteAll()">{{ translations.deleteSelected }}</button>
-</div>
-
-<div class="row">
-  <mat-card *ngFor="let media of medias" class="col-xs-12 col-sm-6 col-lg-3">
+<h2>Media Files</h2>
+<div class="child-folder-row" *ngIf="filteredMedias.length > 0">
+  <mat-card *ngFor="let media of filteredMedias">
     <mat-card-content>
-      <mat-checkbox [checked]="isSelected(media.id)" (change)="toggleSelection(media.id)"></mat-checkbox>
-      <div>
-        <object [data]="sanitizeUrl(media.url.replace('client/', ''))" width="400" height="400">
-          <p>{{ translations.mediaSupported }}+{{ media.url.replace("client/", "") }}</p>
-        </object>
-      </div>
-      <button mat-flat-button><mat-icon>description</mat-icon> {{ media.name }}</button>
+      <mat-checkbox (change)="openDialog(media)">
+        <mat-icon>description</mat-icon>
+        {{ media.name }}</mat-checkbox
+      >
     </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary" (click)="confirmReplace(media)">{{ translations.replace }}</button>
-      <button mat-raised-button color="primary" (click)="confirmSelect(media)">{{ translations.select }}</button>
-      <button mat-raised-button color="warn" (click)="confirmDelete(media)">{{ translations.replace }}</button>
-    </mat-card-actions>
   </mat-card>
 </div>
-<input type="file" class="file-input" #fileReplaceInput (change)="replaceFile()" />

@@ -1,12 +1,17 @@
+.child-folder-row {
+  display: flex;
+  gap: 10px;
+  padding-right: 20px;
+
+  div {
+    width: 200px;
+  }
+}
+.margin-card {
+  margin: 30px;
+  width: 10%;
+}
+
 .file-input {
   display: none;
-}
-
-.bread-crumb {
-  display: flex;
-  align-items: center;
-}
-
-button + button {
-  margin-inline-start: var(--sizes-small);
 }
