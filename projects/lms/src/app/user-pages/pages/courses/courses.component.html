@@ -1,0 +1,6 @@
+<div *ngFor="let course of courses" [routerLink]="[course.id]" class="panel course">
+  {{ course.id }}
+  <div class="title">{{ course.pathInstanceName }}</div>
+  <div class="sub-title">{{ course.name }}</div>
+  <img mat-card-image src="/assets/logo.svg" />
+</div>

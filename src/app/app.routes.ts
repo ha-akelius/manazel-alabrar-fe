@@ -1,8 +1,6 @@
 import { inject } from '@angular/core';
 import { ActivatedRouteSnapshot, Routes } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
-import { AuthenticationService } from './core/services/authentication.service';
-import { userRoutes } from './user-pages/user-pages-routing.module';
 
 export const routes: Routes = [
   {
@@ -23,19 +21,9 @@ export const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        canMatch: [() => inject(AuthenticationService).isLoggedIn()],
-        redirectTo: 'user',
-      },
-      {
-        path: '',
-        pathMatch: 'full',
         redirectTo: 'public',
       },
-      {
-        path: 'user',
-        children: userRoutes,
-        canMatch: [() => inject(AuthenticationService).isLoggedIn()],
-      },
+
       {
         path: 'public',
         loadChildren: () =>

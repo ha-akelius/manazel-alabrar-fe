@@ -1,0 +1,10 @@
+<mat-radio-group (change)="saveValue($event.value)" [disabled]="checkAnswer()" [value]="selectedAnswer">
+  <mat-radio-button
+    *ngFor="let answer of question().answers; let i = index"
+    [value]="i"
+    [class.correct]="checkAnswer() && answer.correct"
+    [class.wrong]="checkAnswer() && !answer.correct && i === selectedAnswer"
+  >
+    {{ answer.name }}
+  </mat-radio-button>
+</mat-radio-group>

@@ -1,11 +1,15 @@
 <div class="filter-container">
   <button mat-flat-button class="square-button" color="primary" (click)="triggerSearch()" [disabled]="filters.invalid">
     <mat-icon>search</mat-icon>
-    <span class="filter-field">Search</span>
+    <span class="filter-field">{{ translations.search }}</span>
   </button>
-  <button mat-fab color="primary" class="square-button" (click)="toggleFilterList()">
+
+  <button mat-flat-button class="square-button" color="primary" (click)="toggleFilterList()">
     <mat-icon>filter_list</mat-icon>
-    <p class="filter-text filter-field">Filters</p>
+    <span class="filter-field"> {{ translations.filters }}</span>
+  </button>
+  <button mat-icon-button color="primary" (click)="addFilter(); toggleAndAddFilter()">
+    <mat-icon>add</mat-icon>
   </button>
 
   <mat-chip-row *ngFor="let filter of filters.value; let i = index">
@@ -20,29 +24,26 @@
   <ng-container *ngFor="let filter of filters.controls; let idx = index">
     <div [formGroup]="filter" class="filter-container">
       <mat-form-field>
-        <mat-label>field</mat-label>
+        <mat-label>{{ translations.field }}</mat-label>
         <mat-select [formControl]="filter.controls.field" required>
-          <mat-option *ngFor="let property in schema.properties" [value]="property.key">
-            {{ property.key }}
+          <mat-option *ngFor="let property of schema | keyvalue" [value]="property.key">
+            {{ property.value.guiInfo.label }}
           </mat-option>
         </mat-select>
       </mat-form-field>
 
       @if (filter.controls.field.value) {
         <mat-form-field>
-          <mat-label>operator</mat-label>
+          <mat-label>{{ translations.operator }}</mat-label>
           <mat-select [formControl]="filter.controls.operator" required>
-            <mat-option
-              *ngFor="let operator of typeOperator[filter.controls.type.value]; let i = index"
-              [value]="operator"
-            >
+            <mat-option *ngFor="let operator of typeOperator[filter.controls.type.value]" [value]="operator">
               {{ operator }}
             </mat-option>
           </mat-select>
         </mat-form-field>
 
         <mat-form-field>
-          <mat-label>value</mat-label>
+          <mat-label>{{ translations.value }}</mat-label>
           <input matInput [type]="filter.controls.type.value" [formControl]="filter.controls.value" required />
         </mat-form-field>
       }
@@ -51,7 +52,6 @@
         <button mat-icon-button color="warn" (click)="removeFilter(idx)">
           <mat-icon>remove</mat-icon>
         </button>
-
         <button mat-icon-button color="primary" (click)="addFilter()" *ngIf="idx === filters.controls.length - 1">
           <mat-icon>add</mat-icon>
         </button>
@@ -59,6 +59,3 @@
     </div>
   </ng-container>
 </div>
-<button mat-icon-button color="primary" (click)="addFilter()" *ngIf="!isFilterListOpen">
-  <mat-icon>add</mat-icon>
-</button>

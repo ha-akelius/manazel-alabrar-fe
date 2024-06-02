@@ -15,7 +15,7 @@ function toSmallLetter(str: string): string {
 
 export default async function onGenerate(options: GeneratorOptions) {
   const models = options.dmmf.datamodel.models;
-  generateTrnaslations(models);
+  // generateTrnaslations(models);
   generateTrnaslationsEnum(options.dmmf.datamodel.enums);
   generateAPIService(models);
   generateGuiInfos(models);
@@ -68,8 +68,8 @@ function generateGuiInfos(models: DMMF.Model[]) {
     content += `import { ${toSmallLetter(e.name)}Schema} from './${toKebabCase(e.name)}.gui-info';`;
     content2 += `${toSmallLetter(e.name)}Schema,`;
     const guiInfoFile = file + toKebabCase(e.name) + '.gui-info.ts';
-    // if (!fs.existsSync(guiInfoFile)) {
-    const guiInfoContent = `import { ${e.name} } from '@prisma/client';
+    if (!fs.existsSync(guiInfoFile)) {
+      const guiInfoContent = `import { ${e.name} } from '@prisma/client';
   import { GuiPropInformation, SchemaInfo } from '../../app/shared/model/json-schema';
   import { ${e.name}PropInfo } from '../prop-info/${toKebabCase(e.name)}.prop-info';
   import { WithPropType } from '../utils/type-utils';
@@ -95,8 +95,8 @@ ${f.name}: {
   };
 
   `;
-    createFile(guiInfoFile, guiInfoContent);
-    // }
+      createFile(guiInfoFile, guiInfoContent);
+    }
   });
   if (!fs.existsSync(file + 'index.ts')) {
     fs.rmSync(file + 'index.ts');

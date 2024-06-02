@@ -8,8 +8,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AppStoreService } from '../app.store.service';
 import { AuthService, LoginStatus } from '../auth-service.service';
+import { translations } from '../translations';
+
+const storageKeys = {
+  userName: 'rememberedUsername',
+  password: 'rememberedPassword',
+};
 
 @Component({
   selector: 'app-login',
@@ -30,22 +35,33 @@ export class LoginComponent {
   loginForm = this.builder.nonNullable.group({
     username: ['', Validators.required],
     password: ['', Validators.required],
+    rememberMe: [false],
   });
   loginStatus: LoginStatus;
-
+  translations = translations.general;
   constructor(
     private builder: FormBuilder,
     private snackBar: MatSnackBar,
     private authService: AuthService,
-    private appStore: AppStoreService,
     private router: Router,
-  ) {}
+  ) {
+    const rememberedUsername = localStorage.getItem(storageKeys.userName);
+    const rememberedPassword = localStorage.getItem(storageKeys.password);
+    if (rememberedUsername && rememberedPassword) {
+      this.loginForm.setValue({
+        username: rememberedUsername,
+        password: rememberedPassword,
+        rememberMe: true,
+      });
+    }
+  }
 
   login() {
     if (this.loginForm.valid) {
       const { username, password } = this.loginForm.getRawValue();
       this.authService.logIn(username, password).then((loginStatus) => {
         if (loginStatus === 'Success') {
+          this.checkRememberMe(username, password);
           this.router.navigate(['/dashboard']);
         } else {
           this.loginStatus = loginStatus;
@@ -58,11 +74,13 @@ export class LoginComponent {
     }
   }
 
-  changeToEnglish() {
-    this.appStore.changeLanguage('en');
-  }
-
-  changeToArabic() {
-    this.appStore.changeLanguage('ar');
+  private checkRememberMe(username: string, password: string) {
+    if (this.loginForm.value.rememberMe) {
+      localStorage.setItem(storageKeys.userName, username);
+      localStorage.setItem(storageKeys.password, password);
+    } else {
+      localStorage.removeItem(storageKeys.userName);
+      localStorage.removeItem(storageKeys.password);
+    }
   }
 }

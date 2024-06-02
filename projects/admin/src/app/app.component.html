@@ -4,7 +4,7 @@
       <button mat-icon-button (click)="snav.toggle()">
         <mat-icon>menu</mat-icon>
       </button>
-      <h1 class="example-app-name">Manazel Al Abrar</h1>
+      <h1 class="example-app-name">{{ translations.manazel }}</h1>
     </span>
     <app-header></app-header>
   </mat-toolbar>
@@ -16,6 +16,7 @@
   >
     <mat-sidenav
       #snav
+      [opened]="true"
       [mode]="mobileQuery.matches ? 'over' : 'side'"
       [fixedInViewport]="mobileQuery.matches"
       fixedTopGap="56"

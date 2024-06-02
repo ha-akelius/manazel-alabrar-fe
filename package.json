@@ -6,14 +6,18 @@
     "start": "ng serve",
     "admin-ar": "ng s admin --configuration=ar",
     "i18n-admin": "ng extract-i18n --project admin",
-    "build-admin": "ng build --project admin --localize",
-    "prebuild": "npm run translate && npm run postprebuild",
+    "prebuild-admin": "npm run prisma:generate",
+    "build-admin": "ng build  --project admin --localize",
+    "prebuild-lms": "npm run prisma:generate",
+    "build-lms": "ng build  --project lms --localize",
+    "build-site": "ng build --configuration production",
+    "prebuild-site": "npm run translate && npm run postprebuild",
     "postprebuild": "prettier ./src/app/core/models --write && prettier ./src/assets/i18n --write ",
-    "build": "ng build --configuration production ",
+    "build": "npm run build-site && npm run build-admin",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "preprisma:generate": "npm run build --prefix prisma-idt-generator && npm i ./prisma-idt-generator",
-    "prisma:generate": "npx prisma generate && npx prettier projects/admin/src/core/services/api.service.ts --write && npx prettier projects/admin/src/models/**/* --write && npx prettier projects/admin/src/app/translations/ --write",
+    "prisma:generate": "prisma generate && npx prettier projects/admin/src/core/services/api.service.ts --write && npx prettier projects/admin/src/models/**/* --write && npx prettier projects/admin/src/app/translations/ --write",
     "translate": "cd translations && node translate-generate.js ",
     "deploy": "npm run translate && ng build  --configuration production  --base-href /manazel-alabrar-fe/ && cp dist/manazel-alabrar-fe/index.html dist/manazel-alabrar-fe/404.html",
     "analyzer": "ng build  --configuration production --build-optimizer --stats-json && webpack-bundle-analyzer dist/manazel-alabrar-fe/stats.json",
@@ -80,9 +84,16 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "lint-staged": "^15.2.5",
     "prettier": "^3.2.5",
     "prisma": "^5.10.2",
     "typescript": "~5.3.3",
     "webpack-bundle-analyzer": "^4.8.0"
+  },
+  "lint-staged": {
+    "{**/*.ts,*.html}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }

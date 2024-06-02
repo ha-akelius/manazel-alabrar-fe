@@ -10,10 +10,7 @@ export type PropType<T> = Omit<
   | 'updatedDate'
   | 'updatedUserName'
   | 'updatedUserId'
-  | 'lessons'
-  | 'quiz'
   | 'answerOptions'
-  | 'questions'
   | 'student_info'
   | 'pathInformation'
 >;
@@ -37,7 +34,7 @@ export type DefaultValue<T extends number | boolean | string | Date> = T;
 export type WithPropType<T = unknown, X = unknown> = WithType<PropType<T>, X>;
 
 type WithType<T, X> = {
-  [P in keyof T]: X;
+  [P in keyof T]-?: X;
 };
 
 type GetTypeName<T, Name extends string = never> = T extends string
@@ -58,6 +55,7 @@ export type PropPrismaInformation<T = any, Name extends string = string> = {
   defaultValue?: T;
   array?: boolean;
   optional?: boolean;
+  enum?: boolean;
   ref?: string;
 };
 

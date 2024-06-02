@@ -1,10 +1,12 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, EnvironmentInjector, OnInit, inject, runInInjectionContext } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import { BasicRecord, TableColumnComponent } from '../../../../../core/components/table/table';
 import { APIService } from '../../../../../core/services/api.service';
-import { SchemaInfo } from '../../../model/json-schema';
-import { apiService, schemaInfo } from '../../../model/schame';
+import { translations } from '../../../../translations';
+import { Action, SchemaInfo } from '../../../model/json-schema';
+import { apiService, assertSchemaInfo } from '../../../model/schame';
 
 @Component({
   selector: 'app-actions-data-table',
@@ -15,14 +17,30 @@ import { apiService, schemaInfo } from '../../../model/schame';
 })
 export class ActionsDataTableComponent<T extends BasicRecord> extends TableColumnComponent<void, T> implements OnInit {
   apiService = inject(APIService);
+  private environmentInjector = inject(EnvironmentInjector);
+  snackBar = inject(MatSnackBar);
   schemaInfo!: SchemaInfo;
-
+  durationInSeconds = 3;
+  actions: Action<T>[];
+  translations = translations.general;
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName);
+    this.schemaInfo = assertSchemaInfo(this.entityName);
+    this.actions = this.schemaInfo.actions?.map((a) => ({ ...a })) || [];
   }
 
   removeRecord(): void {
     const api = apiService(this.schemaInfo.api, this.apiService);
     api.delete(this.record.id).subscribe(() => this.onChange.next());
+    this.openSnackbar($localize`remove done`);
+  }
+
+  doAction<T extends BasicRecord>(action: Action<T>, record: T) {
+    runInInjectionContext(this.environmentInjector, () => action.actionFactory()(record));
+  }
+
+  private openSnackbar(message: string): void {
+    this.snackBar.open(message, '', {
+      duration: 2000,
+    });
   }
 }

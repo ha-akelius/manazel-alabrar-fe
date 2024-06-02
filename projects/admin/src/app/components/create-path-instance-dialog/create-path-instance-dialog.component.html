@@ -1,0 +1,16 @@
+<h2 mat-dialog-title>{{ translations.pathInstance }}: {{ path.name }}</h2>
+<mat-dialog-content>
+  <app-dynamic-fields [excludeFields]="excludeFields" [formControl]="formValue" [entityName]="pathInstanceName" />
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-raised-button mat-dialog-close color="accent">{{ translations.cancel }}</button>
+  <button
+    mat-raised-button
+    cdkFocusInitial
+    color="primary"
+    [disabled]="formValue.invalid"
+    (click)="createPathInstance()"
+  >
+    {{ translations.pathInstance }}
+  </button>
+</mat-dialog-actions>

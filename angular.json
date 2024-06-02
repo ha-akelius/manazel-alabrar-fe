@@ -112,7 +112,7 @@
         "locales": {
           "ar": {
             "translation": "projects/admin/src/locale/messages(ar-${region}).xlf",
-            "baseHref": "ar"
+            "baseHref": "/ar/"
           }
         }
       },
@@ -124,7 +124,11 @@
           "builder": "@angular-devkit/build-angular:application",
           "options": {
             "localize": ["ar"],
-            "outputPath": "dist/admin",
+            "baseHref": "/",
+            "outputPath": {
+              "base": "dist/admin",
+              "browser": ""
+            },
             "index": "projects/admin/src/index.html",
             "browser": "projects/admin/src/main.ts",
             "polyfills": ["zone.js"],
@@ -179,7 +183,8 @@
             }
           },
           "options": {
-            "proxyConfig": "src/proxy.conf.js"
+            "proxyConfig": "src/proxy.conf.js",
+            "port": 4220
           },
 
           "defaultConfiguration": "development"
@@ -206,6 +211,89 @@
           "builder": "@angular-eslint/builder:lint",
           "options": {
             "lintFilePatterns": ["projects/admin/**/*.ts", "projects/admin/**/*.html"]
+          }
+        }
+      }
+    },
+    "lms": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss"
+        }
+      },
+      "root": "projects/lms",
+      "sourceRoot": "projects/lms/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:application",
+          "options": {
+            "outputPath": "dist/lms",
+            "index": "projects/lms/src/index.html",
+            "browser": "projects/lms/src/main.ts",
+            "polyfills": ["zone.js"],
+            "tsConfig": "projects/lms/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["projects/lms/src/favicon.ico", "projects/lms/src/assets"],
+            "styles": ["projects/lms/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "3mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "buildTarget": "lms:build:production"
+            },
+            "development": {
+              "buildTarget": "lms:build:development"
+            }
+          },
+          "options": {
+            "proxyConfig": "src/proxy.conf.js",
+            "port": 4230
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "buildTarget": "lms:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "polyfills": ["zone.js", "zone.js/testing"],
+            "tsConfig": "projects/lms/tsconfig.spec.json",
+            "inlineStyleLanguage": "scss",
+            "assets": ["projects/lms/src/favicon.ico", "projects/lms/src/assets"],
+            "styles": ["projects/lms/src/styles.scss"],
+            "scripts": []
           }
         }
       }

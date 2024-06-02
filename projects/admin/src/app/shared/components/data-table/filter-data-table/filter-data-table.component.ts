@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { Subscription } from 'rxjs';
 import { WithPropType } from '../../../../../models/utils/type-utils';
+import { translations } from '../../../../translations';
 import { GuiPropInformation } from '../../../model/json-schema';
 import { fromJsonTypeToHtmlType, htmlInputType } from '../../../model/schame';
 import { typeOperator } from './filter-data-table';
@@ -63,7 +64,7 @@ export class FilterDataTableComponent implements OnDestroy {
   filters = new FormArray<FilterForm>([]);
 
   subscribe = new Subscription();
-
+  translations = translations.general;
   typeOperator = typeOperator;
 
   isFilterListOpen = false;
@@ -71,12 +72,15 @@ export class FilterDataTableComponent implements OnDestroy {
   toggleFilterList(): void {
     this.isFilterListOpen = !this.isFilterListOpen;
   }
+  toggleAndAddFilter(): void {
+    this.isFilterListOpen = true;
+  }
 
   ngOnDestroy(): void {
     this.subscribe.unsubscribe();
   }
 
-  triggerSearch() {
+  triggerSearch(): void {
     this.search.emit(this.filters.value as Filter[]);
   }
 

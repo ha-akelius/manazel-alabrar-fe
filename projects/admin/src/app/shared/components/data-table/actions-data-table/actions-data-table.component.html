@@ -1,2 +1,7 @@
-<button mat-raised-button [routerLink]="['../../', 'edit', entityName, record.id]" color="primary">Edit</button>
-<button mat-raised-button (click)="removeRecord()" color="warn">Remove</button>
+<button mat-raised-button [routerLink]="['../../', 'edit', entityName, record.id]" color="primary">
+  {{ translations.edit }}
+</button>
+<button mat-raised-button (click)="removeRecord()" color="warn">{{ translations.remove }}</button>
+@for (action of actions; track $index) {
+  <button mat-raised-button (click)="doAction(action, record)">{{ action.label }}</button>
+}

@@ -184,14 +184,14 @@
       </trans-unit>
       <trans-unit id="7062823674983872135" datatype="html">
         <source>quiz</source>
-        <target state="translated">امتحان</target>
+        <target state="translated">اختبار</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/translations/course.ts</context>
-          <context context-type="linenumber">10</context>
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/quiz.gui-info.ts</context>
+          <context context-type="linenumber">18</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/translations/quiz-instance-student.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
+          <context context-type="linenumber">31</context>
         </context-group>
       </trans-unit>
       <trans-unit id="8640257554156088424" datatype="html">
@@ -356,10 +356,10 @@
       </trans-unit>
       <trans-unit id="4425959074279579115" datatype="html">
         <source>phone</source>
-        <target state="translated">هاتم</target>
+        <target state="translated">هاتف</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/translations/teacher.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">11</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7315714079098881460" datatype="html">
@@ -452,18 +452,18 @@
       </trans-unit>
       <trans-unit id="7895033151316369519" datatype="html">
         <source>quiz instance</source>
-        <target state="translated">امتحان</target>
+        <target state="translated">أختبار</target>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
-          <context context-type="linenumber">74</context>
+          <context context-type="linenumber">82</context>
         </context-group>
       </trans-unit>
       <trans-unit id="2154403555693260902" datatype="html">
         <source>quiz instances</source>
-        <target state="translated">امتحانات</target>
+        <target state="translated">أختبارت</target>
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/quiz-instance-student.gui-info.ts</context>
-          <context context-type="linenumber">75</context>
+          <context context-type="linenumber">83</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4419385491509231600" datatype="html">
@@ -512,6 +512,567 @@
         <context-group purpose="location">
           <context context-type="sourcefile">projects/admin/src/models/gui-info/user.gui-info.ts</context>
           <context context-type="linenumber">52</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="845184340669679902" datatype="html">
+        <source>correct</source>
+        <target state="translated">صح</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/answer.gui-info.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4976410444087285135" datatype="html">
+        <source>answer</source>
+        <target state="translated">جواب</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/answer.gui-info.ts</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4759630855377693575" datatype="html">
+        <source>pageNumber</source>
+        <target state="translated">رقم الصفحة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/lesson.gui-info.ts</context>
+          <context context-type="linenumber">24</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3915211453460723519" datatype="html">
+        <source>audio</source>
+        <target state="translated">ملف الصوت</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/lesson.gui-info.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1427183831879496231" datatype="html">
+        <source>lesson</source>
+        <target state="translated">درس</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/lesson.gui-info.ts</context>
+          <context context-type="linenumber">78</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6537904131139019667" datatype="html">
+        <source>type</source>
+        <target state="translated">نوع</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1222738782186578685" datatype="html">
+        <source>question</source>
+        <target state="translated">سؤال</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/question.gui-info.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6608890834230007808" datatype="html">
+        <source>done</source>
+        <target state="translated">تم</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/student-lesson.gui-info.ts</context>
+          <context context-type="linenumber">28</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1004821880232434019" datatype="html">
+        <source>arabic</source>
+        <target state="translated">عربي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/language.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6105581491285311381" datatype="html">
+        <source>english</source>
+        <target state="translated">انجليزي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/language.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3526205892584451052" datatype="html">
+        <source>image</source>
+        <target state="translated">صورة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/media-type.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1006562256968398209" datatype="html">
+        <source>video</source>
+        <target state="translated">فيديو</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/media-type.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5368873813801824506" datatype="html">
+        <source>pdf</source>
+        <target state="translated">pdf</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/media-type.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="589955098061635598" datatype="html">
+        <source>single choice</source>
+        <target state="translated">اختيار وحيد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/question-type.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7086886736384792710" datatype="html">
+        <source>multi choice</source>
+        <target state="translated">اختيارات متعددة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/question-type.ts</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3249513483374643425" datatype="html">
+        <source>Add</source>
+        <target state="translated">إضافة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6041115344061899387" datatype="html">
+        <source>Rename</source>
+        <target state="translated">إعادة تسمية</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">225</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7744292213705278878" datatype="html">
+        <source>User Profile</source>
+        <target state="translated">الملف الشخصي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3364132489339234725" datatype="html">
+        <source>confirm</source>
+        <target state="translated">تأكيد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7977761628594328784" datatype="html">
+        <source>confirm</source>
+        <target state="translated">تأكيد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1807066826776143827" datatype="html">
+        <source>Edit User Profile</source>
+        <target state="translated">تعديل الملف الشخصي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">5</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5459413922400282310" datatype="html">
+        <source>Password should be at least 6 characters</source>
+        <target state="translated">كلمة السر على الأقل ٦ احرف</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="933475654185758725" datatype="html">
+        <source>Confirm Your Password</source>
+        <target state="translated">الرجاء تأكيد كلمة السر</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+        <note priority="1" from="description">Confirm Your Password</note>
+      </trans-unit>
+      <trans-unit id="6451269955734195952" datatype="html">
+        <source>Passwords do not match</source>
+        <target state="translated">كلمة السر غير متطابقة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="608673774565446711" datatype="html">
+        <source>quizzes</source>
+        <target state="translated">الأختبارات</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6404187677846257002" datatype="html">
+        <source>quizzes</source>
+        <target state="translated">الأختبارات</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/json-models/gui-info/quiz.gui-info.ts</context>
+          <context context-type="linenumber">19</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
+          <context context-type="linenumber">45</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="9095134843628689709" datatype="html">
+        <source>edit</source>
+        <target state="translated">تعديل</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.html</context>
+          <context context-type="linenumber">1</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2123171795960509943" datatype="html">
+        <source>remove</source>
+        <target state="translated">حذف</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5151914324276081075" datatype="html">
+        <source>action</source>
+        <target state="translated">اوامر</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/data-table.component.ts</context>
+          <context context-type="linenumber">102</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7977867442868351717" datatype="html">
+        <source>create path instance</source>
+        <target state="translated">إنشاء دورة جديدة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">2</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">25</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1272701137347592514" datatype="html">
+        <source>start from</source>
+        <target state="translated">تبدأ من</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/create-path-instance-dialog/create-path-instance-dialog.component.html</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1082022058906746619" datatype="html">
+        <source>reset password</source>
+        <target state="translated">إعادة تعيين كلمة السر</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.html</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7588824991441631855" datatype="html">
+        <source>User Profile</source>
+        <target state="translated">الملف الشخصي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/layout/header/header.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5133287683090293412" datatype="html">
+        <source>Logout</source>
+        <target state="translated">تسجيل الخروج</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/layout/header/header.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2454050363478003966" datatype="html">
+        <source>Login</source>
+        <target state="translated">تسجيل الدخول</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/login/login.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/login/login.component.html</context>
+          <context context-type="linenumber">33</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="193324215946023286" datatype="html">
+        <source>username</source>
+        <target state="translated">اسم المستخدم</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/login/login.component.html</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8480945899933635238" datatype="html">
+        <source>wrong username or password</source>
+        <target state="translated">خطأ في اسم المستخدم أو كلمة المرور</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/login/login.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6542676228301148432" datatype="html">
+        <source>login</source>
+        <target state="translated">تسجيل الدخول</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/login/login.component.html</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/login/login.component.html</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3569211035626562623" datatype="html">
+        <source>username is required</source>
+        <target state="translated">اسم المستخدم مطلوب</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/login/login.component.html</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="174465106029438224" datatype="html">
+        <source>remember me</source>
+        <target state="translated">تذكرني</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/login/login.component.html</context>
+          <context context-type="linenumber">23</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1810017607161915196" datatype="html">
+        <source>logout</source>
+        <target state="translated">تسجيل الخروج</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/layout/header/header.component.html</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6421100116763949889" datatype="html">
+        <source>user profile</source>
+        <target state="translated">الملف الشخصي</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/layout/header/header.component.html</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6631147598757213823" datatype="html">
+        <source>download</source>
+        <target state="translated">تنزيل</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">4</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1059784693423848532" datatype="html">
+        <source>add</source>
+        <target state="translated">إضافة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">156</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">6</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="119523350819979557" datatype="html">
+        <source>rename</source>
+        <target state="translated">إعادة تسمية</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/media/media.component.ts</context>
+          <context context-type="linenumber">225</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7387635272539030076" datatype="html">
+        <source>new</source>
+        <target state="translated">جديد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">8</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7300848098821660663" datatype="html">
+        <source>replace</source>
+        <target state="translated">تبديل</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">9</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7982607155521959690" datatype="html">
+        <source>select</source>
+        <target state="translated">اختيار</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">10</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="2456043080471762298" datatype="html">
+        <source>delete</source>
+        <target state="translated">حذف</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">11</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6639521126730934817" datatype="html">
+        <source>Media preview is not supported</source>
+        <target state="translated">الوسائط غير مدعومة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">12</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8990828336503516412" datatype="html">
+        <source>delete selected</source>
+        <target state="translated">حذف المحدد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">13</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4574517965985993617" datatype="html">
+        <source>Media Files</source>
+        <target state="translated">ملفات الميديا</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">14</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="5569593341816938795" datatype="html">
+        <source>delete folder</source>
+        <target state="translated">حذف المجلد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">15</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4764753354726619321" datatype="html">
+        <source>rename folder</source>
+        <target state="translated">إعادة تسمية المجلد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">16</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1133618620143483249" datatype="html">
+        <source>add folder</source>
+        <target state="translated">إضافة مجلد</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6709832313734940670" datatype="html">
+        <source>Media Folders</source>
+        <target state="translated">مجلدات الميديا</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">18</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8943156472912178739" datatype="html">
+        <source>password is required</source>
+        <target state="translated">كلمة المرور مطلوبة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">20</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7158592746571420879" datatype="html">
+        <source>search</source>
+        <target state="translated">بحث</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">26</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1573601677905671364" datatype="html">
+        <source>filters</source>
+        <target state="translated">تصنيف</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">27</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6887688494282671779" datatype="html">
+        <source>Password should be at least 6 characters</source>
+        <target state="translated">كلمة المرور على الاقل 6 أحرف</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">29</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="4533486874197001760" datatype="html">
+        <source>Manazel Al Abrar</source>
+        <target state="translated">منازل اﻷبرار</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">38</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="1824912444360090771" datatype="html">
+        <source>operator</source>
+        <target state="translated">العملية</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">40</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="8167904999979308163" datatype="html">
+        <source>field</source>
+        <target state="translated">الحقل</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">41</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3375720161310377589" datatype="html">
+        <source>value</source>
+        <target state="translated">القيمة</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">39</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="7659797798781378826" datatype="html">
+        <source>done successfully</source>
+        <target state="translated">تمت العملية بنجاح</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">42</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="3139601276735895130" datatype="html">
+        <source>cancel done</source>
+        <target state="translated">تم الإلغاء بنجاح</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.ts</context>
+          <context context-type="linenumber">65</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/components/user-profile/user-profile.component.ts</context>
+          <context context-type="linenumber">76</context>
+        </context-group>
+      </trans-unit>
+      <trans-unit id="6311969034798995243" datatype="html">
+        <source>remove done</source>
+        <target state="translated">تمت الإزالة بنجاح</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/shared/components/data-table/actions-data-table/actions-data-table.component.ts</context>
+          <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
     </body>

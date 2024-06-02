@@ -1,0 +1,28 @@
+<ng-container *ngIf="examStore.checkAnswer()">
+  <h4>{{ translationKeys.exam.done | translate }}</h4>
+</ng-container>
+
+<div class="question" *ngFor="let q of questions; let i = index">
+  <h3>{{ q.name }} ({{ q.mark }}) {{ translationKeys.lesson_mark | translate }}</h3>
+  <ng-container [ngSwitch]="q.questionType">
+    <app-single-choice *ngSwitchCase="qt.SingleChoice" [qIndex]="i"></app-single-choice>
+    <app-multi-choice *ngSwitchCase="qt.MultiChoice" [qIndex]="i"></app-multi-choice>
+  </ng-container>
+</div>
+
+<button
+  *ngIf="!examStore.checkAnswer()"
+  mat-raised-button
+  color="primary"
+  (click)="toggleCheck()"
+  [disabled]="done || disableDoneBtn()"
+>
+  {{ translationKeys.check_exam | translate }}
+</button>
+
+<ng-container *ngIf="examStore.checkAnswer()">
+  <h4>{{ translationKeys.exam.done | translate }}</h4>
+  <button mat-raised-button color="primary" routerLink="/">
+    {{ translationKeys.back_to_home_page | translate }}
+  </button>
+</ng-container>

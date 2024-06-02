@@ -61,20 +61,6 @@ export const quizInstanceStudentGuiInfo: WithPropType<QuizInstanceStudent, GuiPr
       },
     },
   },
-  pathInstanceId: {
-    propInformation: QuizInstanceStudentPropInfo.pathInstanceId,
-    guiInfo: {
-      label: $localize`path`,
-      inputType: InputType.relation,
-    },
-  },
-  pathInstanceString: {
-    propInformation: QuizInstanceStudentPropInfo.pathInstanceString,
-    guiInfo: {
-      label: '',
-      inputType: InputType.unknown,
-    },
-  },
 };
 
 export const quizInstanceStudentSchema: SchemaInfo<QuizInstanceStudent> = {

@@ -11,8 +11,8 @@ import { TableComponent } from '../../../../core/components/table/table.componen
 import { APIService } from '../../../../core/services/api.service';
 import { Result } from '../../../../shared/models/result';
 import { translations } from '../../../translations';
-import { SchemaInfo } from '../../model/json-schema';
-import { apiService, numberTypes, schemaInfo } from '../../model/schame';
+import { GuiPropInformation, InputType, SchemaInfo } from '../../model/json-schema';
+import { apiService, assertSchemaInfo, numberTypes } from '../../model/schame';
 import { ActionsDataTableComponent } from './actions-data-table/actions-data-table.component';
 import { Filter, FilterDataTableComponent } from './filter-data-table/filter-data-table.component';
 import { RelationLinkComponent } from './relation-link/relation-link.component';
@@ -55,8 +55,12 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
   }
 
   ngOnInit(): void {
-    this.schemaInfo = schemaInfo(this.entityName);
+    this.schemaInfo = assertSchemaInfo(this.entityName);
 
+    this.result = {
+      items: [],
+      pages: 0,
+    };
     this.fetchData();
 
     this.tableColumns = [];
@@ -84,7 +88,7 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
           name: propInfo.propInformation.basic.name,
           displayName: propInfo.guiInfo.label,
           dataKey: propInfo.propInformation.basic.name as keyof T,
-          fn: this.getFn(propInfo.propInformation.basic.name),
+          fn: this.getFn(propInfo),
           componentDef: propInfo.guiInfo.hooks?.list
             ? { component: propInfo.guiInfo.hooks?.list as Type<TableColumnComponent<unknown, T>> }
             : undefined,
@@ -120,11 +124,19 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
       });
   }
 
-  private getFn(key: string): ((value: T[keyof T] | undefined) => string) | undefined {
+  private getFn(prop: GuiPropInformation): ((value: T[keyof T] | undefined) => string) | undefined {
+    const key = prop.propInformation.basic.name;
     if (key.toLocaleLowerCase().indexOf('date') >= 0 && key.toLocaleLowerCase().indexOf('update') < 0) {
       return (value: T[keyof T] | undefined) => this.datePipe.transform(value as string) ?? '';
+    }
+    if (prop.guiInfo.inputType === InputType.jsonArray) {
+      return (value: T[keyof T] | undefined) => (value ? this.formatArray(prop, value as Array<unknown>) : '');
     } else {
       return undefined;
     }
+  }
+
+  private formatArray(prop: GuiPropInformation, value: Array<unknown>): string {
+    return prop.guiInfo.label + ' (' + value.length + ')';
   }
 }

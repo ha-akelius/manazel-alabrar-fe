@@ -1,0 +1,20 @@
+<ng-container *ngIf="error?.message as message">
+  {{ message | translate }}
+</ng-container>
+<ng-container *ngIf="!loadingService.loading()">
+  <ng-container *ngIf="openPathResponse() as openPathResponse">
+    <div *ngFor="let path of openPathResponse" class="panel course">
+      {{ path.id }}
+      <div class="title">{{ path.name }}</div>
+      <div class="sub-title" [innerHTML]="getDescription(path.description)"></div>
+      <img mat-card-image src="/assets/logo.svg" />
+      <button mat-fab extended color="primary" (click)="register(path.id)">
+        {{ translationKeys.path.register | translate }}
+      </button>
+    </div>
+
+    <div *ngIf="!openPathResponse.length">
+      {{ translationKeys.path.no_path_open | translate }}
+    </div>
+  </ng-container>
+</ng-container>

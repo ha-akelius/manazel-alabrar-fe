@@ -4,6 +4,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { Router, RouterModule } from '@angular/router';
+import { translations } from '../../translations';
 @Component({
   standalone: true,
   selector: 'app-header',
@@ -12,6 +13,7 @@ import { Router, RouterModule } from '@angular/router';
   imports: [MatIconModule, CommonModule, MatToolbarModule, MatMenuModule, RouterModule],
 })
 export class HeaderComponent {
+  translations = translations.general;
   constructor(private router: Router) {}
   @Output() toggleSidebarForMe: EventEmitter<unknown> = new EventEmitter();
 

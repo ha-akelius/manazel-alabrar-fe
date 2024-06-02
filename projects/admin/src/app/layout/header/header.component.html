@@ -5,10 +5,10 @@
 <mat-menu #menu="matMenu">
   <a mat-menu-item [routerLink]="'profile'">
     <mat-icon> account_circle </mat-icon>
-    Edit Profile
+    {{ translations.userProfile }}
   </a>
   <button mat-menu-item (click)="logout()">
     <mat-icon>exit_to_app</mat-icon>
-    Logout
+    {{ translations.logout }}
   </button>
 </mat-menu>

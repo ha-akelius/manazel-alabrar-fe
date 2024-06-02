@@ -4,8 +4,8 @@ import { Router } from '@angular/router';
 
 const storage = {
   username: 'username',
-  password: 'password',
   token: 'token',
+  userId: 'userId',
 };
 
 export type LoginStatus = 'Success' | 'Unauthorized' | 'unkown_error';
@@ -23,21 +23,31 @@ export class AuthService {
     return localStorage.getItem(storage.token);
   }
 
+  getUserId(): number {
+    return Number(localStorage.getItem(storage.userId));
+  }
+
+  getUserName(): string {
+    return localStorage.getItem(storage.username)!;
+  }
+
   logIn(username: string, password: string): Promise<LoginStatus> {
-    localStorage.setItem(storage.username, username);
-    localStorage.setItem(storage.password, password);
     return new Promise<LoginStatus>((resolve) => {
-      this.httpClient.post<{ access_token: string }>('/api/auth/login', { username, password }).subscribe({
-        next: ({ access_token }) => {
-          localStorage.setItem(storage.token, access_token);
-          this.loggedInSignal.set(true);
-          resolve('Success');
-        },
-        error: (error: HttpErrorResponse) => {
-          this.loggedInSignal.set(false);
-          resolve(error.status === 401 ? 'Unauthorized' : 'unkown_error');
-        },
-      });
+      this.httpClient
+        .post<{ access_token: string; userId: number }>('/api/auth/login', { username, password })
+        .subscribe({
+          next: ({ access_token, userId }) => {
+            localStorage.setItem(storage.username, username);
+            localStorage.setItem(storage.token, access_token);
+            localStorage.setItem(storage.userId, userId + '');
+            this.loggedInSignal.set(true);
+            resolve('Success');
+          },
+          error: (error: HttpErrorResponse) => {
+            this.loggedInSignal.set(false);
+            resolve(error.status === 401 ? 'Unauthorized' : 'unkown_error');
+          },
+        });
     });
   }
 
