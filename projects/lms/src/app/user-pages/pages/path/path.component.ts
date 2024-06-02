@@ -49,7 +49,7 @@ export class PathComponent implements OnInit {
         if (accepted) {
           this.userStore.register(pathId).subscribe((response) => {
             if (response.data) {
-              this.userStore.openPathsResponse.set(response);
+              this.userStore.openPathsResponse.set(response.data.open);
               this.userStore.resetStudent();
               this.snackBar.open(this.translateService.instant(translationKeys.path.register_done));
             } else {

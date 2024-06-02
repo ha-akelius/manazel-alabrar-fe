@@ -5,6 +5,6 @@
     [class.correct]="checkAnswer() && answer.correct"
     [class.wrong]="checkAnswer() && !answer.correct && i === selectedAnswer"
   >
-    {{ answer.title }}
+    {{ answer.name }}
   </mat-radio-button>
 </mat-radio-group>

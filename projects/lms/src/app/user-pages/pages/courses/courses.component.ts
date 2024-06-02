@@ -1,8 +1,9 @@
 import { CommonModule } from '@angular/common';
 import { Component, HostBinding } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { BFF } from '../../models/schema-bff';
+import { PathInstance } from '@prisma/client';
 import { UserStore } from '../../user-state';
+import { CourseFE } from './../../services/student.service';
 
 @Component({
   selector: 'app-courses',
@@ -14,9 +15,11 @@ import { UserStore } from '../../user-state';
 export class CoursesComponent {
   @HostBinding('class') classes = 'cards';
 
-  paths: BFF.myPaths.Path[];
+  paths: PathInstance[];
+  courses: CourseFE[];
 
   constructor(userStore: UserStore) {
-    this.paths = userStore.studentResponse().data!.paths;
+    this.paths = userStore.currentPathesResponse();
+    this.courses = userStore.studentCoursesResponse();
   }
 }

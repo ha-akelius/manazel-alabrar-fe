@@ -1,14 +1,28 @@
-import { Injectable, signal } from '@angular/core';
-import { BFF } from './models/schema-bff';
+import { Injectable, Signal, computed, signal } from '@angular/core';
+import { PathInstance } from '@prisma/client';
 import { LoadingService } from './services/loading-service';
-import { StudentService } from './services/student.service';
+import { QuizzFE, StudentInfo, StudentService } from './services/student.service';
 
 @Injectable()
 export class UserStore {
-  studentResponse = signal<BFF.myPaths.response>({});
-  openPathsResponse = signal<BFF.openPath.response>({});
+  studnet = signal<StudentInfo>({} as unknown as StudentInfo);
+  currentPathesResponse = computed(() => this.studnet().studentPathInstance?.map((spi) => spi.pathInstance) ?? []);
+  studentCoursesResponse = computed(() =>
+    this.currentPathesResponse()
+      .map((pi) => pi.courseInstance)
+      .flat(),
+  );
+  studentQuizzesResponse: Signal<QuizzFE[]> = computed(() =>
+    this.studentCoursesResponse()
+      .map((ci) => ci.quizzes)
+      .flat(),
+  );
+  openPathsResponse = signal<PathInstance[]>([]);
 
-  constructor(private studentService: StudentService, private loadingService: LoadingService) {
+  constructor(
+    private studentService: StudentService,
+    private loadingService: LoadingService,
+  ) {
     this.resetStudent();
   }
 
@@ -16,7 +30,7 @@ export class UserStore {
     this.loadingService.updateLoading(true);
     this.studentService.loadStudent().subscribe((student) => {
       this.loadingService.updateLoading(false);
-      this.studentResponse.set(student);
+      this.studnet.set(student);
     });
   }
 
@@ -32,12 +46,12 @@ export class UserStore {
     return this.studentService.register(path);
   }
 
-  saveProfile(name: string) {
-    return this.studentService.saveProfile(name).subscribe((response) => {
-      this.studentResponse.update((s) => {
-        s.data!.name = response.data?.name!;
-        return s;
-      });
-    });
+  saveProfile(_name: string) {
+    // return this.studentService.saveProfile(name).subscribe((response) => {
+    //   this.studentResponse.update((s) => {
+    //     s.data!.name = response.data?.name!;
+    //     return s;
+    //   });
+    // });
   }
 }

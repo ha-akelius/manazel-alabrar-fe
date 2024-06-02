@@ -1,8 +1,6 @@
-<ng-container *ngFor="let faculty of paths">
-  <div *ngFor="let course of faculty.courses" [routerLink]="[faculty.id, course.id]" class="panel course">
-    {{ course.id }}
-    <div class="title">{{ faculty.title }}</div>
-    <div class="sub-title">{{ course.title }}</div>
-    <img mat-card-image src="/assets/logo.svg" />
-  </div>
-</ng-container>
+<div *ngFor="let course of courses" [routerLink]="[course.id]" class="panel course">
+  {{ course.id }}
+  <div class="title">{{ course.pathInstanceName }}</div>
+  <div class="sub-title">{{ course.name }}</div>
+  <img mat-card-image src="/assets/logo.svg" />
+</div>

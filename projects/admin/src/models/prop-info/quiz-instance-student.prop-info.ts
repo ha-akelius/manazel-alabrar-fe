@@ -23,12 +23,6 @@ const studentId: PropInformation<number, 'number'> = {
 const studentName: PropInformation<string, 'string'> = {
   basic: QuizInstanceStudentGenInfo.studentName,
 };
-const pathInstanceId: PropInformation<number, 'number'> = {
-  basic: QuizInstanceStudentGenInfo.pathInstanceId,
-};
-const pathInstanceString: PropInformation<string, 'string'> = {
-  basic: QuizInstanceStudentGenInfo.pathInstanceString,
-};
 export const QuizInstanceStudentPropInfo: WithPropType<QuizInstanceStudent, PropInformation<any, any>> = {
   fullMark: fullMark,
   mark: mark,
@@ -37,6 +31,4 @@ export const QuizInstanceStudentPropInfo: WithPropType<QuizInstanceStudent, Prop
   quizName: quizName,
   studentId: studentId,
   studentName: studentName,
-  pathInstanceId: pathInstanceId,
-  pathInstanceString: pathInstanceString,
 };

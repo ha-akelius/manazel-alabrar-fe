@@ -4,7 +4,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { RouterModule } from '@angular/router';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { translationKeys } from '../../../../../../../src/app/core/models/translations';
-import { BFF } from '../../../user-pages/models/schema-bff';
+import { Question, QuestionType } from '../../../user-pages/models/schema';
 import { MultiChoiceComponent } from './components/multi-choice/multi-choice.component';
 import { SingleChoiceComponent } from './components/single-choice/single-choice.component';
 import { ExamStore, StudentAnswer } from './exam.store';
@@ -33,12 +33,12 @@ export class ExamComponent implements OnInit {
   examStore = inject(ExamStore);
   translateService = inject(TranslateService);
 
-  @Input() questions: BFF.Question[] = [];
+  @Input() questions: Question[] = [];
   @Input() answeredOptions?: number[][];
   @Input({ required: true }) done: boolean = false;
   @Output() finishExam = new EventEmitter<ExamResult>();
 
-  qt = BFF.QuestionType;
+  qt = QuestionType;
   translationKeys = translationKeys;
 
   disableDoneBtn = computed(() => {

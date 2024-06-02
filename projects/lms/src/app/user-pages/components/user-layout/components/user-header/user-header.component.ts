@@ -1,8 +1,8 @@
 import { Component, EventEmitter, Output, Signal } from '@angular/core';
+import { Student } from '@prisma/client';
 import { translationKeys } from '../../../../../../../../../src/app/core/models/translations';
 import { SharedModule } from '../../../../../../../../../src/app/core/modules/shared.module';
 import { AuthService } from '../../../../../core/services/auth-service.service';
-import { BFF } from '../../../../models/schema-bff';
 import { menus, userPageRouting } from '../../../../user-pages-routing';
 import { UserStore } from '../../../../user-state';
 
@@ -20,13 +20,13 @@ export class UserHeaderComponent {
   profilePath = userPageRouting.profile.path;
 
   translationKeys = translationKeys;
-  student: Signal<BFF.myPaths.response>;
+  student: Signal<Student>;
 
   constructor(
     private userStore: UserStore,
     private authenticationService: AuthService,
   ) {
-    this.student = this.userStore.studentResponse;
+    this.student = this.userStore.studnet;
   }
 
   public onToggleSidenav = () => {

@@ -1,8 +1,8 @@
 import { Injectable, signal } from '@angular/core';
-import { BFF } from '../../../user-pages/models/schema-bff';
+import { Question } from '../../../user-pages/models/schema';
 
 export interface StudentAnswer {
-  question: BFF.Question;
+  question: Question;
   isCorrect: boolean;
   answered: boolean;
   answeredOptions?: number[];

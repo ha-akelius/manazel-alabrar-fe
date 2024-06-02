@@ -18,12 +18,7 @@
 <div
   *ngFor="let lesson of lessons"
   class="lesson-item"
-  [routerLink]="[
-    '../' + lessonRouter,
-    lesson.lessonParams.pathId,
-    lesson.lessonParams.courseId,
-    lesson.lessonParams.lessonId
-  ]"
+  [routerLink]="['../' + lessonRouter, lesson.lessonParams.courseId, lesson.lessonParams.lessonId]"
 >
   {{ lesson.courseName }}: {{ lesson.lessonName }}
 </div>
@@ -34,7 +29,7 @@
 <div
   class="lesson-item"
   *ngFor="let quiz of quizzes"
-  [routerLink]="['../' + quizRouter, quiz.quizParams.pathId, quiz.quizParams.courseId, quiz.quizParams.quizId]"
+  [routerLink]="['../' + quizRouter, quiz.quizParams.courseId, quiz.quizParams.quizId]"
   [translate]="translationKeys.homepage.exam"
   [translateParams]="quiz.transParam"
 ></div>

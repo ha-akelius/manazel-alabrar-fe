@@ -16,6 +16,6 @@ import { UserSidenavListComponent } from './components/user-sidenav-list/user-si
   providers: [UserStore],
 })
 export class UserLayoutComponent {
-  student = inject(UserStore).studentResponse;
+  student = inject(UserStore).studnet;
   loading = inject(LoadingService).loading;
 }
