@@ -6,6 +6,7 @@
 
 generator client {
   provider = "prisma-client-js"
+  previewFeatures = ["relationJoins"]
 }
 
 datasource db {
@@ -41,9 +42,8 @@ model PathInstance {
   numberOfStudents           Int
   numberOfRegisteredStudents Int                   @default(0)
   stilOpen                   Boolean?              @default(false)
-  quizInstanceStudents       QuizInstanceStudent[]
   studentPathInstance        StudentPathInstance[]
-  CourseInstance             CourseInstance[]
+  courseInstance             CourseInstance[]
   pathId                     Int
   pathName                   String
   path                       Path                  @relation(fields: [pathId], references: [id])
@@ -151,9 +151,6 @@ model QuizInstanceStudent {
   studentId          Int
   studentName        String
   student            Student      @relation(fields: [studentId], references: [id])
-  pathInstanceId     Int
-  pathInstanceString String
-  pathInstance       PathInstance @relation(fields: [pathInstanceId], references: [id])
   answerOptions      Json
   createdDate        DateTime
   updatedDate        DateTime

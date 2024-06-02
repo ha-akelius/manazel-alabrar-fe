@@ -1,4 +1,6 @@
-import { Routes } from '@angular/router';
+import { inject } from '@angular/core';
+import { ActivatedRouteSnapshot, Routes } from '@angular/router';
+import { TranslateService } from '@ngx-translate/core';
 import { getRouteUrl } from '../../../../src/app/core/models/route-info';
 import { AuthService } from './core/services/auth-service.service';
 import { UserLayoutComponent } from './user-pages/components/user-layout/user-layout.component';
@@ -17,8 +19,20 @@ const publicRoutes: Routes = [{ path: 'login', component: LoginComponent }];
 const protectedRoutes: Routes = [
   {
     path: '',
+    redirectTo: 'ar',
+    pathMatch: 'full',
+  },
+  {
+    path: ':language',
     canActivate: [AuthService],
     component: UserLayoutComponent,
+    resolve: {
+      translate: (route: ActivatedRouteSnapshot) => {
+        const language = route.params['language'];
+        const translateService = inject(TranslateService);
+        return translateService.use(language!);
+      },
+    },
     children: [
       { path: userPageRouting.home.path, component: UserHomepageComponent },
       { path: getRouteUrl(userPageRouting.course), component: CoursesComponent },

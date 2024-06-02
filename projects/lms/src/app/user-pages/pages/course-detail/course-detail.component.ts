@@ -45,14 +45,18 @@ export class CourseDetailComponent {
   pathId = this.routeInfo.pathId;
   courseId = this.routeInfo.courseId;
   course = this.routeInfo.course;
-  lessons: LessonRow[] = this.course?.lessons!.map((l, i) => ({
-    title: l.title,
-    done: this.yesNoTranslatePipe.transform(l.done),
-    present: this.yesNoTranslatePipe.transform(l.present),
-    mark: l.mark !== undefined ? `${l.mark} ${this.translate.instant(translationKeys.from)} ${l.questions.length}` : '',
-    date: this.datePipe.transform(l.date, 'YYYY-dd-MM')!,
-    lessonId: i,
-  }));
+  lessons: LessonRow[] = this.course?.lessons?.map((l, i) => {
+    const s = l.students?.[0];
+    return {
+      title: l.name,
+      done: this.yesNoTranslatePipe.transform(Boolean(s?.done)),
+      present: this.yesNoTranslatePipe.transform(Boolean(s?.done)),
+      mark:
+        s?.mark !== undefined ? `${s.mark} ${this.translate.instant(translationKeys.from)} ${l.questions?.length}` : '',
+      date: this.datePipe.transform(l.date, 'YYYY-dd-MM')!,
+      lessonId: i,
+    };
+  });
 
   ordersTableColumns: TableColumn<LessonRow>[] = this.initializeColumns();
 

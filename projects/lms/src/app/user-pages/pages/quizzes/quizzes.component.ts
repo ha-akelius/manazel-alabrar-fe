@@ -4,10 +4,9 @@ import { TranslateService } from '@ngx-translate/core';
 import { QuizzesPageFromToTransParams, translationKeys } from '../../../../../../../src/app/core/models/translations';
 import { CoreModule } from '../../../../../../../src/app/core/modules/core.module';
 import { TableColumn } from '../../../core/components/table/table';
-import { BFF } from '../../models/schema-bff';
-import { QuizParams } from '../../user-pages-routing';
 import { UserStore } from '../../user-state';
 import { canTakeQuiz } from '../../utils/quiz-utils';
+import { QuizzFE } from './../../services/student.service';
 
 interface QuizInfo {
   facultyName: string;
@@ -16,7 +15,6 @@ interface QuizInfo {
   mark?: string;
   canTake: boolean;
   fromTo: string;
-  quizParams: QuizParams;
 }
 
 @Component({
@@ -28,7 +26,7 @@ interface QuizInfo {
 export class QuizzesComponent {
   translationKeys = translationKeys;
 
-  courses: BFF.myPaths.Course[] = [];
+  courses: QuizzFE[] = [];
 
   quizzes: QuizInfo[] = this.getQuizzes();
   quizzesTableColumns: TableColumn<QuizInfo>[] = this.initializeColumns();
@@ -64,37 +62,24 @@ export class QuizzesComponent {
     ];
   }
 
-  private createQuizInfo(
-    faculty: BFF.myPaths.Path,
-    course: BFF.myPaths.Course,
-    quiz: BFF.Quiz,
-    quizIndex: number,
-  ): QuizInfo {
+  private createQuizInfo(quiz: QuizzFE): QuizInfo {
     const fromTo = this.translateService.instant(translationKeys.quizzesPage.from_to, {
       from: this.datePipe.transform(quiz.dateFrom),
       to: this.datePipe.transform(quiz.dateTo),
     } as QuizzesPageFromToTransParams);
     const fromTrans = this.translateService.instant(translationKeys.from);
+    const course = this.userStore.studentCoursesResponse().find((f) => f.id === quiz.courseInstanceId)!;
     return {
-      facultyName: faculty.title,
-      courseName: course.title,
-      quizName: quiz.title,
-      mark: quiz.mark !== undefined ? `${quiz.mark}  ${fromTrans} ${quiz.fullMark}` : '',
+      facultyName: course.pathInstanceName,
+      courseName: course.name,
+      quizName: quiz.name,
+      mark: quiz.mark !== undefined ? `${quiz.mark}  ${fromTrans} ${quiz.mark}` : '',
       canTake: canTakeQuiz(quiz),
       fromTo,
-      quizParams: {
-        pathId: faculty.id,
-        courseId: course.id,
-        quizId: quizIndex,
-      },
     };
   }
 
   getQuizzes(): QuizInfo[] {
-    return this.userStore
-      .studentResponse()
-      .data!.paths.map((f) => f.courses.map((c) => c.quizzes.map((q, index) => this.createQuizInfo(f, c, q, index))))
-      .flat()
-      .flat();
+    return this.userStore.studentQuizzesResponse().map((f) => this.createQuizInfo(f));
   }
 }

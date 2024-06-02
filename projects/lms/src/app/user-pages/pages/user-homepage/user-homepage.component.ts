@@ -4,10 +4,10 @@ import { FormsModule } from '@angular/forms';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { HomepageExamTransParams, translationKeys } from '../../../../../../../src/app/core/models/translations';
 import { SharedModule } from '../../../../../../../src/app/core/modules/shared.module';
-import { BFF } from '../../models/schema-bff';
+import { Lesson } from '../../models/schema';
 import { LessonParams, QuizParams, userPageRouting } from '../../user-pages-routing';
 import { UserStore } from '../../user-state';
-import { canTakeQuiz } from '../../utils/quiz-utils';
+import { CourseFE, QuizzFE } from './../../services/student.service';
 
 function sameDay(d1: Date, d2: Date) {
   return d1.getFullYear() === d2.getFullYear() && d1.getMonth() === d2.getMonth() && d1.getDate() === d2.getDate();
@@ -20,7 +20,7 @@ interface LessonItem {
 }
 
 interface QuizItem {
-  exam: BFF.Quiz;
+  exam: QuizzFE;
   transParam: HomepageExamTransParams;
   quizParams: QuizParams;
 }
@@ -70,52 +70,47 @@ export class UserHomepageComponent implements OnInit {
   private prepareExams() {
     const today = new Date();
     this.quizzes = this.userStore
-      .studentResponse()
-      .data!.paths.map((f) =>
-        f.courses.map((c) =>
-          c.quizzes.filter(canTakeQuiz).map((e, examIndex) => this.mapExamToExamItem(f, c, e, examIndex)),
-        ),
-      )
+      .studentQuizzesResponse()
+      .map((f) => this.mapExamToExamItem(f))
       .flat()
       .flat();
   }
 
-  private mapExamToExamItem(f: BFF.myPaths.Path, c: BFF.myPaths.Course, e: BFF.Quiz, examIndex: number): QuizItem {
+  private mapExamToExamItem(e: QuizzFE): QuizItem {
     return {
       exam: e,
       transParam: {
-        name: e.title,
+        name: e.name,
         from: this.datePipe.transform(e.dateFrom)!,
         to: this.datePipe.transform(e.dateTo)!,
       },
       quizParams: {
-        pathId: f.id,
-        courseId: c.id,
-        quizId: examIndex,
+        courseId: e.courseInstanceId,
+        quizId: e.id,
       },
     };
   }
 
   private filterCourses() {
     this.lessons = this.userStore
-      .studentResponse()
-      .data!.paths.map((path) => path.courses.map((c) => this.getLessonsForToday(c)))
-      .flat()
+      .studentCoursesResponse()
+      .map((c) => this.getLessonsForToday(c))
       .flat();
   }
 
-  private getLessonsForToday(c: BFF.myPaths.Course): LessonItem[] {
-    return c.lessons.filter((lesson) => sameDay(lesson.date, this.currentDate)).map((l) => this.createLessonItem(c, l));
+  private getLessonsForToday(c: CourseFE): LessonItem[] {
+    return c.lessons
+      .filter((lesson) => sameDay(lesson.date, this.currentDate))
+      .map((l, index) => this.createLessonItem(c, l, index));
   }
 
-  private createLessonItem(course: BFF.myPaths.Course, lesson: BFF.Lesson): LessonItem {
+  private createLessonItem(course: CourseFE, lesson: Lesson, index: number): LessonItem {
     return {
-      courseName: course.title,
-      lessonName: lesson.title,
+      courseName: course.name,
+      lessonName: lesson.name,
       lessonParams: {
         courseId: course.id,
-        lessonId: lesson.lessonId,
-        pathId: course.pathId,
+        lessonId: index,
       },
     };
   }

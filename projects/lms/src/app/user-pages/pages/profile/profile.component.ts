@@ -26,9 +26,9 @@ export class ProfileComponent {
     private fb: FormBuilder,
     private userStore: UserStore,
   ) {
-    const student = this.userStore.studentResponse().data!;
+    // const student = this.userStore.currentPathesResponse();
     this.form.setValue({
-      name: student.name,
+      name: '',
     });
   }
 

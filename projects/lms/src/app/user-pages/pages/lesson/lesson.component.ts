@@ -6,7 +6,7 @@ import { translationKeys } from '../../../../../../../src/app/core/models/transl
 import { SharedModule } from '../../../../../../../src/app/core/modules/shared.module';
 import { ExamComponent, ExamResult } from '../../../core/components/exam/exam.component';
 import { SafePipe } from '../../../core/pipes/safe-url.pipe';
-import { BFF } from '../../models/schema-bff';
+import { FinishStudentLesson } from '../../models/schema';
 import { StudentService } from '../../services/student.service';
 import { getUserRouteInfo } from '../../user-pages-routing';
 import { UserStore } from '../../user-state';
@@ -27,6 +27,7 @@ export class LessonComponent implements OnInit {
   routeInfo = getUserRouteInfo();
   lesson = this.routeInfo.lesson!;
   course = this.routeInfo.course;
+  studentLesson = this.routeInfo.studentLesson;
 
   pdfUrl = '';
 
@@ -41,7 +42,7 @@ export class LessonComponent implements OnInit {
   ngOnInit() {
     setTimeout(async () => {
       if (this.course.book) {
-        const pdfBlob = await fetch(this.course.book!).then((r) => r.blob());
+        const pdfBlob = await fetch(this.course.book).then((r) => r.blob());
         this.pdfUrl = URL.createObjectURL(pdfBlob);
       }
     }, 300);
@@ -56,23 +57,33 @@ export class LessonComponent implements OnInit {
     }
   }
   finishLesson(finished: boolean) {
-    const sudentQuizBody: BFF.StudentLessonBody = {
+    const sudentQuizBody: FinishStudentLesson = {
       courseId: this.routeInfo.course.id,
       lessonId: this.routeInfo.lessonId,
-      done: finished,
+      studentLesson: {
+        ...this.routeInfo.studentLesson!,
+        done: finished,
+      },
     };
     this.studentService.finishLesson(sudentQuizBody).subscribe();
   }
 
   finishExam(mark: ExamResult) {
-    this.lesson.mark = mark.mark;
-    const sudentQuizBody: BFF.StudentLessonBody = {
+    const quiz = this.routeInfo.quiz!;
+    const sudentQuizBody: FinishStudentLesson = {
       courseId: this.routeInfo.course.id,
       lessonId: this.routeInfo.lessonId,
-      mark: mark.mark,
-      answeredOptions: mark.answeredOptions,
+
+      studentLesson: {
+        done: true,
+        mark: mark.mark,
+        fullMark: mark.fullMark,
+        answeredOptions: mark.answeredOptions,
+        studentId: this.userStore.studnet().id,
+        studentName: this.userStore.studnet().name,
+      },
     };
-    this.studentService.finishExam(sudentQuizBody).subscribe((s) => {});
+    this.studentService.finishLesson(sudentQuizBody).subscribe((s) => {});
   }
 
   openFullscreen() {

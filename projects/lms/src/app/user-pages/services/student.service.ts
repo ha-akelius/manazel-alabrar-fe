@@ -1,8 +1,38 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {
+  CourseInstance,
+  PathInstance,
+  Prisma,
+  QuizInstance,
+  QuizInstanceStudent,
+  Student,
+  StudentPathInstance,
+} from '@prisma/client';
 import { Observable } from 'rxjs';
-import { BFF } from '../models/schema-bff';
+import { FinishStudentLesson, Lesson, Question } from '../models/schema';
+// import { BFF } from '../models/schema-bff';
 // import { courses, student } from './student-mock';
+
+export type CourseFE = Omit<CourseInstance, 'lessons'> & { lessons: Lesson[] };
+export type QuizzFE = Omit<QuizInstance, 'questions'> & { questions: Question[]; quizStudents: QuizInstanceStudent[] };
+
+export type CourseInstanceInfo = CourseFE & { quizzes: QuizzFE[] };
+export type PathInstanceInfo = PathInstance & { courseInstance: CourseInstanceInfo[] };
+export type StudentPathInstanceInfo = StudentPathInstance & { pathInstance: PathInstanceInfo };
+
+export type StudentInfo = Student & { studentPathInstance: StudentPathInstanceInfo[] };
+export type QuizInstanceStudentInfo = Omit<Prisma.QuizInstanceStudentCreateInput, 'quiz' | 'student'> & {
+  quizId: number;
+  studentId: number;
+};
+
+export interface Response<T> {
+  data?: T;
+  error?: {
+    message: string;
+  };
+}
 
 @Injectable({
   providedIn: 'root',
@@ -10,32 +40,28 @@ import { BFF } from '../models/schema-bff';
 export class StudentService {
   constructor(private http: HttpClient) {}
 
-  loadStudent(): Observable<BFF.myPaths.response> {
+  loadStudent(): Observable<StudentInfo> {
     // return of(student);
-    return this.http.get<BFF.myPaths.response>('/api/user/my-paths');
+    return this.http.get<StudentInfo>('/api/student/my-paths');
   }
 
-  loadOpenPath(): Observable<BFF.openPath.response> {
-    return this.http.get<BFF.openPath.response>('/api/user/open-paths');
+  loadOpenPath(): Observable<PathInstance[]> {
+    return this.http.get<PathInstance[]>('/api/student/open-paths');
   }
 
-  register(path: number): Observable<BFF.register.response> {
-    return this.http.get<BFF.register.response>('/api/user/open-paths/register/' + path);
+  register(path: number) {
+    return this.http.get<Response<{ current: PathInstance[]; open: PathInstance[] }>>('/api/student/register/' + path);
   }
 
-  saveProfile(name: string): Observable<BFF.saveProfile.response> {
-    return this.http.post<BFF.saveProfile.response>('/api/user/open-paths/save-profile', { name });
+  // saveProfile(name: string): Observable<BFF.saveProfile.response> {
+  //   return this.http.post<BFF.saveProfile.response>('/api/user/open-paths/save-profile', { name });
+  // }
+
+  finishLesson(sudentQuizBody: FinishStudentLesson): Observable<CourseFE> {
+    return this.http.post<CourseFE>(`/api/user/open-paths/finish-lesson`, sudentQuizBody);
   }
 
-  finishLesson(sudentQuizBody: BFF.StudentLessonBody): Observable<BFF.studentLessonResponse.response> {
-    return this.http.post<BFF.studentLessonResponse.response>(`/api/user/open-paths/finish-lesson`, sudentQuizBody);
-  }
-
-  finishExam(sudentQuizBody: BFF.StudentLessonBody): Observable<BFF.studentLessonResponse.response> {
-    return this.http.post<BFF.studentLessonResponse.response>(`/api/user/open-paths/finish-exam`, sudentQuizBody);
-  }
-
-  finishQuiz(body: BFF.StudentQuizBody): Observable<BFF.studentLessonResponse.response> {
-    return this.http.post<BFF.studentLessonResponse.response>(`/api/user/open-paths/finish-quiz`, body);
+  finishExam(sudentQuizBody: QuizInstanceStudentInfo): Observable<QuizzFE> {
+    return this.http.post<QuizzFE>(`/api/student/finish-exam`, sudentQuizBody);
   }
 }
