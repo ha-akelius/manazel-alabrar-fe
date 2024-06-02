@@ -81,9 +81,16 @@
     "karma-coverage": "~2.2.0",
     "karma-jasmine": "~5.1.0",
     "karma-jasmine-html-reporter": "~2.1.0",
+    "lint-staged": "^15.2.5",
     "prettier": "^3.2.5",
     "prisma": "^5.10.2",
     "typescript": "~5.3.3",
     "webpack-bundle-analyzer": "^4.8.0"
+  },
+  "lint-staged": {
+    "{**/*.ts,*.html}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
   }
 }
