@@ -23,6 +23,7 @@ export const jsonSchemas = {
   answerSchema,
   questionSchema,
   lessonSchema,
+  lessonsSchema: lessonSchema,
   quizSchema,
   studentLessonSchema,
 };

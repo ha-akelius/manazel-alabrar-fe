@@ -13,6 +13,10 @@ const ext: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'ext',
 };
+const mimetype: PropPrismaInformation<string, 'string'> = {
+  type: 'string',
+  name: 'mimetype',
+};
 const type: PropPrismaInformation<MediaType, 'MediaType'> = {
   type: 'MediaType',
   name: 'type',
@@ -30,4 +34,4 @@ const folderName: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'folderName',
 };
-export const MediaGenInfo = { name, url, ext, type, size, folderId, folderName };
+export const MediaGenInfo = { name, url, ext, mimetype, type, size, folderId, folderName };

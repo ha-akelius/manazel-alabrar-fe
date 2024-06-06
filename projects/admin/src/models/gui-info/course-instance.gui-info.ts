@@ -29,6 +29,27 @@ export const courseInstanceGuiInfo: WithPropType<CourseInstance, GuiPropInformat
       },
     },
   },
+  bookId: {
+    propInformation: CourseInstancePropInfo.bookId,
+    guiInfo: {
+      label: $localize`book`,
+      inputType: InputType.media,
+      hide: {
+        list: true,
+      },
+    },
+  },
+  bookName: {
+    propInformation: CourseInstancePropInfo.bookName,
+    guiInfo: {
+      label: $localize`book`,
+      inputType: InputType.input,
+      hide: {
+        list: true,
+        form: true,
+      },
+    },
+  },
   pathInstanceId: {
     propInformation: CourseInstancePropInfo.pathInstanceId,
     guiInfo: {
@@ -68,13 +89,7 @@ export const courseInstanceGuiInfo: WithPropType<CourseInstance, GuiPropInformat
       inputType: InputType.dateTime,
     },
   },
-  book: {
-    propInformation: CourseInstancePropInfo.book,
-    guiInfo: {
-      label: $localize`book`,
-      inputType: InputType.input,
-    },
-  },
+
   pageFrom: {
     propInformation: CourseInstancePropInfo.pageFrom,
     guiInfo: {

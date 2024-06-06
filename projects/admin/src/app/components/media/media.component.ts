@@ -11,7 +11,9 @@ import { DomSanitizer, SafeResourceUrl } from '@angular/platform-browser';
 import { Media, MediaFolder, MediaType, Prisma } from '@prisma/client';
 import { switchMap } from 'rxjs';
 import { APIService } from '../../../core/services/api.service';
+import { SafePipe } from '../../pipes/safe.pipe';
 import { UploadService } from '../../service/upload.service';
+import { MediaItemComponent } from '../../shared/components/media-item/media-item.component';
 import { translations } from '../../translations';
 import { MediaDialogComponent } from '../media-details/media-details.component';
 @Component({
@@ -26,6 +28,8 @@ import { MediaDialogComponent } from '../media-details/media-details.component';
     MatButtonModule,
     ReactiveFormsModule,
     FormsModule,
+    MediaItemComponent,
+    SafePipe,
   ],
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.scss'],
@@ -220,7 +224,7 @@ export class MediaComponent implements OnInit {
   }
 
   sanitizeUrl(url: string): SafeResourceUrl {
-    return this.sanitizer.bypassSecurityTrustResourceUrl(url);
+    return this.sanitizer.bypassSecurityTrustUrl(url);
   }
 
   renameFolder(folder: MediaFolder): void {

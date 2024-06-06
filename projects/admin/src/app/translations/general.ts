@@ -40,4 +40,5 @@ export const general = {
   operator: $localize`operator`,
   field: $localize`field`,
   done: $localize`done successfully`,
+  choose: $localize`choose`,
 };

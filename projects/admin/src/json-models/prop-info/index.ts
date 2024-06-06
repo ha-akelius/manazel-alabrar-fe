@@ -6,6 +6,7 @@ import { StudentLessonPropInfo } from './student-lesson.prop-info';
 
 export const jsonPropInfos = {
   LessonPropInfo,
+  LessonsPropInfo: LessonPropInfo,
   QuizPropInfo,
   QuestionPropInfo,
   AnswerPropInfo,

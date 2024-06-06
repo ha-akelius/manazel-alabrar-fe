@@ -64,6 +64,13 @@
               [formControlName]="propInfo.propInformation.basic.name"
             />
           }
+          @case (inputType.media) {
+            <app-media-field
+              class="col-xs-12"
+              [propInfo]="propInfo"
+              [formControlName]="propInfo.propInformation.basic.name"
+            />
+          }
           @case (inputType.boolean) {
             <mat-slide-toggle
               class="col-xs-12 col-sm-6 col-lg-4 padded-field"

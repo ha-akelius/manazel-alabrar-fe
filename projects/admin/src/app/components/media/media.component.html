@@ -46,9 +46,7 @@
     <mat-card-content>
       <mat-checkbox [checked]="isSelected(media.id)" (change)="toggleSelection(media.id)"></mat-checkbox>
       <div>
-        <object [data]="sanitizeUrl(media.url.replace('client/', ''))" width="400" height="400">
-          <p>{{ translations.mediaSupported }}+{{ media.url.replace("client/", "") }}</p>
-        </object>
+        <app-media-item [media]="media" />
       </div>
       <button mat-flat-button><mat-icon>description</mat-icon> {{ media.name }}</button>
     </mat-card-content>

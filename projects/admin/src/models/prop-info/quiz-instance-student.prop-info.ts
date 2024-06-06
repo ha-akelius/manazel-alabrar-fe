@@ -2,6 +2,7 @@
 import { QuizInstanceStudent } from '@prisma/client';
 import { PropInformation, WithPropType } from '../utils/type-utils';
 import { QuizInstanceStudentGenInfo } from './quiz-instance-student.gen-info';
+import { AnswerOptions } from '../../json-models';
 const fullMark: PropInformation<number, 'number'> = {
   basic: QuizInstanceStudentGenInfo.fullMark,
 };
@@ -23,6 +24,9 @@ const studentId: PropInformation<number, 'number'> = {
 const studentName: PropInformation<string, 'string'> = {
   basic: QuizInstanceStudentGenInfo.studentName,
 };
+const answerOptions: PropInformation<AnswerOptions, 'AnswerOptions'> = {
+  basic: QuizInstanceStudentGenInfo.answerOptions,
+};
 export const QuizInstanceStudentPropInfo: WithPropType<QuizInstanceStudent, PropInformation<any, any>> = {
   fullMark: fullMark,
   mark: mark,
@@ -31,4 +35,5 @@ export const QuizInstanceStudentPropInfo: WithPropType<QuizInstanceStudent, Prop
   quizName: quizName,
   studentId: studentId,
   studentName: studentName,
+  answerOptions: answerOptions,
 };

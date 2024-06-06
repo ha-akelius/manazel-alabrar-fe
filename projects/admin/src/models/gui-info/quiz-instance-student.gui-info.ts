@@ -61,6 +61,17 @@ export const quizInstanceStudentGuiInfo: WithPropType<QuizInstanceStudent, GuiPr
       },
     },
   },
+  answerOptions: {
+    propInformation: QuizInstanceStudentPropInfo.answerOptions,
+    guiInfo: {
+      label: '',
+      inputType: InputType.input,
+      hide: {
+        form: true,
+        list: true,
+      },
+    },
+  },
 };
 
 export const quizInstanceStudentSchema: SchemaInfo<QuizInstanceStudent> = {

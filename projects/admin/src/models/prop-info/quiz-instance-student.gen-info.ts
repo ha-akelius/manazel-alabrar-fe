@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { PropPrismaInformation } from '../utils/type-utils';
+import { AnswerOptions } from '../../json-models';
 const fullMark: PropPrismaInformation<number, 'number'> = {
   type: 'number',
   name: 'fullMark',
@@ -30,14 +31,9 @@ const studentName: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'studentName',
 };
-const pathInstanceId: PropPrismaInformation<number, 'number'> = {
-  type: 'number',
-  name: 'pathInstanceId',
-  ref: 'PathInstance',
-};
-const pathInstanceString: PropPrismaInformation<string, 'string'> = {
-  type: 'string',
-  name: 'pathInstanceString',
+const answerOptions: PropPrismaInformation<AnswerOptions, 'AnswerOptions'> = {
+  type: 'AnswerOptions',
+  name: 'answerOptions',
 };
 export const QuizInstanceStudentGenInfo = {
   fullMark,
@@ -47,6 +43,5 @@ export const QuizInstanceStudentGenInfo = {
   quizName,
   studentId,
   studentName,
-  pathInstanceId,
-  pathInstanceString,
+  answerOptions,
 };

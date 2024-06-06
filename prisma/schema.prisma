@@ -5,7 +5,7 @@
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["relationJoins"]
 }
 
@@ -64,6 +64,9 @@ model Course {
   courseInstances CourseInstance[]
   lessons         Json
   quiz            Json
+  bookId          Int
+  bookName        String
+  book            Media            @relation(fields: [bookId], references: [id])
   createdDate     DateTime
   updatedDate     DateTime
   createdUserName String
@@ -84,7 +87,9 @@ model CourseInstance {
   description      String
   dateFrom         DateTime
   dateTo           DateTime
-  book             String
+  bookId           Int
+  bookName         String
+  book             Media          @relation(fields: [bookId], references: [id])
   lessons          Json
   quizzes          QuizInstance[]
   pageFrom         Int
@@ -141,23 +146,23 @@ model QuizInstance {
 }
 
 model QuizInstanceStudent {
-  id                 Int          @id @default(autoincrement())
-  fullMark           Float
-  mark               Float
-  date               DateTime
-  quizId             Int
-  quizName           String
-  quiz               QuizInstance @relation(fields: [quizId], references: [id])
-  studentId          Int
-  studentName        String
-  student            Student      @relation(fields: [studentId], references: [id])
-  answerOptions      Json
-  createdDate        DateTime
-  updatedDate        DateTime
-  createdUserName    String
-  createdUserId      Int
-  updatedUserName    String
-  updatedUserId      Int
+  id              Int          @id @default(autoincrement())
+  fullMark        Float
+  mark            Float
+  date            DateTime
+  quizId          Int
+  quizName        String
+  quiz            QuizInstance @relation(fields: [quizId], references: [id])
+  studentId       Int
+  studentName     String
+  student         Student      @relation(fields: [studentId], references: [id])
+  answerOptions   Json
+  createdDate     DateTime
+  updatedDate     DateTime
+  createdUserName String
+  createdUserId   Int
+  updatedUserName String
+  updatedUserId   Int
 }
 
 model Student {
@@ -224,7 +229,7 @@ model MediaFolder {
 }
 
 model Media {
-  id              Int         @id @default(autoincrement())
+  id              Int              @id @default(autoincrement())
   name            String
   url             String
   ext             String
@@ -233,13 +238,15 @@ model Media {
   size            Int
   folderId        Int
   folderName      String
-  folder          MediaFolder @relation(fields: [folderId], references: [id])
+  folder          MediaFolder      @relation(fields: [folderId], references: [id])
   createdDate     DateTime
   updatedDate     DateTime
   createdUserName String
   createdUserId   Int
   updatedUserName String
   updatedUserId   Int
+  CourseInstance  CourseInstance[]
+  Course          Course[]
 }
 
 enum MediaType {

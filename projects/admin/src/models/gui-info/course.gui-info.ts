@@ -29,6 +29,27 @@ export const courseGuiInfo: WithPropType<Course, GuiPropInformation> = {
       },
     },
   },
+  bookId: {
+    propInformation: CoursePropInfo.bookId,
+    guiInfo: {
+      label: $localize`book`,
+      inputType: InputType.media,
+      hide: {
+        list: true,
+      },
+    },
+  },
+  bookName: {
+    propInformation: CoursePropInfo.bookName,
+    guiInfo: {
+      label: $localize`book`,
+      inputType: InputType.media,
+      hide: {
+        list: true,
+        form: true,
+      },
+    },
+  },
   lessons: {
     propInformation: CoursePropInfo.lessons,
     guiInfo: {

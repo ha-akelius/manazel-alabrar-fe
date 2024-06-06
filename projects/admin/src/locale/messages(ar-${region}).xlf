@@ -1075,6 +1075,14 @@
           <context context-type="linenumber">34</context>
         </context-group>
       </trans-unit>
+      <trans-unit id="2609326881441404647" datatype="html">
+        <source>choose</source>
+        <target state="translated">اختيار</target>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/app/translations/general.ts</context>
+          <context context-type="linenumber">43</context>
+        </context-group>
+      </trans-unit>
     </body>
   </file>
 </xliff>

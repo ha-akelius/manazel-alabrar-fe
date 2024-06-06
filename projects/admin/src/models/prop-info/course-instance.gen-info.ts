@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Lesson } from '../../json-models/lessons';
 import { PropPrismaInformation } from '../utils/type-utils';
+import { Lessons } from '../../json-models';
 const name: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'name',
@@ -35,9 +35,18 @@ const dateTo: PropPrismaInformation<Date, 'Date'> = {
   type: 'Date',
   name: 'dateTo',
 };
-const book: PropPrismaInformation<string, 'string'> = {
+const bookId: PropPrismaInformation<number, 'number'> = {
+  type: 'number',
+  name: 'bookId',
+  ref: 'Media',
+};
+const bookName: PropPrismaInformation<string, 'string'> = {
   type: 'string',
-  name: 'book',
+  name: 'bookName',
+};
+const lessons: PropPrismaInformation<Lessons, 'Lessons'> = {
+  type: 'Lessons',
+  name: 'lessons',
 };
 const pageFrom: PropPrismaInformation<number, 'number'> = {
   type: 'number',
@@ -56,10 +65,6 @@ const teacherName: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'teacherName',
 };
-const lessons: PropPrismaInformation<Lesson, 'Lesson'> = {
-  type: 'Lesson',
-  name: 'lessons',
-};
 export const CourseInstanceGenInfo = {
   name,
   courseId,
@@ -69,10 +74,11 @@ export const CourseInstanceGenInfo = {
   description,
   dateFrom,
   dateTo,
-  book,
+  bookId,
+  bookName,
+  lessons,
   pageFrom,
   pageTo,
   teacherId,
   teacherName,
-  lessons,
 };

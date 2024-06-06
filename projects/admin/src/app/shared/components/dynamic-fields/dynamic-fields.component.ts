@@ -22,6 +22,7 @@ import { RolesFormComponent } from '../../../../models/hooks/user/roles-form/rol
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../model/json-schema';
 import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
 import { DateFormComponent } from './components/date-form.component';
+import { MediaFieldComponent } from './components/media-field/media-field.component';
 import { RelationComponent } from './components/relation/relation.component';
 // Preserve original property order
 
@@ -51,6 +52,7 @@ import { RelationComponent } from './components/relation/relation.component';
     MatSelectModule,
     DateFormComponent,
     RolesFormComponent,
+    MediaFieldComponent,
   ],
 })
 export class DynamicFieldsComponent implements OnInit, OnDestroy, ControlValueAccessor {
@@ -68,8 +70,9 @@ export class DynamicFieldsComponent implements OnInit, OnDestroy, ControlValueAc
         const fieldName = propInfo.propInformation.basic.name;
         const formArray = this.dynamicForm.get(fieldName) as FormArray;
         if (value?.[fieldName]) {
-          for (let index = 0; index < value[fieldName].length; index++) {
-            formArray.push(new FormControl());
+          value[fieldName] = Array.isArray(value[fieldName]) ? value[fieldName] : [value[fieldName]];
+          for (const element of value[fieldName]) {
+            formArray.push(new FormControl(element));
           }
         }
       }

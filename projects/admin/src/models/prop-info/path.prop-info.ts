@@ -8,7 +8,4 @@ const name: PropInformation<string, 'string'> = {
 const description: PropInformation<string, 'string'> = {
   basic: PathGenInfo.description,
 };
-export const PathPropInfo: WithPropType<Path, PropInformation<any, any>> = {
-  name: name,
-  description: description,
-};
+export const PathPropInfo: WithPropType<Path, PropInformation<any, any>> = { name: name, description: description };

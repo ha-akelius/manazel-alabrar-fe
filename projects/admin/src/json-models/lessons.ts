@@ -1,4 +1,9 @@
+import { QuizInstance } from '@prisma/client';
+
 export type Lessons = Lesson[];
+export type Questions = Question[];
+export type AnswerOptions = number[][];
+export type Quiz = QuizInstance;
 
 export class Lesson {
   name: string;

@@ -11,6 +11,28 @@ export const studentGuiInfo: WithPropType<Student, GuiPropInformation> = {
       inputType: InputType.input,
     },
   },
+  student_info: {
+    propInformation: StudentPropInfo.student_info,
+    guiInfo: {
+      label: '',
+      inputType: InputType.input,
+      hide: {
+        form: true,
+        list: true,
+      },
+    },
+  },
+  pathInformation: {
+    propInformation: StudentPropInfo.pathInformation,
+    guiInfo: {
+      label: '',
+      inputType: InputType.input,
+      hide: {
+        form: true,
+        list: true,
+      },
+    },
+  },
 };
 
 export const studentSchema: SchemaInfo<Student> = {

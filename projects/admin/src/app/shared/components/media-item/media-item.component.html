@@ -1,0 +1,18 @@
+@if (!media) {
+  <div
+    style="
+      width: 200px;
+      height: 200px;
+      background-color: #f0f0f0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    "
+  ></div>
+} @else if (isImage(media)) {
+  <img [src]="media.url | safe: 'resourceUrl'" width="200" height="200" alt="Image" />
+} @else if (isPdf(media)) {
+  <object [data]="media.url | safe: 'resourceUrl'" type="application/pdf" width="400" height="400">
+    <p>{{ translations.mediaSupported }}+{{ media.url.replace("client/", "") }}</p>
+  </object>
+}

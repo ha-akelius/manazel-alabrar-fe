@@ -3,16 +3,7 @@ import { z } from 'zod';
 
 export type PropType<T> = Omit<
   T,
-  | 'id'
-  | 'createdDate'
-  | 'createdUserName'
-  | 'createdUserId'
-  | 'updatedDate'
-  | 'updatedUserName'
-  | 'updatedUserId'
-  | 'answerOptions'
-  | 'student_info'
-  | 'pathInformation'
+  'id' | 'createdDate' | 'createdUserName' | 'createdUserId' | 'updatedDate' | 'updatedUserName' | 'updatedUserId'
 >;
 export type ImportantProps<T> = PropType<T>;
 type IsSimpleType<T> = T extends string | number | boolean | symbol | Enum ? true : false;

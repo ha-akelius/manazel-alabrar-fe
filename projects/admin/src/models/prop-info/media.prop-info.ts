@@ -11,6 +11,9 @@ const url: PropInformation<string, 'string'> = {
 const ext: PropInformation<string, 'string'> = {
   basic: MediaGenInfo.ext,
 };
+const mimetype: PropInformation<string, 'string'> = {
+  basic: MediaGenInfo.mimetype,
+};
 const type: PropInformation<MediaType, 'MediaType'> = {
   basic: MediaGenInfo.type,
 };
@@ -27,9 +30,9 @@ export const MediaPropInfo: WithPropType<Media, PropInformation<any, any>> = {
   name: name,
   url: url,
   ext: ext,
+  mimetype: mimetype,
   type: type,
   size: size,
-  mimetype: name,
   folderId: folderId,
   folderName: folderName,
 };

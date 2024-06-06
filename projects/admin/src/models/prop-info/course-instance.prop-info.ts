@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CourseInstance } from '@prisma/client';
-import { Lesson } from '../../json-models/lessons';
 import { PropInformation, WithPropType } from '../utils/type-utils';
 import { CourseInstanceGenInfo } from './course-instance.gen-info';
+import { Lessons } from '../../json-models';
 const name: PropInformation<string, 'string'> = {
   basic: CourseInstanceGenInfo.name,
 };
@@ -27,8 +27,14 @@ const dateFrom: PropInformation<Date, 'Date'> = {
 const dateTo: PropInformation<Date, 'Date'> = {
   basic: CourseInstanceGenInfo.dateTo,
 };
-const book: PropInformation<string, 'string'> = {
-  basic: CourseInstanceGenInfo.book,
+const bookId: PropInformation<number, 'number'> = {
+  basic: CourseInstanceGenInfo.bookId,
+};
+const bookName: PropInformation<string, 'string'> = {
+  basic: CourseInstanceGenInfo.bookName,
+};
+const lessons: PropInformation<Lessons, 'Lessons'> = {
+  basic: CourseInstanceGenInfo.lessons,
 };
 const pageFrom: PropInformation<number, 'number'> = {
   basic: CourseInstanceGenInfo.pageFrom,
@@ -42,9 +48,6 @@ const teacherId: PropInformation<number, 'number'> = {
 const teacherName: PropInformation<string, 'string'> = {
   basic: CourseInstanceGenInfo.teacherName,
 };
-const lessons: PropInformation<Lesson, 'Lesson'> = {
-  basic: CourseInstanceGenInfo.lessons,
-};
 export const CourseInstancePropInfo: WithPropType<CourseInstance, PropInformation<any, any>> = {
   name: name,
   courseId: courseId,
@@ -54,10 +57,11 @@ export const CourseInstancePropInfo: WithPropType<CourseInstance, PropInformatio
   description: description,
   dateFrom: dateFrom,
   dateTo: dateTo,
-  book: book,
+  bookId: bookId,
+  bookName: bookName,
+  lessons: lessons,
   pageFrom: pageFrom,
   pageTo: pageTo,
   teacherId: teacherId,
   teacherName: teacherName,
-  lessons: lessons,
 };
