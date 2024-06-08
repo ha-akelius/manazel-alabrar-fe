@@ -64,6 +64,7 @@ export function injectNgControl() {
 export class FormFieldComponent<T = any> {
   @Input({ required: true }) propInfo: GuiPropInformation;
   @Input({ required: true }) formControl: FormControl<T>;
+  @Input({ required: true }) record: BasicRecord | null | undefined;
 
   get parentFormGroup(): FormGroup | undefined {
     return this.formControl.parent as FormGroup;
@@ -81,6 +82,11 @@ export class FormComponent<T = any> {
   get formControl(): FormControl<T> {
     return this.ngControl.control;
   }
+}
+
+@Directive()
+export class SchemaFormComponent<T = any> {
+  @Input({ required: true }) value: T;
 }
 
 export function componentDef<T>(component: new () => T, inputs: { [P in keyof T as Exclude<P, 'record'>]: T[P] }) {

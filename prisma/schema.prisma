@@ -64,9 +64,9 @@ model Course {
   courseInstances CourseInstance[]
   lessons         Json
   quiz            Json
-  bookId          Int
-  bookName        String
-  book            Media            @relation(fields: [bookId], references: [id])
+  bookId          Int?
+  bookName        String?
+  book            Media?            @relation(fields: [bookId], references: [id])
   createdDate     DateTime
   updatedDate     DateTime
   createdUserName String
@@ -87,9 +87,9 @@ model CourseInstance {
   description      String
   dateFrom         DateTime
   dateTo           DateTime
-  bookId           Int
-  bookName         String
-  book             Media          @relation(fields: [bookId], references: [id])
+  bookId           Int?
+  bookName         String?
+  book             Media?          @relation(fields: [bookId], references: [id])
   lessons          Json
   quizzes          QuizInstance[]
   pageFrom         Int
@@ -256,6 +256,7 @@ enum MediaType {
 }
 
 enum Role {
+  ADMIN
   TEACHER
   STUDENT
 }

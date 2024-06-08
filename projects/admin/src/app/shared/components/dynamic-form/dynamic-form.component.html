@@ -1,6 +1,8 @@
 <h2>{{ pageTitle }}</h2>
 <app-dynamic-fields [formControl]="formValue" [entityName]="entityName" />
 <div>
-  <button mat-raised-button color="primary" (click)="save()">{{ translations.save }}</button>
+  <button mat-raised-button color="primary" [disabled]="formValue.invalid" (click)="save()">
+    {{ translations.save }}
+  </button>
   <button mat-raised-button color="warn" (click)="cancel()">{{ translations.cancel }}</button>
 </div>

@@ -1,7 +1,10 @@
 import { User } from '@prisma/client';
 import { GuiPropInformation, InputType, SchemaInfo } from '../../app/shared/model/json-schema';
-import { RolesFormComponent } from '../hooks/user/roles-form/roles-form.component';
-import { RolesListComponent } from '../hooks/user/roles-list/roles-list.component';
+import { translations } from '../../app/translations';
+import { LanguageFormComponent } from '../hooks/user/language.component';
+import { PasswordFormComponent } from '../hooks/user/password.component';
+import { RolesFormComponent } from '../hooks/user/roles.component';
+import { UserFormComponent } from '../hooks/user/user-form/user-form.component';
 import { UserPropInfo } from '../prop-info/user.prop-info';
 import { WithPropType } from '../utils/type-utils';
 
@@ -28,6 +31,9 @@ export const userGuiInfo: WithPropType<User, GuiPropInformation> = {
       hide: {
         list: true,
       },
+      hooks: {
+        form: PasswordFormComponent,
+      },
     },
   },
   language: {
@@ -35,6 +41,10 @@ export const userGuiInfo: WithPropType<User, GuiPropInformation> = {
     guiInfo: {
       label: $localize`language`,
       inputType: InputType.input,
+      hooks: {
+        listFn: (language: string) => translations.language[language as keyof typeof translations.language],
+        form: LanguageFormComponent,
+      },
     },
   },
   roles: {
@@ -43,7 +53,8 @@ export const userGuiInfo: WithPropType<User, GuiPropInformation> = {
       label: $localize`roles`,
       inputType: InputType.input,
       hooks: {
-        list: RolesListComponent,
+        listFn: (roles: string[]) =>
+          roles.map((role) => translations.role[role as keyof typeof translations.role]).join(', '),
         form: RolesFormComponent,
       },
     },
@@ -55,4 +66,7 @@ export const userSchema: SchemaInfo<User> = {
   label: $localize`user`,
   labelPlural: $localize`users`,
   api: 'user',
+  hooks: {
+    form: UserFormComponent,
+  },
 };

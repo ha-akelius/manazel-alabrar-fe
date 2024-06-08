@@ -3,7 +3,7 @@
     <img src="./assets/Frame.png" alt="Company Logo" />
   </div>
   <mat-divider></mat-divider>
-  @for (menu of menuItems; track $index) {
+  @for (menu of menuItems(); track $index) {
     <a mat-list-item [routerLink]="[menu.path]">
       <mat-icon class="edit-icon">home</mat-icon>
       <span class="edit-text">{{ menu.label }}</span>

@@ -42,7 +42,7 @@ export class LessonComponent implements OnInit {
   ngOnInit() {
     setTimeout(async () => {
       if (this.course.book) {
-        const pdfBlob = await fetch(this.course.book).then((r) => r.blob());
+        const pdfBlob = await fetch(this.course.book.url).then((r) => r.blob());
         this.pdfUrl = URL.createObjectURL(pdfBlob);
       }
     }, 300);

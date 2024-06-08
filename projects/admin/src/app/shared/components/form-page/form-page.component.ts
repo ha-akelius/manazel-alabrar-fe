@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { CommonModule } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { APIService } from '../../../../core/services/api.service';
@@ -9,7 +10,7 @@ import { DynamicFormComponent } from '../dynamic-form/dynamic-form.component';
 @Component({
   selector: 'app-form-page',
   standalone: true,
-  imports: [DynamicFormComponent],
+  imports: [DynamicFormComponent, CommonModule],
   templateUrl: './form-page.component.html',
   styleUrl: './form-page.component.scss',
 })

@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, inject } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatToolbarModule } from '@angular/material/toolbar';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
+import { AuthService } from '../../auth-service.service';
 import { translations } from '../../translations';
 @Component({
   standalone: true,
@@ -14,7 +15,8 @@ import { translations } from '../../translations';
 })
 export class HeaderComponent {
   translations = translations.general;
-  constructor(private router: Router) {}
+  authService = inject(AuthService);
+
   @Output() toggleSidebarForMe: EventEmitter<unknown> = new EventEmitter();
 
   toggleSidebar() {
@@ -22,8 +24,6 @@ export class HeaderComponent {
   }
 
   logout(): void {
-    localStorage.removeItem('username');
-    localStorage.removeItem('password');
-    this.router.navigate(['/login']);
+    this.authService.logOut();
   }
 }

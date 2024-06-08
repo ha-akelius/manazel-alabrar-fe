@@ -1,6 +1,11 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Type } from '@angular/core';
-import { FormComponent, FormFieldComponent, TableColumnComponent } from '../../../core/components/table/table';
+import {
+  FormComponent,
+  FormFieldComponent,
+  SchemaFormComponent,
+  TableColumnComponent,
+} from '../../../core/components/table/table';
 import { APIService } from '../../../core/services/api.service';
 import { PropInformation, WithPropType } from '../../../models/utils/type-utils';
 
@@ -14,6 +19,9 @@ export type JSONSchemaInfo<T = any> = {
   actions?: Action<T>[];
   label: string;
   labelPlural: string;
+  hooks?: {
+    form?: Type<SchemaFormComponent<T>>;
+  };
 };
 
 export type SchemaInfo<T = any> = JSONSchemaInfo<T> & {
@@ -40,6 +48,7 @@ export interface ComponentHooks {
   form?: Type<FormComponent | FormFieldComponent>;
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   list?: Type<TableColumnComponent<any>>;
+  listFn?: (value: any) => string;
 }
 
 export enum InputType {

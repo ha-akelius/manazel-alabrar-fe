@@ -34,3 +34,7 @@ html {
 mat-form-field {
   width: 100%;
 }
+
+button + button {
+  margin-inline-start: 8px;
+}

@@ -38,11 +38,13 @@ const dateTo: PropPrismaInformation<Date, 'Date'> = {
 const bookId: PropPrismaInformation<number, 'number'> = {
   type: 'number',
   name: 'bookId',
+  optional: true,
   ref: 'Media',
 };
 const bookName: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'bookName',
+  optional: true,
 };
 const lessons: PropPrismaInformation<Lessons, 'Lessons'> = {
   type: 'Lessons',

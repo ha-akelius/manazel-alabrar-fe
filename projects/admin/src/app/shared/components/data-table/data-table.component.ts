@@ -126,7 +126,9 @@ export class DataTableComponent<T extends BasicRecord> implements OnInit, OnChan
 
   private getFn(prop: GuiPropInformation): ((value: T[keyof T] | undefined) => string) | undefined {
     const key = prop.propInformation.basic.name;
-    if (key.toLocaleLowerCase().indexOf('date') >= 0 && key.toLocaleLowerCase().indexOf('update') < 0) {
+    if (prop.guiInfo.hooks?.listFn) {
+      return prop.guiInfo.hooks.listFn;
+    } else if (key.toLocaleLowerCase().indexOf('date') >= 0 && key.toLocaleLowerCase().indexOf('update') < 0) {
       return (value: T[keyof T] | undefined) => this.datePipe.transform(value as string) ?? '';
     }
     if (prop.guiInfo.inputType === InputType.jsonArray) {

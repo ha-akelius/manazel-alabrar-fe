@@ -25,10 +25,12 @@ const quiz: PropPrismaInformation<Quiz, 'Quiz'> = {
 const bookId: PropPrismaInformation<number, 'number'> = {
   type: 'number',
   name: 'bookId',
+  optional: true,
   ref: 'Media',
 };
 const bookName: PropPrismaInformation<string, 'string'> = {
   type: 'string',
   name: 'bookName',
+  optional: true,
 };
 export const CourseGenInfo = { name, pathId, pathName, lessons, quiz, bookId, bookName };

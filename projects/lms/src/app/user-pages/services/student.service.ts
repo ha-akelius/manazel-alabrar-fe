@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import {
   CourseInstance,
+  Media,
   PathInstance,
   Prisma,
   QuizInstance,
@@ -14,7 +15,7 @@ import { FinishStudentLesson, Lesson, Question } from '../models/schema';
 // import { BFF } from '../models/schema-bff';
 // import { courses, student } from './student-mock';
 
-export type CourseFE = Omit<CourseInstance, 'lessons'> & { lessons: Lesson[] };
+export type CourseFE = Omit<CourseInstance, 'lessons'> & { lessons: Lesson[]; book: Media };
 export type QuizzFE = Omit<QuizInstance, 'questions'> & { questions: Question[]; quizStudents: QuizInstanceStudent[] };
 
 export type CourseInstanceInfo = CourseFE & { quizzes: QuizzFE[] };

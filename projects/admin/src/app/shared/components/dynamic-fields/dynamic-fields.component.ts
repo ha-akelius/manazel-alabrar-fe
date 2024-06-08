@@ -18,7 +18,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { Subscription } from 'rxjs';
-import { RolesFormComponent } from '../../../../models/hooks/user/roles-form/roles-form.component';
+import { BasicRecord } from '../../../../core/components/table/table';
+import { RolesFormComponent } from '../../../../models/hooks/user/roles.component';
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../model/json-schema';
 import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
 import { DateFormComponent } from './components/date-form.component';
@@ -62,9 +63,11 @@ export class DynamicFieldsComponent implements OnInit, OnDestroy, ControlValueAc
   inputType = InputType;
   dynamicForm: FormGroup = new FormGroup({});
   props: GuiPropInformation[];
+  originalValue: BasicRecord | null = null;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
+    this.originalValue = value;
     for (const propInfo of Object.values(this.schemaInfo.schema)) {
       if (propInfo.guiInfo.inputType === InputType.jsonArray) {
         const fieldName = propInfo.propInformation.basic.name;
@@ -129,6 +132,7 @@ export class DynamicFieldsComponent implements OnInit, OnDestroy, ControlValueAc
     return {
       propInfo: prop,
       formControl: this.dynamicForm.controls[prop.propInformation.basic.name],
+      record: this.originalValue,
     };
   }
 

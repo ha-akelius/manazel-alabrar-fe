@@ -52,6 +52,8 @@ export class AuthService {
     return this.loggedInSignal();
   }
 
+  loggedInStatus = this.loggedInSignal.asReadonly();
+
   canActivate(): boolean {
     if (!this.isLoggedIn()) {
       this.router.navigate([this.translateService.currentLang ?? 'ar', 'login']);

@@ -1,3 +1,6 @@
 @if (!id || value) {
   <app-dynamic-form [entityName]="entityName" [value]="value" (formResult)="goToListing()" />
+  @if (schemaInfo.hooks?.form) {
+    <ng-container *ngComponentOutlet="schemaInfo.hooks!.form!; inputs: { value: value }" />
+  }
 }
