@@ -20,7 +20,7 @@ export interface BasicRecord {
 }
 
 @Directive()
-export class TableColumnComponent<X, T extends BasicRecord = BasicRecord> {
+export class TableColumnComponent<X, T = any> {
   @Input() record!: T;
   @Input() data?: X;
   @Input() key?: string;
@@ -93,7 +93,7 @@ export function componentDef<T>(component: new () => T, inputs: { [P in keyof T 
   return { component, inputs };
 }
 
-export interface TableColumn<T extends BasicRecord> {
+export interface TableColumn<T> {
   name: string;
   displayName: string;
   dataKey?: keyof T;
@@ -106,4 +106,13 @@ export interface TableColumn<T extends BasicRecord> {
         inputs?: Record<string, unknown>;
       }
     | undefined;
+}
+
+export function fromGuiTableColumn<T>(column: GuiPropInformation): TableColumn<T> {
+  return {
+    name: column.propInformation.basic.name,
+    displayName: column.guiInfo.label,
+    dataKey: column.propInformation.basic.name as keyof T,
+    fn: column.guiInfo.hooks?.listFn ? (val: T[keyof T] | undefined) => column.guiInfo.hooks!.listFn!(val) : undefined,
+  };
 }

@@ -62,6 +62,8 @@ export class LessonComponent implements OnInit {
       lessonId: this.routeInfo.lessonId,
       studentLesson: {
         ...this.routeInfo.studentLesson!,
+        studentId: this.userStore.studnet().id,
+        studentName: this.userStore.studnet().name,
         done: finished,
       },
     };

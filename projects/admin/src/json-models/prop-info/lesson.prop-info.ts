@@ -23,8 +23,8 @@ const audioId: PropInformation<number, 'number'> = {
   basic: LessonGenInfo.audioId,
 };
 
-const audioName: PropInformation<string, 'string'> = {
-  basic: LessonGenInfo.audioName,
+const audioUrl: PropInformation<string, 'string'> = {
+  basic: LessonGenInfo.audioUrl,
 };
 
 const date: PropInformation<Date, 'Date'> = {
@@ -45,7 +45,7 @@ export const LessonPropInfo: WithPropType<Lesson, PropInformation<any, any>> = {
   pageNumber: pageNumber,
   toPageNumber: toPageNumber,
   audioId: audioId,
-  audioName: audioName,
+  audioUrl: audioUrl,
   date: date,
   questions: questions,
   students: students,

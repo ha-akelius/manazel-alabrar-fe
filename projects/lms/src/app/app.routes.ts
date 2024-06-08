@@ -14,12 +14,23 @@ import { QuizComponent } from './user-pages/pages/quiz/quiz.component';
 import { QuizzesComponent } from './user-pages/pages/quizzes/quizzes.component';
 import { UserHomepageComponent } from './user-pages/pages/user-homepage/user-homepage.component';
 import { userPageRouting } from './user-pages/user-pages-routing';
+import { UserStore } from './user-pages/user-state';
+
+const canActive = () => {
+  const authService = inject(AuthService);
+  const userStore = inject(UserStore);
+  if (!authService.loggedInStatus()) {
+    return false;
+  }
+
+  return userStore.loadFirstTime();
+};
 
 const publicRoutes: Routes = [{ path: 'login', component: LoginComponent }];
 const protectedRoutes: Routes = [
   {
     path: '',
-    canActivate: [AuthService],
+    canActivate: [canActive],
     component: UserLayoutComponent,
     children: [
       { path: userPageRouting.home.path, component: UserHomepageComponent },

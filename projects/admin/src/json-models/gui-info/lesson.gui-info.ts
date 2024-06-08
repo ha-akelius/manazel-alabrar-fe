@@ -1,5 +1,6 @@
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../app/shared/model/json-schema';
 import { WithPropType } from '../../models/utils/type-utils';
+import { StudentListComponent } from '../hooks/lesson/students.compnent';
 import { Lesson } from '../lessons';
 import { jsonPropInfos } from '../prop-info';
 
@@ -44,7 +45,18 @@ export const lessonGuiInfo: WithPropType<Lesson, GuiPropInformation> = {
     propInformation: jsonPropInfos.LessonPropInfo.audioId,
     guiInfo: {
       label: $localize`audio`,
-      inputType: InputType.input,
+      inputType: InputType.media,
+    },
+  },
+  audioUrl: {
+    propInformation: jsonPropInfos.LessonPropInfo.audioUrl,
+    guiInfo: {
+      label: '',
+      inputType: InputType.json,
+      hide: {
+        form: true,
+        list: true,
+      },
     },
   },
   questions: {
@@ -59,16 +71,8 @@ export const lessonGuiInfo: WithPropType<Lesson, GuiPropInformation> = {
     guiInfo: {
       label: $localize`students`,
       inputType: InputType.jsonArray,
-    },
-  },
-  audioName: {
-    propInformation: jsonPropInfos.LessonPropInfo.audioName,
-    guiInfo: {
-      label: '',
-      inputType: InputType.json,
-      hide: {
-        form: true,
-        list: true,
+      hooks: {
+        form: StudentListComponent,
       },
     },
   },

@@ -25,12 +25,12 @@ const toPageNumber: PropPrismaInformation<number, 'number'> = {
 const audioId: PropPrismaInformation<number, 'number'> = {
   type: 'number',
   ref: 'Media',
-  name: 'audio',
+  name: 'audioId',
 };
 
-const audioName: PropPrismaInformation<string, 'string'> = {
+const audioUrl: PropPrismaInformation<string, 'string'> = {
   type: 'string',
-  name: 'audioName',
+  name: 'audioUrl',
 };
 
 const date: PropPrismaInformation<Date, 'Date'> = {
@@ -56,7 +56,7 @@ export const LessonGenInfo = {
   pageNumber,
   toPageNumber,
   audioId,
-  audioName,
+  audioUrl,
   date,
   questions,
   students,

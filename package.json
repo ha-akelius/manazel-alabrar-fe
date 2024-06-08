@@ -47,7 +47,7 @@
     "express": "^4.18.2",
     "jquery": "^3.6.1",
     "marked": "^5.0.0",
-    "ngx-extended-pdf-viewer": "^19.0.0",
+    "ngx-extended-pdf-viewer": "^20.5.0-alpha.2",
     "prisma-idt-generator": "file:prisma-idt-generator",
     "rxjs": "~7.8.0",
     "sweetalert2": "^11.4.8",

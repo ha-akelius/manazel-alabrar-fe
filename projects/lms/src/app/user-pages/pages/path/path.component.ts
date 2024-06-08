@@ -48,12 +48,10 @@ export class PathComponent implements OnInit {
       .subscribe((accepted) => {
         if (accepted) {
           this.userStore.register(pathId).subscribe((response) => {
-            if (response.data) {
-              this.userStore.openPathsResponse.set(response.data.open);
+            if (response) {
               this.userStore.resetStudent();
+              this.userStore.loadOpenPaths();
               this.snackBar.open(this.translateService.instant(translationKeys.path.register_done));
-            } else {
-              this.error = response.error;
             }
           });
         }

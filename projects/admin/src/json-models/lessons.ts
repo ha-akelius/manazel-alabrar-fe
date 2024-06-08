@@ -11,7 +11,7 @@ export class Lesson {
   pageNumber: number;
   toPageNumber: number;
   audioId: number;
-  audioName: string;
+  audioUrl: string;
   date: Date;
   questions: Question[];
   students: StudentLesson[];

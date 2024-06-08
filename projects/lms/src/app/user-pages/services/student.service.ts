@@ -51,7 +51,7 @@ export class StudentService {
   }
 
   register(path: number) {
-    return this.http.get<Response<{ current: PathInstance[]; open: PathInstance[] }>>('/api/student/register/' + path);
+    return this.http.get<StudentPathInstance>('/api/student/register/' + path);
   }
 
   // saveProfile(name: string): Observable<BFF.saveProfile.response> {
@@ -59,7 +59,7 @@ export class StudentService {
   // }
 
   finishLesson(sudentQuizBody: FinishStudentLesson): Observable<CourseFE> {
-    return this.http.post<CourseFE>(`/api/user/open-paths/finish-lesson`, sudentQuizBody);
+    return this.http.post<CourseFE>(`/api/student/finish-lesson`, sudentQuizBody);
   }
 
   finishExam(sudentQuizBody: QuizInstanceStudentInfo): Observable<QuizzFE> {

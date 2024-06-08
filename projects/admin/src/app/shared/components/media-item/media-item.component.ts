@@ -21,4 +21,8 @@ export class MediaItemComponent {
   isPdf(media: Media) {
     return media.mimetype === 'application/pdf';
   }
+
+  isAudio(media: Media) {
+    return media.mimetype.startsWith('audio/');
+  }
 }

@@ -3,6 +3,6 @@
 </h1>
 <app-table [tableColumns]="ordersTableColumns" [tableData]="lessons">
   <ng-template [appColDef]="translationKeys.lesson" let-element>
-    <a [routerLink]="['../../../', lessonRouter, pathId, courseId, element.lessonId]"> {{ element.title }} </a>
+    <a [routerLink]="['../../', lessonRouter, courseId, element.lessonId]"> {{ element.title }} </a>
   </ng-template>
 </app-table>

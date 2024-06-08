@@ -13,7 +13,6 @@ import { UserSidenavListComponent } from './components/user-sidenav-list/user-si
   imports: [MatSidenavModule, RouterModule, CommonModule, UserSidenavListComponent, UserHeaderComponent],
   templateUrl: './user-layout.component.html',
   styleUrls: ['./user-layout.component.scss'],
-  providers: [UserStore],
 })
 export class UserLayoutComponent {
   student = inject(UserStore).studnet;

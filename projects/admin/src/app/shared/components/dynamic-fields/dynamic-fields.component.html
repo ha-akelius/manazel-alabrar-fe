@@ -6,7 +6,7 @@
         <ng-container
           [formControlName]="propInfo.propInformation.basic.name"
           *ngComponentOutlet="propInfo.guiInfo.hooks!.form!; inputs: getCompInputs(propInfo)"
-        ></ng-container>
+        />
       } @else {
         @switch (propInfo.guiInfo.inputType) {
           @case (inputType.dateTime) {

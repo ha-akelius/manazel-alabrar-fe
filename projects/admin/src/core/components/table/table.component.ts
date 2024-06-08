@@ -21,7 +21,7 @@ import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import { TranslateModule } from '@ngx-translate/core';
 import { Subject } from 'rxjs';
-import { BasicRecord, TableColumn } from './table';
+import { TableColumn } from './table';
 
 @Directive({
   selector: '[appColDef]',
@@ -40,7 +40,7 @@ export class ColumnDefinitionDirective {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss'],
 })
-export class TableComponent<T extends BasicRecord> implements AfterViewInit, AfterContentChecked {
+export class TableComponent<T> implements AfterViewInit, AfterContentChecked {
   isPageable = input(false);
   tableColumns = input<TableColumn<T>[]>([]);
   paginationSizes = input<number[]>([5, 10, 15]);

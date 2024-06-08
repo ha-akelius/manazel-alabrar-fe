@@ -15,4 +15,9 @@
   <object [data]="media.url | safe: 'resourceUrl'" type="application/pdf" width="400" height="400">
     <p>{{ translations.mediaSupported }}+{{ media.url.replace("client/", "") }}</p>
   </object>
+} @else {
+  <audio controls>
+    <source [src]="media.url | safe: 'resourceUrl'" type="audio/mpeg" />
+    Your browser does not support the audio element.
+  </audio>
 }
