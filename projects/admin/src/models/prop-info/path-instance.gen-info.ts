@@ -31,6 +31,15 @@ const stilOpen: PropPrismaInformation<boolean, 'boolean'> = {
   defaultValue: false,
   optional: true,
 };
+const teacherId: PropPrismaInformation<number, 'number'> = {
+  type: 'number',
+  name: 'teacherId',
+  ref: 'Teacher',
+};
+const teacherName: PropPrismaInformation<string, 'string'> = {
+  type: 'string',
+  name: 'teacherName',
+};
 const pathId: PropPrismaInformation<number, 'number'> = {
   type: 'number',
   name: 'pathId',
@@ -48,6 +57,8 @@ export const PathInstanceGenInfo = {
   numberOfStudents,
   numberOfRegisteredStudents,
   stilOpen,
+  teacherId,
+  teacherName,
   pathId,
   pathName,
 };

@@ -46,6 +46,9 @@ export class RelationComponent extends FormComponent<number> implements OnInit {
     setTimeout(() => {
       this.inputForm.setValue(this.getNameControl()?.value, { emitEvent: false });
     }, 300);
+    this.service.findAll().subscribe((result: resultType) => {
+      this.result = result;
+    });
   }
 
   filterByName(): void {

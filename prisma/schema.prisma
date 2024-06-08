@@ -44,6 +44,9 @@ model PathInstance {
   stilOpen                   Boolean?              @default(false)
   studentPathInstance        StudentPathInstance[]
   courseInstance             CourseInstance[]
+  teacherId                  Int
+  teacherName                String
+  teacher                    Teacher               @relation(fields: [teacherId], references: [id])
   pathId                     Int
   pathName                   String
   path                       Path                  @relation(fields: [pathId], references: [id])
@@ -66,7 +69,7 @@ model Course {
   quiz            Json
   bookId          Int?
   bookName        String?
-  book            Media?            @relation(fields: [bookId], references: [id])
+  book            Media?           @relation(fields: [bookId], references: [id])
   createdDate     DateTime
   updatedDate     DateTime
   createdUserName String
@@ -89,7 +92,7 @@ model CourseInstance {
   dateTo           DateTime
   bookId           Int?
   bookName         String?
-  book             Media?          @relation(fields: [bookId], references: [id])
+  book             Media?         @relation(fields: [bookId], references: [id])
   lessons          Json
   quizzes          QuizInstance[]
   pageFrom         Int
@@ -192,6 +195,7 @@ model Teacher {
   createdUserId   Int
   updatedUserName String
   updatedUserId   Int
+  PathInstance    PathInstance[]
 }
 
 model User {

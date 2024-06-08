@@ -11,6 +11,25 @@ export const pathInstanceGuiInfo: WithPropType<PathInstance, GuiPropInformation>
       inputType: InputType.input,
     },
   },
+  teacherId: {
+    propInformation: PathInstancePropInfo.teacherId,
+    guiInfo: {
+      label: $localize`teacher`,
+      inputType: InputType.relation,
+    },
+  },
+  teacherName: {
+    propInformation: PathInstancePropInfo.teacherName,
+    guiInfo: {
+      label: '',
+      inputType: InputType.unknown,
+      hide: {
+        form: true,
+        list: true,
+      },
+    },
+  },
+
   description: {
     propInformation: PathInstancePropInfo.description,
     guiInfo: {

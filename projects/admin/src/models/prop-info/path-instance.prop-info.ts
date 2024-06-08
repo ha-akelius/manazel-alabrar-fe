@@ -23,6 +23,14 @@ const numberOfRegisteredStudents: PropInformation<number, 'number'> = {
 const stilOpen: PropInformation<boolean, 'boolean'> = {
   basic: PathInstanceGenInfo.stilOpen,
 };
+const teacherId: PropInformation<number, 'number'> = {
+  basic: PathInstanceGenInfo.teacherId,
+};
+
+const teacherName: PropInformation<string, 'string'> = {
+  basic: PathInstanceGenInfo.teacherName,
+};
+
 const pathId: PropInformation<number, 'number'> = {
   basic: PathInstanceGenInfo.pathId,
 };
@@ -37,6 +45,8 @@ export const PathInstancePropInfo: WithPropType<PathInstance, PropInformation<an
   numberOfStudents: numberOfStudents,
   numberOfRegisteredStudents: numberOfRegisteredStudents,
   stilOpen: stilOpen,
+  teacherId: teacherId,
+  teacherName: teacherName,
   pathId: pathId,
   pathName: pathName,
 };

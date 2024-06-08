@@ -2,6 +2,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { TranslateService } from '@ngx-translate/core';
+import { Role } from '@prisma/client';
 
 const storage = {
   username: 'username',
@@ -29,17 +30,22 @@ export class AuthService {
     localStorage.setItem(storage.username, username);
     localStorage.setItem(storage.password, password);
     return new Promise<LoginStatus>((resolve) => {
-      this.httpClient.post<{ access_token: string }>('/api/auth/login', { username, password }).subscribe({
-        next: ({ access_token }) => {
-          localStorage.setItem(storage.token, access_token);
-          this.loggedInSignal.set(true);
-          resolve('Success');
-        },
-        error: (error: HttpErrorResponse) => {
-          this.loggedInSignal.set(false);
-          resolve(error.status === 401 ? 'Unauthorized' : 'unkown_error');
-        },
-      });
+      this.httpClient
+        .post<{ access_token: string; roles: Role[] }>('/api/auth/login', { username, password })
+        .subscribe({
+          next: ({ access_token, roles }) => {
+            if (!roles.includes(Role.STUDENT)) {
+              resolve('Unauthorized');
+            }
+            localStorage.setItem(storage.token, access_token);
+            this.loggedInSignal.set(true);
+            resolve('Success');
+          },
+          error: (error: HttpErrorResponse) => {
+            this.loggedInSignal.set(false);
+            resolve(error.status === 401 ? 'Unauthorized' : 'unkown_error');
+          },
+        });
     });
   }
 
