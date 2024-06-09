@@ -228,12 +228,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "projects/lms/src/favicon.ico",
-              "projects/lms/src/assets",
               {
                 "glob": "**/*",
                 "input": "node_modules/ngx-extended-pdf-viewer/assets/",
                 "output": "/assets/"
-              }
+              },
+              "projects/lms/src/assets"
             ],
             "styles": ["projects/lms/src/styles.scss"],
             "scripts": []

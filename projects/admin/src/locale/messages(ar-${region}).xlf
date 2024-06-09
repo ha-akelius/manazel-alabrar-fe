@@ -172,14 +172,22 @@
       </trans-unit>
       <trans-unit id="161784639778555743" datatype="html">
         <source>path</source>
-        <target state="translated">مسار</target>
+        <target state="translated">منهاج</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/translations/course.ts</context>
-          <context context-type="linenumber">8</context>
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course-instance.gui-info.ts</context>
+          <context context-type="linenumber">56</context>
         </context-group>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/translations/student-path-instance.ts</context>
-          <context context-type="linenumber">13</context>
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/course.gui-info.ts</context>
+          <context context-type="linenumber">17</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/path-instance.gui-info.ts</context>
+          <context context-type="linenumber">59</context>
+        </context-group>
+        <context-group purpose="location">
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/path.gui-info.ts</context>
+          <context context-type="linenumber">25</context>
         </context-group>
       </trans-unit>
       <trans-unit id="7062823674983872135" datatype="html">
@@ -348,10 +356,10 @@
       </trans-unit>
       <trans-unit id="2488835981411675381" datatype="html">
         <source>paths</source>
-        <target state="translated">مسارات</target>
+        <target state="translated">مناهج</target>
         <context-group purpose="location">
-          <context context-type="sourcefile">projects/admin/src/app/translations/student.ts</context>
-          <context context-type="linenumber">9</context>
+          <context context-type="sourcefile">projects/admin/src/models/gui-info/path.gui-info.ts</context>
+          <context context-type="linenumber">26</context>
         </context-group>
       </trans-unit>
       <trans-unit id="4425959074279579115" datatype="html">

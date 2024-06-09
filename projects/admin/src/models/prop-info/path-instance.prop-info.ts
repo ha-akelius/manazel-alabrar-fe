@@ -26,11 +26,9 @@ const stilOpen: PropInformation<boolean, 'boolean'> = {
 const teacherId: PropInformation<number, 'number'> = {
   basic: PathInstanceGenInfo.teacherId,
 };
-
 const teacherName: PropInformation<string, 'string'> = {
   basic: PathInstanceGenInfo.teacherName,
 };
-
 const pathId: PropInformation<number, 'number'> = {
   basic: PathInstanceGenInfo.pathId,
 };
