@@ -22,6 +22,7 @@ import { BasicRecord } from '../../../../core/components/table/table';
 import { RolesFormComponent } from '../../../../models/hooks/user/roles.component';
 import { GuiPropInformation, InputType, JSONSchemaInfo } from '../../model/json-schema';
 import { jsonSchemaInfo, schemaInfo } from '../../model/schame';
+import { translations } from './../../../translations/index';
 import { DateFormComponent } from './components/date-form.component';
 import { MediaFieldComponent } from './components/media-field/media-field.component';
 import { RelationComponent } from './components/relation/relation.component';
@@ -64,6 +65,7 @@ export class DynamicFieldsComponent implements OnInit, OnDestroy, ControlValueAc
   dynamicForm: FormGroup = new FormGroup({});
   props: GuiPropInformation[];
   originalValue: BasicRecord | null = null;
+  translations = translations.general;
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   writeValue(value: any): void {
@@ -134,6 +136,10 @@ export class DynamicFieldsComponent implements OnInit, OnDestroy, ControlValueAc
       formControl: this.dynamicForm.controls[prop.propInformation.basic.name],
       record: this.originalValue,
     };
+  }
+
+  removeItem(prop: GuiPropInformation, index: number) {
+    this.formArray(prop).removeAt(index);
   }
 
   private collectValidators(property: GuiPropInformation): ValidatorFn[] {

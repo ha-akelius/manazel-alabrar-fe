@@ -92,13 +92,18 @@
           @case (inputType.jsonArray) {
             <div class="col-xs-12">
               <div>{{ propInfo.guiInfo.label }}</div>
-              <mat-accordion class="col-xs-12" [formArrayName]="propInfo.propInformation.basic.name">
+              <mat-accordion class="col-xs-12 with-icons" [formArrayName]="propInfo.propInformation.basic.name">
                 @for (formControl of formArrayControls(propInfo); track formControl; let i = $index) {
                   <mat-expansion-panel>
                     <mat-expansion-panel-header>
                       <mat-panel-title>
                         {{ formControl.getRawValue()?.name ?? propInfo.guiInfo.label }}
                       </mat-panel-title>
+                      <mat-panel-description>
+                        <button mat-button color="warn" (click)="removeItem(propInfo, i)">
+                          {{ translations.delete }}
+                        </button>
+                      </mat-panel-description>
                     </mat-expansion-panel-header>
                     <app-dynamic-fields [entityName]="propInfo.propInformation.basic.type" formControlName="{{ i }}" />
                   </mat-expansion-panel>

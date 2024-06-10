@@ -55,7 +55,7 @@ export const quizInstanceGuiInfo: WithPropType<QuizInstance, GuiPropInformation>
     propInformation: jsonPropInfos.LessonPropInfo.questions,
     guiInfo: {
       label: $localize`questions`,
-      inputType: InputType.json,
+      inputType: InputType.jsonArray,
     },
   },
 };
