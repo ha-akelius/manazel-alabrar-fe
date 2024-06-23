@@ -1,3 +1,16 @@
 {
-  "rewrites": [{ "source": "/(.*)", "destination": "/out-tsc/app" }]
+  "version": 2,
+  "builds": [
+    {
+      "src": "projects/server/index.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "projects/server/index.ts",
+      "methods": ["GET", "POST", "PUT", "DELETE", "PATCH"]
+    }
+  ]
 }
