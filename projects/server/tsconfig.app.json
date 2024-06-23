@@ -6,5 +6,5 @@
     "types": []
   },
   "files": ["./index.ts"],
-  "include": ["**/*.d.ts"]
+  "include": ["**/*.ts"]
 }

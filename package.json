@@ -24,6 +24,7 @@
     "serve:ssr:manazel-alabrar-fe": "node dist/manazel-alabrar-fe/server/server.mjs",
     "lint": "ng lint",
     "dev:server": "tsx watch projects/server",
+    "build:server": "tsc --project projects/server/tsconfig.app.json",
     "prepare": "husky"
   },
   "private": true,
