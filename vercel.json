@@ -1,6 +1,3 @@
 {
-  "rewrites": [
-    { "source": "/api/", "destination": "https://lms-be.manazel-alabrar.com/api/" },
-    { "source": "/api/:match*", "destination": "https://lms-be.manazel-alabrar.com/api/:match*" }
-  ]
+  "rewrites": [{ "source": "/(.*)", "destination": "/out-tsc/app" }]
 }
