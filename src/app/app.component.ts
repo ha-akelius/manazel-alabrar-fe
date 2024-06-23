@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { TranslateModule, TranslateService } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { trpc } from '../client';
 import { SharedModule } from './core/modules/shared.module';
 import { IconService } from './core/services/icon.service';
 
@@ -27,6 +28,9 @@ export class AppComponent {
     iconService.init();
     translateService.onLangChange.subscribe((e) => {
       this.direction = e.lang === 'ar' ? 'rtl' : 'ltr';
+    });
+    trpc.user.list.query().then((users) => {
+      console.log(users);
     });
   }
 }
