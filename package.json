@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
+    "start-lms": "ng serve --project lms",
     "admin-ar": "ng s admin --configuration=ar",
     "i18n-admin": "ng extract-i18n --project admin",
     "prebuild-admin": "npm run prisma:generate",
